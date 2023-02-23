@@ -10,7 +10,7 @@ public class StrongModifier implements Listener {
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Monster){
             if(!event.getDamager().getScoreboardTags().contains("adm_modifier_strong")) return;
-            event.setDamage(event.getFinalDamage() * 2);
+            event.setDamage(event.getFinalDamage() * 2.75);
         }
     }
 }

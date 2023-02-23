@@ -25,10 +25,10 @@ public class LaserModifier {
                             if(monster.getScoreboardTags().contains("adm_modifier_laser")){
                                 if(monster.isDead()) cancel();
                                 if(monster.getTarget() != null){
-
-                                    spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
-                                    monster.getTarget().damage(4, monster);
-
+                                    if(monster.getNearbyEntities(50, 50, 50).contains(monster.getTarget())){
+                                        spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
+                                        monster.getTarget().damage(4, monster);
+                                    }
                                 }
                             }
                         }
@@ -39,7 +39,7 @@ public class LaserModifier {
     }
 
 
-    private static void spawnLaser(Location basis, Location target, Color color){
+    public static void spawnLaser(Location basis, Location target, Color color){
         World world = basis.getWorld();
         Validate.isTrue(target.getWorld().equals(world));
         double dis = basis.distance(target);

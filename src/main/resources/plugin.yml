@@ -4,4 +4,5 @@ main: kro.dodoworld.advancedmonsters.AdvancedMonsters
 api-version: 1.19
 authors: [ _dodoman ]
 description: A Plugin That Make Monsters More Strong
-depend: [ Survivalweapons ]
+depend:
+  - Survivalweapons

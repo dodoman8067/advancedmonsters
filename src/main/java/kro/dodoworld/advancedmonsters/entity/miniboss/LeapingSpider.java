@@ -71,7 +71,8 @@ public class LeapingSpider implements Listener {
         spider.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.22);
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
         spider.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(212, 197, 38)) + "Leaping Spider");
-        new BukkitRunnable(){
+        spider.setCustomNameVisible(true);
+            new BukkitRunnable(){
             @Override
             public void run() {
                 if(spider.isDead()) cancel();

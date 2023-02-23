@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'kro.dodoworld'
-version = 'a0.1'
+version = 'alpha-0.0.2'
 
 repositories {
     mavenLocal()
@@ -40,7 +40,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
-    destinationDirectory.set(file("C:\\Users\\HP\\Desktop\\testserver\\plugins"))
+    destinationDirectory.set(file("C:\\Users\\HP\\Desktop\\test\\plugins"))
 }
 
 compileJava.options.encoding = 'UTF-8'
