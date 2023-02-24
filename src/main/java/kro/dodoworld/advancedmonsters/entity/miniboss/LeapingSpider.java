@@ -52,8 +52,7 @@ public class LeapingSpider implements Listener {
                             spider.setTarget(player);
                         }
                     }
-                }
-                else{
+                }else{
                     LivingEntity target = spider.getTarget();
                     if(target.getLocation().distanceSquared(spider.getLocation()) > 6){
                         spider.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, spider.getLocation(), 10);
