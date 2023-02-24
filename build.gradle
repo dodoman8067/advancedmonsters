@@ -40,7 +40,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
-    destinationDirectory.set(file("C:\\Users\\HP\\Desktop\\pltest\\plugins"))
+    destinationDirectory.set(file("C:\\Users\\HP\\Desktop\\test\\plugins"))
 }
 
 compileJava.options.encoding = 'UTF-8'

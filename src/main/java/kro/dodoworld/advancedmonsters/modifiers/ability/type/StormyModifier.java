@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -31,7 +32,8 @@ public class StormyModifier implements Listener {
                                         monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation());
                                         monster.getTarget().damage(4, monster);
                                         monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 3));
-                                        monster.getTarget().sendMessage(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "⚡Stormy " + ChatColor.RED + " 능력으로 인해 번개에 맞았습니다!");
+                                        monster.getTarget().sendMessage(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "⚡Stormy " + ChatColor.RED + "능력으로 인해 번개에 맞았습니다!");
+
                                     }
                                 }
                             }
