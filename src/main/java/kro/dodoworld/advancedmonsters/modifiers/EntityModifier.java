@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifiers;
 
-import kro.dodoworld.advancedmonsters.modifiers.unlock.EntityAbilityConfig;
+import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;

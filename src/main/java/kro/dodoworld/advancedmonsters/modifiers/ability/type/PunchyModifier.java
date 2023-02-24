@@ -25,8 +25,8 @@ public class PunchyModifier implements Listener {
     public void onHit(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Monster && event.getEntity() instanceof LivingEntity){
             if(event.getDamager().getScoreboardTags().contains("adm_modifier_punchy")){
-                int rnd = ThreadLocalRandom.current().nextInt(10);
-                if(rnd <= 4){
+                double rnd = Math.random() * 100;
+                if(rnd <= 40){
                     event.setCancelled(true);
                     LivingEntity player = (LivingEntity) event.getEntity();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {

@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers.unlock;
+package kro.dodoworld.advancedmonsters.config.unlock;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,7 +18,7 @@ public class EntityAbilityConfig {
             try{
                 file.createNewFile();
             }catch (IOException e){
-                Bukkit.getLogger().warning("No Plugin Folder Found. Creating New Folder...");
+                Bukkit.getServer().getLogger().warning("No Plugin Folder Found. Creating New Folder...");
             }
         }
 
