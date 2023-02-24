@@ -31,38 +31,6 @@ public class LeapingSpider implements Listener {
     public LeapingSpider(AdvancedMonsters plugin){
         LeapingSpider.plugin = plugin;
     }
-    public static void registerLeapingSpider(AdvancedMonsters plugin){
-        for(World world : Bukkit.getWorlds()){
-            for(LivingEntity entity : world.getLivingEntities()){
-                if(entity instanceof Spider){
-                    if(entity.getScoreboardTags().contains("adm_miniboss_leaping_spider")){
-                        Spider spider = (Spider) entity;
-                        new BukkitRunnable(){
-                            @Override
-                            public void run() {
-                                if(spider.isDead()) cancel();
-                                if(spider.getTarget() == null){
-                                    for(Entity entity : spider.getNearbyEntities(25,25,20)){
-                                        if(entity instanceof Player){
-                                            Player player = (Player) entity;
-                                            spider.setTarget(player);
-                                        }
-                                    }
-                                }
-                                else{
-                                    LivingEntity target = spider.getTarget();
-                                    if(target.getLocation().distanceSquared(spider.getLocation()) > 6){
-                                        spider.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, spider.getLocation(), 10);
-                                        spider.setVelocity(target.getLocation().add(0,2,0).subtract(spider.getLocation()).toVector().multiply(0.275));
-                                    }
-                                }
-                            }
-                        }.runTaskTimer(plugin, 0L, 1L);
-                    }
-                }
-            }
-        }
-    }
 
     public static void createLeapingSpider(Location loc){
         CaveSpider spider = loc.getWorld().spawn(loc, CaveSpider.class);
@@ -72,6 +40,7 @@ public class LeapingSpider implements Listener {
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
         spider.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(212, 197, 38)) + "Leaping Spider");
         spider.setCustomNameVisible(true);
+        spider.addScoreboardTag("sw_entity_remove_when_reload");
             new BukkitRunnable(){
             @Override
             public void run() {
@@ -92,7 +61,7 @@ public class LeapingSpider implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(plugin, 1L, 1L);
     }
 
     @EventHandler

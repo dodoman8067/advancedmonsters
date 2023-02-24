@@ -46,6 +46,7 @@ public class DiamondZombie {
         zombie.getEquipment().setBootsDropChance(0f);
         zombie.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_AXE));
         zombie.addScoreboardTag("adm_miniboss_diamond_zombie");
+        zombie.addScoreboardTag("sw_entity_remove_when_reload");
         zombie.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + ChatColor.GRAY + "Diamond Zombie");
         zombie.setCustomNameVisible(true);
         //219, 42, 216

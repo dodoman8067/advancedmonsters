@@ -34,21 +34,10 @@ public class VoidGloom implements Listener {
         enderman.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(15);
         enderman.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(12);
         enderman.addScoreboardTag("adm_miniboss_voidgloom");
+        enderman.addScoreboardTag("sw_entity_remove_when_reload");
         enderman.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(153, 79, 227)) + "Voidgloom");
         enderman.setCustomNameVisible(true);
         endermanRunnable(enderman);
-    }
-
-    public void registerVoidGloom(){
-        for(World world : Bukkit.getWorlds()){
-            for(LivingEntity entity : world.getLivingEntities()){
-                if(entity instanceof Enderman){
-                    if(entity.getScoreboardTags().contains("adm_miniboss_voidgloom")){
-                        endermanRunnable((Enderman) entity);
-                    }
-                }
-            }
-        }
     }
 
 
