@@ -1,29 +1,11 @@
 package kro.dodoworld.advancedmonsters;
 
-import kro.dodoworld.advancedmonsters.config.modifier.BoomerModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.FlamingModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.LaserModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.PunchyModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.StrongModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.TeleportModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.VenomousModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.BoomerModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.FlamingModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.LaserModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.PunchyModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.StormyModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.StrongModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.TankModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.TeleporterModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.type.VenomousModifier;
+import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
