@@ -8,15 +8,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class StrongModifierConfig {
-    private File file;
-    private FileConfiguration strongModifierConfig;
+    private static File file;
+    private static FileConfiguration strongModifierConfig;
 
-    public void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "strong_ability_config.yml");
+    public static void init(){
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "strong_ability_config.yml");
 
         if(!file.exists()){
             try{
-                file.mkdir();
                 file.createNewFile();
             }catch (IOException e){
                 Bukkit.getServer().getLogger().warning("No Plugin Folder Found. Creating New Folder...");
@@ -30,11 +29,11 @@ public class StrongModifierConfig {
         reloadConfig();
     }
 
-    public FileConfiguration getStrongModifierConfig() {
+    public static FileConfiguration getStrongModifierConfig() {
         return strongModifierConfig;
     }
 
-    public void saveConfig(){
+    public static void saveConfig(){
         try {
             strongModifierConfig.save(file);
         }catch (IOException e){
@@ -43,7 +42,7 @@ public class StrongModifierConfig {
 
     }
 
-    public void reloadConfig(){
+    public static void reloadConfig(){
         strongModifierConfig = YamlConfiguration.loadConfiguration(file);
     }
 }

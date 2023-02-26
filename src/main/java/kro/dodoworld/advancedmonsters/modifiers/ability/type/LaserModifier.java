@@ -1,12 +1,14 @@
 package kro.dodoworld.advancedmonsters.modifiers.ability.type;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.config.modifier.LaserModifierConfig;
 import org.apache.commons.lang.Validate;
 import org.bukkit.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.util.Vector;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
@@ -14,10 +16,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class LaserModifier {
     public static void run(AdvancedMonsters plugin) {
+        FileConfiguration configuration = LaserModifierConfig.getLaserModifierConfig();
+        double range = configuration.getDouble("laser_shoot_range");
+        double damage = configuration.getDouble("laser_damage");
         new BukkitRunnable(){
 
             @Override
             public void run() {
+
                 for(World world : Bukkit.getWorlds()){
                     for(LivingEntity entity : world.getLivingEntities()){
                         if(entity instanceof Monster) {
@@ -25,9 +31,9 @@ public class LaserModifier {
                             if(monster.getScoreboardTags().contains("adm_modifier_laser")){
                                 if(monster.isDead()) cancel();
                                 if(monster.getTarget() != null){
-                                    if(monster.getNearbyEntities(50, 50, 50).contains(monster.getTarget())){
+                                    if(monster.getNearbyEntities(range, range, range).contains(monster.getTarget())){
                                         spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
-                                        monster.getTarget().damage(4, monster);
+                                        monster.getTarget().damage(damage, monster);
                                     }
                                 }
                             }
@@ -35,7 +41,7 @@ public class LaserModifier {
                     }
                 }
             }
-        }.runTaskTimer(plugin, 0L, 2L);
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 
 
