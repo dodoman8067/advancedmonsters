@@ -4,6 +4,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.FlamingModifierConfig;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -23,7 +24,7 @@ public class FlamingModifier implements Listener {
 
     @EventHandler
     public void onShoot(ProjectileLaunchEvent event){
-        if(event.getEntity().getShooter() == null) return;
+        if(event.getEntity().getShooter() == null || event.getEntity().getShooter() instanceof Player) return;
         if(!(event.getEntity().getShooter() instanceof Monster) && event.getEntity() instanceof Arrow) return;
         Monster monster = (Monster) event.getEntity().getShooter();
         if(!monster.getScoreboardTags().contains("adm_modifier_flaming")) return;
