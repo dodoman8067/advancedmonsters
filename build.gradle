@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "io.github.patrick.remapper" version "1.4.0"
 }
 
 group = 'kro.dodoworld'
@@ -19,7 +20,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT'
-    compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT:remapped-mojang'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
@@ -31,6 +32,10 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
+}
+
+remap {
+    version.set("1.19.2")
 }
 
 tasks.withType(JavaCompile).configureEach {
