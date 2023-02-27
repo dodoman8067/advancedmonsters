@@ -63,9 +63,6 @@ public class VoidGloom implements Listener {
                             }
                         }
                     }
-                    if(enderman.getLocation().getY() <= -5){
-                        enderman.teleport(enderman.getTarget().getLocation());
-                    }
                 }
                 i++;
                 if(i >= (Integer.MAX_VALUE - 100)){
@@ -73,14 +70,5 @@ public class VoidGloom implements Listener {
                 }
             }
         }.runTaskTimer(plugin, 0L, 1L);
-    }
-
-    @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event){
-        if(!(event.getDamager() instanceof Enderman)) return;
-        if(!(event.getEntity() instanceof LivingEntity)) return;
-        if(!event.getDamager().getScoreboardTags().contains("adm_miniboss_voidgloom")) return;
-        if((Math.random() * 100) <= 50) return;
-        event.getEntity().teleport(event.getEntity().getLocation().add(Math.random() * 20, 0, Math.random() * 20));
     }
 }

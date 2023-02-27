@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters;
 
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
+import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
@@ -74,6 +75,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(this), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
+        getServer().getPluginManager().registerEvents(new Inferno(this), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
         logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
     }

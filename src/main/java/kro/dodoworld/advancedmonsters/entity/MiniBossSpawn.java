@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters.entity;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.entity.miniboss.DiamondZombie;
+import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import org.bukkit.Difficulty;
@@ -38,6 +39,10 @@ public class MiniBossSpawn implements Listener {
                 event.setCancelled(true);
                 VoidGloom voidGloom = new VoidGloom(plugin);
                 voidGloom.createVoidGloom(entity.getLocation());
+            }
+            if(entity.getType().equals(EntityType.BLAZE)){
+                event.setCancelled(true);
+                Inferno.createInferno(event.getLocation());
             }
         }
     }
