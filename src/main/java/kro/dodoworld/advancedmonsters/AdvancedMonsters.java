@@ -45,6 +45,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Inferno(this), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
         logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
+        logger.info("Plugin Successfully Enabled.");
     }
 
     private void initConfigs(){
@@ -91,5 +92,6 @@ public final class AdvancedMonsters extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        logger.info("Plugin Successfully Disabled.");
     }
 }
