@@ -12,7 +12,7 @@ public class BoomerModifierConfig {
     private static FileConfiguration boomerModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "boomer_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "boomer_ability_config.yml");
 
         if(!file.exists()){
             try{

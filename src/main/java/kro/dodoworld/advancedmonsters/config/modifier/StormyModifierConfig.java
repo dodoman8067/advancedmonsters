@@ -12,7 +12,7 @@ public class StormyModifierConfig {
     private static FileConfiguration stormyModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "stormy_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "stormy_ability_config.yml");
 
         if(!file.exists()){
             try{

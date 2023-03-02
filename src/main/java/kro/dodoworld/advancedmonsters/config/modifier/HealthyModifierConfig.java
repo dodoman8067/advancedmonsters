@@ -12,7 +12,7 @@ public class HealthyModifierConfig {
     private static FileConfiguration healthyModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "healthy_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "healthy_ability_config.yml");
 
         if(!file.exists()){
             try{

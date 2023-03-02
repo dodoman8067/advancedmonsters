@@ -12,7 +12,7 @@ public class VenomousModifierConfig {
     private static FileConfiguration venomousModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "venomous_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "venomous_ability_config.yml");
 
         if(!file.exists()){
             try{

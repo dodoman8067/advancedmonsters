@@ -12,7 +12,7 @@ public class LaserModifierConfig {
     private static FileConfiguration laserModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "laser_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "laser_ability_config.yml");
 
         if(!file.exists()){
             try{

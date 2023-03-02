@@ -11,6 +11,7 @@ import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
@@ -21,6 +22,34 @@ public final class AdvancedMonsters extends JavaPlugin {
     public void onEnable() {
         logger.info("Loading Configs...");
         long configMs = System.currentTimeMillis();
+        initConfigs();
+        logger.info("Loading Configs Took " + (System.currentTimeMillis() - configMs) + "ms.");
+        logger.info("Loading Modifier Threads...");
+        long modifierMs = System.currentTimeMillis();
+        VoidGloom voidGloom = new VoidGloom(this);
+        TeleporterModifier.run(this);
+        LaserModifier.run(this);
+        StormyModifier.run(this);
+        logger.info("Loading Modifier Threads Took " + (System.currentTimeMillis() - modifierMs) + "ms.");
+        logger.info("Loading Listeners...");
+        long eventMs = System.currentTimeMillis();
+        getServer().getPluginManager().registerEvents(new MiniBossSpawn(this), this);
+        getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
+        getServer().getPluginManager().registerEvents(new TankModifier(), this);
+        getServer().getPluginManager().registerEvents(new StrongModifier(), this);
+        getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
+        getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
+        getServer().getPluginManager().registerEvents(new EntityModifier(), this);
+        getServer().getPluginManager().registerEvents(new LeapingSpider(this), this);
+        getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
+        getServer().getPluginManager().registerEvents(new Inferno(this), this);
+        getServer().getPluginManager().registerEvents(voidGloom, this);
+        logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
+    }
+
+    private void initConfigs(){
+        File file = new File(getDataFolder() + "/ability_configs/");
+        if(!file.exists()) file.mkdir();
         EntityAbilityConfig.init();
         EntityAbilityConfig.saveConfig();
         EntityAbilityConfig.reloadConfig();
@@ -57,28 +86,6 @@ public final class AdvancedMonsters extends JavaPlugin {
         VenomousModifierConfig.init();
         VenomousModifierConfig.saveConfig();
         VenomousModifierConfig.reloadConfig();
-        logger.info("Loading Configs Took " + (System.currentTimeMillis() - configMs) + "ms.");
-        logger.info("Loading Modifier Threads...");
-        long modifierMs = System.currentTimeMillis();
-        VoidGloom voidGloom = new VoidGloom(this);
-        TeleporterModifier.run(this);
-        LaserModifier.run(this);
-        StormyModifier.run(this);
-        logger.info("Loading Modifier Threads Took " + (System.currentTimeMillis() - modifierMs) + "ms.");
-        logger.info("Loading Listeners...");
-        long eventMs = System.currentTimeMillis();
-        getServer().getPluginManager().registerEvents(new MiniBossSpawn(this), this);
-        getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
-        getServer().getPluginManager().registerEvents(new TankModifier(), this);
-        getServer().getPluginManager().registerEvents(new StrongModifier(), this);
-        getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
-        getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
-        getServer().getPluginManager().registerEvents(new EntityModifier(), this);
-        getServer().getPluginManager().registerEvents(new LeapingSpider(this), this);
-        getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
-        getServer().getPluginManager().registerEvents(new Inferno(this), this);
-        getServer().getPluginManager().registerEvents(voidGloom, this);
-        logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
     }
 
     @Override

@@ -1,6 +1,6 @@
 name: AdvancedMonsters
 version: '${version}'
 main: kro.dodoworld.advancedmonsters.AdvancedMonsters
-api-version: 1.19
+api-version: 1.18
 authors: [ _dodoman ]
 description: This Plugin Will Give Monster A Ability

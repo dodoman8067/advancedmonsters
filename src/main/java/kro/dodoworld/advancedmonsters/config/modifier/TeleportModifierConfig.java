@@ -12,7 +12,7 @@ public class TeleportModifierConfig {
     private static FileConfiguration teleporterModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "teleporter_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "teleporter_ability_config.yml");
 
         if(!file.exists()){
             try{

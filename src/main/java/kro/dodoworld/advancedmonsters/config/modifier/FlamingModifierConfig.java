@@ -12,7 +12,7 @@ public class FlamingModifierConfig {
     private static FileConfiguration flamingModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "flaming_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "flaming_ability_config.yml");
 
         if(!file.exists()){
             try{

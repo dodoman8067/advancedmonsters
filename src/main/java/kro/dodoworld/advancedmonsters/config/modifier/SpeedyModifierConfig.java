@@ -12,7 +12,7 @@ public class SpeedyModifierConfig {
     private static FileConfiguration speedyModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "speedy_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "speedy_ability_config.yml");
 
         if(!file.exists()){
             try{

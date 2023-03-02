@@ -12,7 +12,7 @@ public class TankModifierConfig {
     private static FileConfiguration tankModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "tank_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "tank_ability_config.yml");
 
         if(!file.exists()){
             try{

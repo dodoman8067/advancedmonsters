@@ -12,7 +12,7 @@ public class PunchyModifierConfig {
     private static FileConfiguration punchyModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder(), "punchy_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "punchy_ability_config.yml");
 
         if(!file.exists()){
             try{
