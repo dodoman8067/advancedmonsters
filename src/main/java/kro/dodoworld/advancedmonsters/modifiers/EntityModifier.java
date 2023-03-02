@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters.modifiers;
 
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
 import org.apache.commons.lang.StringUtils;
@@ -125,6 +126,10 @@ public class EntityModifier implements Listener {
             }
             if(modifiedEntityType == 12){
                 if(!config.getBoolean("stormy")) return;
+                FileConfiguration stormyConfig = StormyModifierConfig.getStormyModifierConfig();
+                if(stormyConfig.getBoolean("only_spawn_when_storming")){
+                    if(!entity.getWorld().hasStorm()) return;
+                }
                 entity.addScoreboardTag("adm_modifier_stormy");
                 entity.setCustomNameVisible(true);
                 entity.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "⚡Stormy " + ChatColor.GRAY + StringUtils.capitalize(entity.getType().name().toLowerCase().replace('_', ' ')));

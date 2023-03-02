@@ -29,6 +29,7 @@ public class StormyModifierConfig {
         stormyModifierConfig.addDefault("stormy_slow_effect_ticks", 30);
         stormyModifierConfig.addDefault("stormy_slow_effect_amplifier", 3);
         stormyModifierConfig.addDefault("stormy_lighting_cooldown", 60);
+        stormyModifierConfig.addDefault("only_spawn_when_storming", false);
         stormyModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

@@ -8,6 +8,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;

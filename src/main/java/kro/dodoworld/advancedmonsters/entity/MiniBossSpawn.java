@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MiniBossSpawn implements Listener {
-    private AdvancedMonsters plugin;
+    private final AdvancedMonsters plugin;
     public MiniBossSpawn(AdvancedMonsters plugin){
         this.plugin = plugin;
     }

@@ -3,6 +3,4 @@ version: '${version}'
 main: kro.dodoworld.advancedmonsters.AdvancedMonsters
 api-version: 1.19
 authors: [ _dodoman ]
-description: A Plugin That Make Monsters More Strong
-depend:
-  - Survivalweapons
+description: This Plugin Will Give Monster A Ability

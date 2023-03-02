@@ -8,18 +8,12 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Blaze;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.entity.SmallFireball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -59,7 +53,7 @@ public class Inferno implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event){
+    public void onDamage(EntityDamageEvent event){
         if(!(event.getEntity() instanceof Blaze)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_inferno")) return;
         if(((Blaze) event.getEntity()).getHealth() <= ((Blaze) event.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2){
