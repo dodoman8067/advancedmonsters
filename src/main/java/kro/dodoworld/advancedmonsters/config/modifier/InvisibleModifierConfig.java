@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoomerModifierConfig {
+public class InvisibleModifierConfig {
     private static File file;
-    private static FileConfiguration boomerModifierConfig;
+    private static FileConfiguration invisibleModifierConfig;
 
     public static void init(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "boomer_ability_config.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("AdvancedMonsters").getDataFolder() + "/ability_configs/", "invisible_ability_config.yml");
 
         if(!file.exists()){
             try{
@@ -25,24 +25,22 @@ public class BoomerModifierConfig {
             }
         }
 
-        boomerModifierConfig = YamlConfiguration.loadConfiguration(file);
-        boomerModifierConfig.addDefault("tnt_drop_chance", 100.0);
-        boomerModifierConfig.addDefault("tnt_fuse_ticks", 70);
+        invisibleModifierConfig = YamlConfiguration.loadConfiguration(file);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "죽일 시 TNT를 {tntDropChance} 확률로 드롭 한다.");
-        boomerModifierConfig.addDefault("command_description", commandDescription);
-        boomerModifierConfig.options().copyDefaults(true);
+        commandDescription.add(ChatColor.YELLOW + "투명하다.");
+        invisibleModifierConfig.addDefault("command_description", commandDescription);
+        invisibleModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();
     }
 
-    public static FileConfiguration getBoomerModifierConfig() {
-        return boomerModifierConfig;
+    public static FileConfiguration getInvisibleModifierConfig() {
+        return invisibleModifierConfig;
     }
 
     public static void saveConfig(){
         try {
-            boomerModifierConfig.save(file);
+            invisibleModifierConfig.save(file);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -50,6 +48,6 @@ public class BoomerModifierConfig {
     }
 
     public static void reloadConfig(){
-        boomerModifierConfig = YamlConfiguration.loadConfiguration(file);
+        invisibleModifierConfig = YamlConfiguration.loadConfiguration(file);
     }
 }

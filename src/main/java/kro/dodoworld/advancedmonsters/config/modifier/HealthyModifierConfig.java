@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HealthyModifierConfig {
     private static File file;
@@ -24,6 +27,9 @@ public class HealthyModifierConfig {
 
         healthyModifierConfig = YamlConfiguration.loadConfiguration(file);
         healthyModifierConfig.addDefault("health_multiply_amount", 2.0);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "체력이 {healthMultiplyAmount}배 늘어난 채로 스폰된다.");
+        healthyModifierConfig.addDefault("command_description", commandDescription);
         healthyModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

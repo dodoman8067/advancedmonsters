@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StrongModifierConfig {
     private static File file;
@@ -24,6 +27,9 @@ public class StrongModifierConfig {
         strongModifierConfig = YamlConfiguration.loadConfiguration(file);
         strongModifierConfig.addDefault("damage_multiply_chance", 100.0);
         strongModifierConfig.addDefault("damage_multiply_amount", 2.75);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "{damageMultiplyChance}% 확률로 대미지가 {damageMultiplyAmount}배가 된다.");
+        strongModifierConfig.addDefault("command_description", commandDescription);
         strongModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

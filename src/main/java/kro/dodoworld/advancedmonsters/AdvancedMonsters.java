@@ -1,5 +1,7 @@
 package kro.dodoworld.advancedmonsters;
 
+import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
+import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
@@ -7,7 +9,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
-import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
+import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,6 +46,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
         getServer().getPluginManager().registerEvents(new Inferno(this), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
+        getCommand("ability").setExecutor(new UnlockedMobs());
         logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Plugin Successfully Enabled.");
     }
@@ -51,15 +54,23 @@ public final class AdvancedMonsters extends JavaPlugin {
     private void initConfigs(){
         File file = new File(getDataFolder() + "/ability_configs/");
         if(!file.exists()) file.mkdir();
-        EntityAbilityConfig.init();
-        EntityAbilityConfig.saveConfig();
-        EntityAbilityConfig.reloadConfig();
+        File dataDir = new File(getDataFolder() + "/world_data/");
+        if(!dataDir.exists()) dataDir.mkdir();
+        UnlockedEntityAbilities.init();
+        UnlockedEntityAbilities.saveConfig();
+        UnlockedEntityAbilities.reloadConfig();
+        RevealedAbilities.init();
+        RevealedAbilities.saveConfig();
+        RevealedAbilities.reloadConfig();
         HealthyModifierConfig.init();
         HealthyModifierConfig.saveConfig();
         HealthyModifierConfig.reloadConfig();
         StrongModifierConfig.init();
         StrongModifierConfig.saveConfig();
         StrongModifierConfig.reloadConfig();
+        InvisibleModifierConfig.init();
+        InvisibleModifierConfig.saveConfig();
+        InvisibleModifierConfig.reloadConfig();
         BoomerModifierConfig.init();
         BoomerModifierConfig.saveConfig();
         BoomerModifierConfig.reloadConfig();

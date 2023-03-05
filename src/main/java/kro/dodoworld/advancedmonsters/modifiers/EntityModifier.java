@@ -4,7 +4,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
-import kro.dodoworld.advancedmonsters.config.unlock.EntityAbilityConfig;
+import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
@@ -15,6 +15,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
 import java.awt.Color;
@@ -23,13 +24,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class EntityModifier implements Listener {
 
     @EventHandler
-    public void onSpawn(EntitySpawnEvent event){
+    public void onSpawn(CreatureSpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if(!(event.getEntity() instanceof Monster)) return;
+        if(!(event.getEntity() instanceof Monster entity)) return;
         if(event.getEntity().getScoreboardTags().contains("adm_miniboss")) return;
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();
-        LivingEntity entity = (LivingEntity) event.getEntity();
-        FileConfiguration config = EntityAbilityConfig.getEntityAbilityConfig();
+        FileConfiguration config = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
         if(!(rnd.nextInt(0, 11) == 1)){
             int modifiedEntityType = rnd.nextInt(0,13);
             if(modifiedEntityType == 1){
@@ -40,6 +40,7 @@ public class EntityModifier implements Listener {
                 entity.setCustomName(ChatColor.RED + "❤Healthy " + ChatColor.GRAY + toMobName(entity.getType().name()));
                 entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * healthyConfig.getDouble("health_multiply_amount"));
                 entity.setHealth(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+                
             }
             if(modifiedEntityType == 2){
                 if(!config.getBoolean("strong")) return;

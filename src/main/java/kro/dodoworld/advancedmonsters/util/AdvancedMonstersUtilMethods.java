@@ -1,6 +1,21 @@
 package kro.dodoworld.advancedmonsters.util;
 
+import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
+import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
+import kro.dodoworld.advancedmonsters.config.modifier.BoomerModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.FlamingModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.InvisibleModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.LaserModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.PunchyModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.StrongModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.TeleportModifierConfig;
+import kro.dodoworld.advancedmonsters.config.modifier.VenomousModifierConfig;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 
 import java.awt.Color;
@@ -31,7 +46,7 @@ public class AdvancedMonstersUtilMethods {
         return returnValue;
     }
 
-    public static String getAbilitySymbols(MonsterAbility monsterAbility){
+    public static String getAbilitySymbol(MonsterAbility monsterAbility){
         String returnValue = null;
             switch (monsterAbility) {
                 case HEALTHY -> returnValue = ChatColor.RED + "❤";
@@ -50,6 +65,56 @@ public class AdvancedMonstersUtilMethods {
         return returnValue;
     }
 
+    public static boolean isUnlocked(MonsterAbility monsterAbility){
+        FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
+        return configuration.getBoolean(monsterAbility.toString().toLowerCase());
+    }
+
+    public static void setUnlocked(MonsterAbility monsterAbility, boolean value){
+        FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
+        configuration.set(monsterAbility.toString(), value);
+        if(value) setRevealed(monsterAbility, true);
+        UnlockedEntityAbilities.saveConfig();
+        UnlockedEntityAbilities.reloadConfig();
+    }
+
+    public static boolean isRevealed(MonsterAbility monsterAbility){
+        FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
+        return configuration.getBoolean(monsterAbility.toString().toLowerCase());
+    }
+
+    public static void setRevealed(MonsterAbility monsterAbility, boolean value){
+        FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
+        configuration.set(monsterAbility.toString().toLowerCase(), value);
+        RevealedAbilities.saveConfig();
+        RevealedAbilities.reloadConfig();
+    }
+
+    public static String replace(String value){
+        String returnValue;
+        returnValue = value.replaceAll("\\{healthMultiplyAmount}", String.valueOf(HealthyModifierConfig.getHealthyModifierConfig().getDouble("health_multiply_amount")))
+                .replaceAll("\\{damageMultiplyChance}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("damage_multiply_chance")))
+                .replaceAll("\\{damageMultiplyAmount}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("damage_multiply_amount")))
+                .replaceAll("\\{ignoreDamageChance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("ignore_damage_chance")))
+                .replaceAll("\\{bounsDefenceAmount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getInt("bouns_defence_amount")))
+                .replaceAll("\\{tankSpeedMultiplyAmount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("speed_multiply_amount")))
+                .replaceAll("\\{speedMultiplyAmount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("speed_multiply_amount")))
+                .replaceAll("\\{speedyHealthMultiplyAmount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("health_multiply_amount")))
+                .replaceAll("\\{teleportRange}", String.valueOf(TeleportModifierConfig.getTeleporterModifierConfig().getDouble("teleport_range")))
+                .replaceAll("\\{punchAirChance}", String.valueOf(PunchyModifierConfig.getPunchyModifierConfig().getDouble("punch_air_chance")))
+                .replaceAll("\\{tntDropChance}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getDouble("tnt_drop_chance")))
+                .replaceAll("\\{fireEffectChance}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("fire_effect_chance")))
+                .replaceAll("\\{laserShootRange}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_shoot_range")))
+                .replaceAll("\\{laserDamage}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_damage")))
+                .replaceAll("\\{applyEffectChance}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("apply_effect_chance")))
+                .replaceAll("\\{stormyLightingRange}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_range")))
+                .replaceAll("\\{stormyLightingCooldown}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_lighting_cooldown")))
+                .replaceAll("\\{stormyLightingDamage}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_damage")));
+
+
+        return returnValue;
+    }
+
 
 
     public static boolean hasAbility(LivingEntity entity, MonsterAbility ability){
@@ -60,5 +125,25 @@ public class AdvancedMonstersUtilMethods {
             }
         }
         return value;
+    }
+
+
+    public static FileConfiguration getAbilityConfig(MonsterAbility ability){
+        FileConfiguration returnValue = null;
+        switch (ability){
+            case HEALTHY -> returnValue = HealthyModifierConfig.getHealthyModifierConfig();
+            case STRONG -> returnValue = StrongModifierConfig.getStrongModifierConfig();
+            case TANK -> returnValue = TankModifierConfig.getTankModifierConfig();
+            case SPEEDY -> returnValue = SpeedyModifierConfig.getSpeedyModifierConfig();
+            case TELEPORTER -> returnValue = TeleportModifierConfig.getTeleporterModifierConfig();
+            case INVISIBLE -> returnValue = InvisibleModifierConfig.getInvisibleModifierConfig();
+            case PUNCHY -> returnValue = PunchyModifierConfig.getPunchyModifierConfig();
+            case BOOMER -> returnValue = BoomerModifierConfig.getBoomerModifierConfig();
+            case FLAMING -> returnValue = FlamingModifierConfig.getFlamingModifierConfig();
+            case LASER -> returnValue = LaserModifierConfig.getLaserModifierConfig();
+            case VENOMOUS -> returnValue = VenomousModifierConfig.getVenomousModifierConfig();
+            case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
+        }
+        return returnValue;
     }
 }

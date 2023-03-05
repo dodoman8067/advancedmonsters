@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlamingModifierConfig {
     private static File file;
@@ -25,6 +28,9 @@ public class FlamingModifierConfig {
         flamingModifierConfig = YamlConfiguration.loadConfiguration(file);
         flamingModifierConfig.addDefault("fire_effect_chance", 100.0);
         flamingModifierConfig.addDefault("fire_effect_ticks", 200);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {fireEffectChance}% 확률로 {fireEffectTicks}틱 동안 불에 붙는다.");
+        flamingModifierConfig.addDefault("command_description", commandDescription);
         flamingModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

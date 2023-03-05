@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeleportModifierConfig {
     private static File file;
@@ -24,6 +27,9 @@ public class TeleportModifierConfig {
 
         teleporterModifierConfig = YamlConfiguration.loadConfiguration(file);
         teleporterModifierConfig.addDefault("teleport_range", 4.0);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "적이 주변 {teleportRange}블록 이내에 없다면 적의 위치로 텔레포트한다.");
+        teleporterModifierConfig.addDefault("command_description", commandDescription);
         teleporterModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

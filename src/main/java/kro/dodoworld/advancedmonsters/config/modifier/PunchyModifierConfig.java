@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PunchyModifierConfig {
     private static File file;
@@ -25,6 +28,9 @@ public class PunchyModifierConfig {
         punchyModifierConfig = YamlConfiguration.loadConfiguration(file);
         punchyModifierConfig.addDefault("punch_air_chance", 40.0);
         punchyModifierConfig.addDefault("show_punch_air_message", true);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "적을 {punchAirChance}% 확률로 하늘로 날린다.");
+        punchyModifierConfig.addDefault("command_description", commandDescription);
         punchyModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();

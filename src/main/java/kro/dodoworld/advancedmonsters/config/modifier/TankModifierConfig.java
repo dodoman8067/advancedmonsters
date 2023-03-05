@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankModifierConfig {
     private static File file;
@@ -27,6 +30,10 @@ public class TankModifierConfig {
         tankModifierConfig.addDefault("send_damage_nullify_message", true);
         tankModifierConfig.addDefault("bouns_defence_amount", 15.0);
         tankModifierConfig.addDefault("speed_multiply_amount", 0.4);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "{ignoreDamageChance}% 확률로 대미지를 무시한다.");
+        commandDescription.add(ChatColor.YELLOW + "{bounsDefenceAmount}의 추가 방어력을 갖지만, 속도는 {tankSpeedMultiplyAmount}배가 된다.");
+        tankModifierConfig.addDefault("command_description", commandDescription);
         tankModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();
