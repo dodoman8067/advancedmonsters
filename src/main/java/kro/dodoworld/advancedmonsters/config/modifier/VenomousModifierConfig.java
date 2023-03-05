@@ -1,11 +1,14 @@
 package kro.dodoworld.advancedmonsters.config.modifier;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VenomousModifierConfig {
     private static File file;
@@ -29,6 +32,9 @@ public class VenomousModifierConfig {
         venomousModifierConfig.addDefault("weakness_effect_ticks", 240);
         venomousModifierConfig.addDefault("weakness_effect_amplifier", 2);
         venomousModifierConfig.addDefault("attack_damage_multiply_amount", 1.2);
+        List<String> commandDescription = new ArrayList<>();
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {applyEffectChance}% 확률로 독에 걸린다.");
+        venomousModifierConfig.addDefault("command_description", commandDescription);
         venomousModifierConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();
