@@ -4,6 +4,7 @@ import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
+import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
@@ -11,6 +12,7 @@ import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -45,6 +47,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LeapingSpider(this), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
         getServer().getPluginManager().registerEvents(new Inferno(this), this);
+        getServer().getPluginManager().registerEvents(new Bombie(this), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
         getCommand("ability").setExecutor(new UnlockedMobs());
         logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");

@@ -26,7 +26,7 @@ public class VenomousModifier implements Listener {
             entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,  poisonTicks, poisonAmplifier, true, true, true));
             entity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, weaknessTicks, weaknessAmplifier, true, true, true));
         }
-        if(event.getDamager() instanceof Projectile && ((Projectile) event.getDamager()).getShooter() instanceof Monster monster && event.getEntity() instanceof LivingEntity entity){
+        if(event.getDamager() instanceof Projectile && ((Projectile) event.getDamager()).getShooter() instanceof Monster monster && event.getEntity() instanceof LivingEntity entity && ((Projectile) event.getDamager()).getShooter() != null){
             if(!monster.getScoreboardTags().contains("adm_modifier_venomous")) return;
             FileConfiguration config = VenomousModifierConfig.getVenomousModifierConfig();
             if(!(Math.random() * 100 <= config.getDouble("apply_effect_chance"))) return;

@@ -17,7 +17,7 @@ public class StrongModifier implements Listener {
             if(!(Math.random() * 100 <= config.getDouble("damage_multiply_chance"))) return;
             event.setDamage(event.getFinalDamage() * config.getDouble("damage_multiply_amount"));
         }
-        if(event.getDamager() instanceof Projectile && ((Projectile) event.getDamager()).getShooter() instanceof Monster){
+        if(event.getDamager() instanceof Projectile && ((Projectile) event.getDamager()).getShooter() != null && ((Projectile) event.getDamager()).getShooter() instanceof Monster){
             Projectile projectile = (Projectile) event.getDamager();
             Monster monster = (Monster) projectile.getShooter();
             if(!monster.getScoreboardTags().contains("adm_modifier_strong")) return;
