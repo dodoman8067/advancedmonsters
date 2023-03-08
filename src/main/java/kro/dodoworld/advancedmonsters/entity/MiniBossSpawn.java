@@ -12,6 +12,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,7 +26,7 @@ public class MiniBossSpawn implements Listener {
     public void onSpawn(EntitySpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if(!(event.getEntity() instanceof Monster)) return;
-        if(!isMiniboss(event.getEntity())) return;
+        if(!event.getEntity().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.SPAWNER_EGG)) return;
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();
         Monster entity = (Monster) event.getEntity();
         if((rnd.nextInt(0, 51) == 1)){

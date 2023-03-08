@@ -2,14 +2,22 @@ package kro.dodoworld.advancedmonsters.command;
 
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.Color;
 
 public class UnlockedMobs implements CommandExecutor {
     @Override
@@ -18,7 +26,7 @@ public class UnlockedMobs implements CommandExecutor {
             if(args.length < 1){
                 sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
                 sender.sendMessage(ChatColor.GOLD + "해제된 몬스터 능력들");
-                sender.spigot().sendMessage(getMessage());
+                sender.sendMessage(getMessage());
                 sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
             }else{
                 try{
@@ -31,27 +39,34 @@ public class UnlockedMobs implements CommandExecutor {
         return true;
     }
 
-
-    private BaseComponent[] getMessage(){
-        ComponentBuilder builder = new ComponentBuilder();
-        for(MonsterAbility ability : MonsterAbility.values()){
-            if(AdvancedMonstersUtilMethods.isRevealed(ability)){
-                builder.append(AdvancedMonstersUtilMethods.getAbilitySymbol(ability) + getUnlockedMessage(ability)).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.YELLOW + "클릭하여 "+ AdvancedMonstersUtilMethods.getAbilitySymbol(ability) + ability.toString() + ChatColor.YELLOW + " 능력의 정보 보기").create()));
-            }else{
-                builder.append(ChatColor.GRAY + "?" + getUnlockedMessage(ability)).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("알 수 없는 능력입니다!").color(net.md_5.bungee.api.ChatColor.GRAY).create()));
-
-            }
-            builder.append(" ");
-        }
-        return builder.create();
+    private BaseComponent[] geta(){
+        return new ComponentBuilder().append(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "\uD83C\uDF27").create();
     }
 
-    private String getUnlockedMessage(MonsterAbility ability){
-        String returnValue;
+    private static Component getMessage(){
+        TextComponent.Builder returnValue = Component.text();
+        for(MonsterAbility ability : MonsterAbility.values()){
+            if(AdvancedMonstersUtilMethods.isRevealed(ability)){
+                returnValue.append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(getUnlockedMessage(ability)).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString() + ChatColor.YELLOW + " 능력의 설명 보기"))))
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString())) );
+            }else{
+                returnValue.append(Component.text(ChatColor.GRAY + "?").append(getUnlockedMessage(ability))).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text(ChatColor.GRAY + "아직 발견되지 않은 능력입니다!")));
+            }
+            returnValue.append(Component.text(" "));
+        }
+
+        return returnValue.build().asComponent();
+    }
+
+
+
+
+    private static Component getUnlockedMessage(MonsterAbility ability){
+        Component returnValue;
         if(AdvancedMonstersUtilMethods.isUnlocked(ability) && AdvancedMonstersUtilMethods.isRevealed(ability)){
-            returnValue = ChatColor.GREEN + "" + ChatColor.BOLD + "✓";
+            returnValue = Component.text(ChatColor.GREEN + "" + ChatColor.BOLD + "✓");
         }else {
-            returnValue = ChatColor.RED + "" + ChatColor.BOLD + "✗";
+            returnValue = Component.text(ChatColor.RED + "" + ChatColor.BOLD + "✗");
         }
         return returnValue;
     }

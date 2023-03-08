@@ -57,13 +57,13 @@ public class Bombie implements Listener {
                         tnt.setSource(bombie);
                         tnt.setFuseTicks(100);
                         tnt.addScoreboardTag("adm_bombie_tnt");
-                        tnt.setVelocity(bombie.getLocation().getDirection().multiply(2));
-                    }
-                    i++;
-                    if(i <= (Integer.MAX_VALUE - 100000)){
-                        i = 0;
+                        tnt.setVelocity(bombie.getLocation().getDirection());
                     }
                 }
+                if(i >= (Integer.MAX_VALUE - 100)){
+                    i = 0;
+                }
+                i++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -79,7 +79,7 @@ public class Bombie implements Listener {
 
     @EventHandler
     public void onExplode(EntityDamageByEntityEvent event){
-        if(!event.getCause().equals(EntityDamageEvent.DamageCause.BLOCK_EXPLOSION)) return;
+        if(!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION)) return;
         if(!(event.getDamager() instanceof TNTPrimed)) return;
         if(!event.getDamager().getScoreboardTags().contains("adm_bombie_tnt")) return;
         if(event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) {

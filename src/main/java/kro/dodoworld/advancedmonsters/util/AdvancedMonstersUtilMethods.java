@@ -14,6 +14,8 @@ import kro.dodoworld.advancedmonsters.config.modifier.StrongModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TeleportModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.VenomousModifierConfig;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
@@ -64,6 +66,28 @@ public class AdvancedMonstersUtilMethods {
             }
         return returnValue;
     }
+
+
+    public static Component getAbilitySymbolWithColor(MonsterAbility monsterAbility){
+        Component returnValue = null;
+        switch (monsterAbility) {
+            case HEALTHY -> returnValue = Component.text("❤").color(TextColor.color(0xFF5555)).asComponent();
+            case STRONG -> returnValue = Component.text("🗡").color(TextColor.color(0xAA0000)).asComponent();
+            case TANK -> returnValue = Component.text("❇").color(TextColor.color(0x555555)).asComponent();
+            case SPEEDY -> returnValue = Component.text("✴").color(TextColor.color(0xFFFFFF)).asComponent();
+            case TELEPORTER -> returnValue = Component.text("☯").color(TextColor.color(0x00AAAA)).asComponent();
+            case INVISIBLE -> returnValue = Component.text("▫").color(TextColor.color(0x555555)).asComponent();
+            case PUNCHY -> returnValue = Component.text("⇧").color(TextColor.color(0x55FF55)).asComponent();
+            case BOOMER -> returnValue = Component.text("■").color(TextColor.color(0xFF5555)).asComponent();
+            case FLAMING -> returnValue = Component.text("\uD83D\uDD25").color(TextColor.color(0xFFAA00)).asComponent();
+            case LASER -> returnValue = Component.text("◎").color(TextColor.color(250, 74, 20)).asComponent();
+            case VENOMOUS -> returnValue = Component.text("☣").color(TextColor.color(199, 204, 53)).asComponent();
+            case STORMY -> returnValue = Component.text("\uD83C\uDF27").color(TextColor.color(22, 184, 162)).asComponent();
+        }
+        return returnValue;
+    }
+
+
 
     public static boolean isUnlocked(MonsterAbility monsterAbility){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
