@@ -72,7 +72,7 @@ public class Storm implements Listener {
                 }
                 if(storm.getTarget() != null){
                     if(i % 180 == 0){
-                        createLightingAura(storm.getLocation().add(Math.random() * 10, 0, Math.random() * 10), (int) (Math.random() * 4), 100, plugin);
+                        createLightingAura(storm.getTarget().getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
                     }
                     if(i % 1800 == 0){
                         createMegaStormAbility(storm, 5, 200, plugin);
