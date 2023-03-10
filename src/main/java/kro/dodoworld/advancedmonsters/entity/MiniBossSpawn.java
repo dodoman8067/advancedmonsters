@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.DiamondZombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
+import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import org.bukkit.Difficulty;
 import org.bukkit.entity.Entity;
@@ -53,6 +54,10 @@ public class MiniBossSpawn implements Listener {
             if(entity.getType().equals(EntityType.BLAZE)){
                 event.setCancelled(true);
                 Inferno.createInferno(event.getLocation());
+            }
+            if(entity.getType().equals(EntityType.SKELETON)){
+                event.setCancelled(true);
+                Storm.createStorm(event.getLocation());
             }
         }
     }
