@@ -7,6 +7,7 @@ import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
+import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
@@ -37,6 +38,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Loading Modifier Threads Took " + (System.currentTimeMillis() - modifierMs) + "ms.");
         logger.info("Loading Listeners...");
         long eventMs = System.currentTimeMillis();
+        getServer().getPluginManager().registerEvents(new Storm(this), this);
         getServer().getPluginManager().registerEvents(new MiniBossSpawn(this), this);
         getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
         getServer().getPluginManager().registerEvents(new TankModifier(), this);
