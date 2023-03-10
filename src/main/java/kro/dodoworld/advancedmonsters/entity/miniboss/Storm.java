@@ -48,8 +48,8 @@ public class Storm implements Listener {
         storm.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(20);
         storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(20);
         storm.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
-        storm.customName(Component.text(net.md_5.bungee.api.ChatColor.of(new java.awt.Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(39, 198, 242)) + "Storm").decorate(TextDecoration.BOLD));
-        storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("http://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
+        storm.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Storm").color(TextColor.color(39, 198, 242)).decorate(TextDecoration.BOLD)));
+        storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
         storm.getEquipment().setHelmetDropChance(0f);
         storm.getEquipment().setChestplate(getBlueArmor(Material.LEATHER_CHESTPLATE));
         storm.getEquipment().setChestplateDropChance(0f);
@@ -75,7 +75,7 @@ public class Storm implements Listener {
                         createLightingAura(storm.getLocation().add(Math.random() * 10, 0, Math.random() * 10), (int) (Math.random() * 4), 100, plugin);
                     }
                     if(i % 1800 == 0){
-                        createMegaStormAbility(storm, 12, 200, plugin);
+                        createMegaStormAbility(storm, 5, 200, plugin);
                     }
                 }
                 if(i >= Integer.MAX_VALUE - 1000000){
@@ -90,7 +90,7 @@ public class Storm implements Listener {
     private static ItemStack getSword(){
         ItemStack stack = new ItemStack(Material.DIAMOND_SHOVEL);
         ItemMeta meta = stack.getItemMeta();
-        meta.addEnchant(Enchantment.MENDING, 0, false);
+        meta.addEnchant(Enchantment.MENDING, 1, false);
         meta.setUnbreakable(true);
         stack.setItemMeta(meta);
 
