@@ -1,6 +1,7 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.util.UtilMethods;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -44,9 +45,9 @@ public class Inferno implements Listener {
             public void run() {
                 if(blaze.isDead()) cancel();
                 if(blaze.getHealth() <= blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2){
-                    createCircle(blaze.getLocation(), 0.47F);
-                    createCircle(blaze.getLocation().add(0, 0.6,0), 0.47F);
-                    createCircle(blaze.getLocation().add(0, 1.2, 0), 0.47F);
+                    UtilMethods.createCircle(blaze.getLocation(), 0.47F, 255, 238, 0, 0.78F);
+                    UtilMethods.createCircle(blaze.getLocation().add(0, 0.6,0), 0.47F, 255, 238, 0, 0.78F);
+                    UtilMethods.createCircle(blaze.getLocation().add(0, 1.2, 0), 0.47F, 255, 238, 0, 0.78F);
                 }
             }
         }.runTaskTimer(plugin, 0L, 1L);
@@ -122,13 +123,5 @@ public class Inferno implements Listener {
                 }
             }
         }.runTaskTimer(plugin, 0L, 2L);
-    }
-
-    private static void createCircle(Location loc, float radius){
-        for(double t = 0; t<50; t+=0.5){
-            float x = radius*(float) Math.sin(t);
-            float z = radius*(float) Math.cos(t);
-            loc.getWorld().spawnParticle(Particle.REDSTONE, x + loc.getX(), loc.getY(), z + loc.getZ(), 1, 0 ,0, 0 ,0, new Particle.DustOptions(org.bukkit.Color.fromRGB(255, 238, 0), 0.78F));
-        }
     }
 }
