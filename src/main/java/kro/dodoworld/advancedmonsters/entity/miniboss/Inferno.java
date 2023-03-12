@@ -30,7 +30,7 @@ public class Inferno implements Listener {
     }
     public static void createInferno(Location loc){
         Blaze blaze = loc.getWorld().spawn(loc, Blaze.class);
-        blaze.addScoreboardTag("sw_entity_remove_when_reload");
+        blaze.addScoreboardTag("adm_remove_when_reload");
         blaze.addScoreboardTag("adm_miniboss_inferno");
         blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(300);
         blaze.setHealth(300);

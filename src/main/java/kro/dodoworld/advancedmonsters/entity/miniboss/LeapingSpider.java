@@ -40,7 +40,7 @@ public class LeapingSpider implements Listener {
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
         spider.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(212, 197, 38)) + "Leaping Spider");
         spider.setCustomNameVisible(true);
-        spider.addScoreboardTag("sw_entity_remove_when_reload");
+        spider.addScoreboardTag("adm_remove_when_reload");
             new BukkitRunnable(){
             @Override
             public void run() {

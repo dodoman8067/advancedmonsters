@@ -13,10 +13,13 @@ import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 
+import org.bukkit.World;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
@@ -105,9 +108,20 @@ public final class AdvancedMonsters extends JavaPlugin {
         VenomousModifierConfig.reloadConfig();
     }
 
+    private void removeEntities(){
+        for(World world : getServer().getWorlds()){
+            for(LivingEntity entity : world.getLivingEntities()){
+                if(entity.getScoreboardTags().contains("adm_remove_when_reload")){
+                    entity.remove();
+                }
+            }
+        }
+    }
+
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         logger.info("Plugin Successfully Disabled.");
+        removeEntities();
     }
 }

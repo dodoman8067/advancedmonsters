@@ -28,7 +28,7 @@ public class Bombie implements Listener {
         bombie.setCustomNameVisible(true);
         bombie.setCanBreakDoors(true);
         bombie.addScoreboardTag("adm_miniboss_bombie");
-        bombie.addScoreboardTag("sw_entity_remove_when_reload");
+        bombie.addScoreboardTag("adm_remove_when_reload");
         bombie.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(85);
         bombie.setHealth(85);
         bombie.setAdult();

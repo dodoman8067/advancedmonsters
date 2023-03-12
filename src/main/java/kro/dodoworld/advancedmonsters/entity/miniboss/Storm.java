@@ -64,7 +64,7 @@ public class Storm implements Listener {
         storm.getEquipment().setItemInMainHandDropChance(0f);
         storm.setCanPickupItems(false);
         storm.addScoreboardTag("adm_miniboss_storm");
-        storm.addScoreboardTag("sw_entity_remove_when_reload");
+        storm.addScoreboardTag("adm_remove_when_reload");
         new BukkitRunnable(){
             int i = 0;
             @Override
