@@ -80,7 +80,7 @@ public class Storm implements Listener {
                         }
                     }
                     if(i % 1800 == 0){
-                        createMegaStormAbility(storm, 5, 200, plugin);
+                        createMegaStormAbility(storm, 3, 200, plugin);
                     }
                 }
                 if(i >= Integer.MAX_VALUE - 1000000){
