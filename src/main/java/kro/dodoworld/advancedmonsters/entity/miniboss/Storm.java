@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -24,9 +25,11 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -48,7 +51,7 @@ public class Storm implements Listener {
         storm.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(20);
         storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(20);
         storm.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
-        storm.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Storm").color(TextColor.color(39, 198, 242)).decorate(TextDecoration.BOLD)));
+        storm.customName(getName());
         storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
         storm.getEquipment().setHelmetDropChance(0f);
         storm.getEquipment().setChestplate(getBlueArmor(Material.LEATHER_CHESTPLATE));
@@ -72,7 +75,9 @@ public class Storm implements Listener {
                 }
                 if(storm.getTarget() != null){
                     if(i % 180 == 0){
-                        createLightingAura(storm.getTarget().getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
+                        for(int j = 0; j<(int) (Math.random() * 5); j++){
+                            createLightingAura(storm.getTarget().getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
+                        }
                     }
                     if(i % 1800 == 0){
                         createMegaStormAbility(storm, 5, 200, plugin);
@@ -95,6 +100,10 @@ public class Storm implements Listener {
         stack.setItemMeta(meta);
 
         return stack;
+    }
+
+    private static Component getName(){
+        return Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Storm").color(TextColor.color(39, 198, 242)).decorate(TextDecoration.BOLD));
     }
 
 
@@ -137,6 +146,9 @@ public class Storm implements Listener {
         meta.setColor(org.bukkit.Color.fromRGB(33, 133, 176));
         meta.setUnbreakable(true);
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+        if(material.equals(Material.LEATHER_BOOTS)){
+            meta.addEnchant(Enchantment.DEPTH_STRIDER, 3, false);
+        }
         stack.setItemMeta(meta);
         return stack;
     }
@@ -152,6 +164,7 @@ public class Storm implements Listener {
                 if(i >= ticks){
                     for(Block block : UtilMethods.getNearbyBlocks(loc.getBlock(), radius - 1)){
                         LightningStrike strike = block.getWorld().strikeLightningEffect(block.getLocation());
+                        strike.addScoreboardTag("adm_entity_lighting_aura");
                         for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
                             if(!(entity instanceof Monster) && entity instanceof LivingEntity){
                                 ((LivingEntity) entity).damage(35, strike);
