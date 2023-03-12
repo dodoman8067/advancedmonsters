@@ -73,10 +73,10 @@ public class Storm implements Listener {
                     cancel();
                     return;
                 }
-                if(storm.getTarget() != null){
+                if(storm.getTarget() != null && !storm.getTarget().isDead()){
                     if(i % 180 == 0){
                         for(int j = 0; j<(int) (Math.random() * 5); j++){
-                            createLightingAura(storm.getTarget().getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
+                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
                         }
                     }
                     if(i % 1800 == 0){
