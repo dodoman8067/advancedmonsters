@@ -52,9 +52,12 @@ public class VoidGloom implements Listener {
                 if(enderman.getTarget() != null){
                     if(i % 80 == 0){
                         Location before = enderman.getLocation();
-                        enderman.teleport(enderman.getTarget().getLocation().add(Math.random() * 10, 0, Math.random() * 10));
-                        LaserModifier.spawnLaser(before.add(0, 2, 0), enderman.getLocation().add(0, 3, 0), org.bukkit.Color.fromRGB(144, 3, 252));
-                        LaserModifier.spawnLaser(before.add(0, 1, 0), enderman.getLocation().add(0, 2, 0), org.bukkit.Color.fromRGB(144, 3, 252));
+                        Location after = enderman.getTarget().getLocation().add(Math.random() * 10, 0, Math.random() * 10);
+                        if(!enderman.getWorld().getBlockAt(after).getType().isAir()){
+                            enderman.teleport(after);
+                            LaserModifier.spawnLaser(before.add(0, 2, 0), enderman.getLocation().add(0, 3, 0), org.bukkit.Color.fromRGB(144, 3, 252));
+                            LaserModifier.spawnLaser(before.add(0, 1, 0), enderman.getLocation().add(0, 2, 0), org.bukkit.Color.fromRGB(144, 3, 252));
+                        }
                     }
                     if(i % 200 == 0){
                         for(Entity entity : enderman.getNearbyEntities(15, 15, 15)){
