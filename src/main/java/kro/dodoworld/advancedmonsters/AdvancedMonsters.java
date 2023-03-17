@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
+import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
@@ -53,6 +54,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
         getServer().getPluginManager().registerEvents(new Inferno(this), this);
         getServer().getPluginManager().registerEvents(new Bombie(this), this);
+        getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
         getCommand("ability").setExecutor(new UnlockedMobs());
         logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");

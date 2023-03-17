@@ -145,7 +145,7 @@ public class Storm implements Listener {
         LeatherArmorMeta meta = (LeatherArmorMeta) stack.getItemMeta();
         meta.setColor(org.bukkit.Color.fromRGB(33, 133, 176));
         meta.setUnbreakable(true);
-        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
         if(material.equals(Material.LEATHER_BOOTS)){
             meta.addEnchant(Enchantment.DEPTH_STRIDER, 3, false);
         }

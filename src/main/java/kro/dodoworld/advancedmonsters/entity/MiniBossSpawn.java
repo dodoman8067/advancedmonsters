@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters.entity;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.DiamondZombie;
+import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
@@ -57,7 +58,13 @@ public class MiniBossSpawn implements Listener {
             }
             if(entity.getType().equals(EntityType.SKELETON)){
                 event.setCancelled(true);
-                Storm.createStorm(event.getLocation());
+                int bossType = rnd.nextInt(0, 2);
+                if(bossType == 0){
+                    Storm.createStorm(event.getLocation());
+                }
+                if(bossType == 1){
+                    EarthQuaker.createEarthQuaker(event.getLocation());
+                }
             }
         }
     }
