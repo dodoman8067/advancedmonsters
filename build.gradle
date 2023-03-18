@@ -21,6 +21,7 @@ repositories {
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
     compileOnly 'io.papermc.paper:paper-server:1.19.2-R0.1-SNAPSHOT:mojang-mapped'
+    compileOnly 'com.mojang:authlib:3.11.49'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.jetbrains:annotations:24.0.0'
 }
