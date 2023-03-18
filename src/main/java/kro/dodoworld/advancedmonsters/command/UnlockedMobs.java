@@ -6,16 +6,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.awt.Color;
 
 public class UnlockedMobs implements CommandExecutor {
     @Override
@@ -37,11 +33,7 @@ public class UnlockedMobs implements CommandExecutor {
         return true;
     }
 
-    private BaseComponent[] geta(){
-        return new ComponentBuilder().append(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "\uD83C\uDF27").create();
-    }
-
-    private static Component getMessage(){
+    private Component getMessage(){
         TextComponent.Builder returnValue = Component.text();
         for(MonsterAbility ability : MonsterAbility.values()){
             if(AdvancedMonstersUtilMethods.isRevealed(ability)){
@@ -56,10 +48,7 @@ public class UnlockedMobs implements CommandExecutor {
         return returnValue.build().asComponent();
     }
 
-
-
-
-    private static Component getUnlockedMessage(MonsterAbility ability){
+    private Component getUnlockedMessage(MonsterAbility ability){
         Component returnValue;
         if(AdvancedMonstersUtilMethods.isUnlocked(ability) && AdvancedMonstersUtilMethods.isRevealed(ability)){
             returnValue = Component.text(ChatColor.GREEN + "" + ChatColor.BOLD + "✓");
@@ -69,11 +58,10 @@ public class UnlockedMobs implements CommandExecutor {
         return returnValue;
     }
 
-
     private void sendAbilityDescriptionMessage(MonsterAbility ability, CommandSender sender){
         if(sender.isOp()){
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
-            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbol(ability) + ability.toString() + ChatColor.GOLD + " 능력에 대한 정보");
+            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
             sender.sendMessage(" ");
             for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(ability).getStringList("command_description")){
                 sender.sendMessage(AdvancedMonstersUtilMethods.replace(s));
@@ -85,7 +73,7 @@ public class UnlockedMobs implements CommandExecutor {
                 return;
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
-            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbol(ability) + ability.toString() + ChatColor.GOLD + " 능력에 대한 정보");
+            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
             sender.sendMessage(" ");
             for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(ability).getStringList("command_description")){
                 sender.sendMessage(AdvancedMonstersUtilMethods.replace(s));
