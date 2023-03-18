@@ -4,23 +4,16 @@ import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
-import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
-import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
-import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
+import kro.dodoworld.advancedmonsters.entity.miniboss.*;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
@@ -29,18 +22,18 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        logger.info("Loading Configs...");
+        logger.info("Loading configs...");
         long configMs = System.currentTimeMillis();
         initConfigs();
-        logger.info("Loading Configs Took " + (System.currentTimeMillis() - configMs) + "ms.");
-        logger.info("Loading Modifier Threads...");
+        logger.info("Loading configs took " + (System.currentTimeMillis() - configMs) + "ms.");
+        logger.info("Loading modifier threads...");
         long modifierMs = System.currentTimeMillis();
         VoidGloom voidGloom = new VoidGloom(this);
         TeleporterModifier.run(this);
         LaserModifier.run(this);
         StormyModifier.run(this);
-        logger.info("Loading Modifier Threads Took " + (System.currentTimeMillis() - modifierMs) + "ms.");
-        logger.info("Loading Listeners...");
+        logger.info("Loading modifier threads took " + (System.currentTimeMillis() - modifierMs) + "ms.");
+        logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();
         getServer().getPluginManager().registerEvents(new Storm(this), this);
         getServer().getPluginManager().registerEvents(new MiniBossSpawn(this), this);
@@ -57,8 +50,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(voidGloom, this);
         getCommand("ability").setExecutor(new UnlockedMobs());
-        logger.info("Loading Listeners Took " + (System.currentTimeMillis() - eventMs) + "ms.");
-        logger.info("Plugin Successfully Enabled.");
+        logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
+        logger.info("Plugin successfully enabled.");
     }
 
     private void initConfigs(){
@@ -123,7 +116,7 @@ public final class AdvancedMonsters extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        logger.info("Plugin Successfully Disabled.");
+        logger.info("Plugin successfully disabled.");
         removeEntities();
     }
 }
