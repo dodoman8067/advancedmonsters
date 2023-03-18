@@ -5,11 +5,9 @@ import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,18 +38,18 @@ public class AdvancedMonstersUtilMethods {
     public static String getAbilitySymbol(MonsterAbility monsterAbility){
         String returnValue = null;
             switch (monsterAbility) {
-                case HEALTHY -> returnValue = ChatColor.RED + "❤";
-                case STRONG -> returnValue = ChatColor.DARK_RED + "🗡";
-                case TANK -> returnValue = ChatColor.DARK_GRAY + "❇";
-                case SPEEDY -> returnValue = ChatColor.WHITE + "✴";
-                case TELEPORTER -> returnValue = ChatColor.DARK_AQUA + "☯";
-                case INVISIBLE -> returnValue = ChatColor.DARK_GRAY + "▫";
-                case PUNCHY -> returnValue = ChatColor.GREEN + "⇧";
-                case BOOMER -> returnValue = ChatColor.RED + "■";
-                case FLAMING -> returnValue = ChatColor.GOLD + "\uD83D\uDD25";
-                case LASER -> returnValue = net.md_5.bungee.api.ChatColor.of(new Color(250, 74, 20)) + "◎";
-                case VENOMOUS -> returnValue = net.md_5.bungee.api.ChatColor.of(new Color(199, 204, 53)) + "☣";
-                case STORMY -> returnValue = net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "\uD83C\uDF27";
+                case HEALTHY -> returnValue = "❤";
+                case STRONG -> returnValue = "🗡";
+                case TANK -> returnValue = "❇";
+                case SPEEDY -> returnValue = "✴";
+                case TELEPORTER -> returnValue = "☯";
+                case INVISIBLE -> returnValue = "▫";
+                case PUNCHY -> returnValue = "⇧";
+                case BOOMER -> returnValue = "■";
+                case FLAMING -> returnValue = "\uD83D\uDD25";
+                case LASER -> returnValue = "◎";
+                case VENOMOUS -> returnValue = "☣";
+                case STORMY -> returnValue = "\uD83C\uDF27";
             }
         return returnValue;
     }
