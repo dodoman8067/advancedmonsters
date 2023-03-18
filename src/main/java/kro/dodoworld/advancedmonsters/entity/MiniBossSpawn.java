@@ -27,30 +27,28 @@ public class MiniBossSpawn implements Listener {
     @EventHandler
     public void onSpawn(EntitySpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if(!(event.getEntity() instanceof Monster)) return;
-        if(!event.getEntity().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.SPAWNER_EGG)) return;
+        if(!(event.getEntity() instanceof Monster entity)) return;
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();
-        Monster entity = (Monster) event.getEntity();
         if((rnd.nextInt(0, 51) == 1)){
 
             if(entity.getType().equals(EntityType.ZOMBIE)){
                 int bossType = rnd.nextInt(0, 2);
                 event.setCancelled(true);
                 if(bossType == 0){
-                    DiamondZombie.createZombie(entity.getLocation());
+                    DiamondZombie.createZombie(event.getLocation());
                 }
                 if(bossType == 1){
-                    Bombie.createBombie(entity.getLocation());
+                    Bombie.createBombie(event.getLocation());
                 }
             }
             if(entity.getType().equals(EntityType.SPIDER)){
                 event.setCancelled(true);
-                LeapingSpider.createLeapingSpider(entity.getLocation());
+                LeapingSpider.createLeapingSpider(event.getLocation());
             }
             if(entity.getType().equals(EntityType.ENDERMAN)){
                 event.setCancelled(true);
                 VoidGloom voidGloom = new VoidGloom(plugin);
-                voidGloom.createVoidGloom(entity.getLocation());
+                voidGloom.createVoidGloom(event.getLocation());
             }
             if(entity.getType().equals(EntityType.BLAZE)){
                 event.setCancelled(true);
