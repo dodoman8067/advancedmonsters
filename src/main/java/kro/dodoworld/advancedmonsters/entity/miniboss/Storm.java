@@ -167,7 +167,7 @@ public class Storm implements Listener {
                         strike.addScoreboardTag("adm_entity_lighting_aura");
                         for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
                             if(!(entity instanceof Monster) && entity instanceof LivingEntity){
-                                ((LivingEntity) entity).damage(35, strike);
+                                ((LivingEntity) entity).damage(100, strike);
                             }
                         }
                     }
