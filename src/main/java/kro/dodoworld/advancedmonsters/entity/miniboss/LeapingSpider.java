@@ -1,17 +1,14 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.Particle;
-import org.bukkit.Location;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.CaveSpider;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Spider;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
