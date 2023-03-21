@@ -1,5 +1,7 @@
 package kro.dodoworld.advancedmonsters.util;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -8,7 +10,7 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilMethods {
+public class BlockUtilMethods {
     public static void createCircle(Location loc, float radius, int r, int g, int b, float size){
         for(double t = 0; t<50; t+=0.5){
             float x = radius*(float) Math.sin(t);
@@ -41,5 +43,9 @@ public class UtilMethods {
             locations.add(new Location(world, x, center.getY(), z));
         }
         return locations;
+    }
+
+    public static Component getRGB(int r, int g, int b){
+        return Component.text().color(TextColor.color(r, g, b)).asComponent();
     }
 }
