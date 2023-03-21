@@ -1,30 +1,30 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.util.Skulls;
-import kro.dodoworld.advancedmonsters.util.UtilMethods;
+import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Creature;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 public class EarthQuaker implements Listener {
@@ -64,7 +64,7 @@ public class EarthQuaker implements Listener {
                             int rad = 1;
                             @Override
                             public void run() {
-                                for (Location loc : UtilMethods.getCircle(location, rad, (rad * ((int) (Math.PI * 2))))) {
+                                for (Location loc : BlockUtilMethods.getCircle(location, rad, (rad * ((int) (Math.PI * 2))))) {
                                     if(loc.getBlock().getType().getBlastResistance() >= 3000000) continue;
                                     FallingBlock fb = loc.getWorld().spawnFallingBlock(loc, loc.getBlock().getBlockData());
                                     fb.setHurtEntities(true);
@@ -83,9 +83,14 @@ public class EarthQuaker implements Listener {
                                 }
                             }
                         }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 2, 2);
+                    }
+                    if(i % 360 == 0){
+                        for(int i1 = 0; i1<(int) (Math.random() * 5); i1++){
+                            createGravityOrb(earthQuaker.getLocation().add(Math.random() * 20, 0, Math.random() * 20));
+                        }
+                    }
                 }
-                }
-                if(i >= (Integer.MAX_VALUE - 100000)){
+                if(i >= (Integer.MAX_VALUE - 10000)){
                     i = 0;
                 }
                 i++;
@@ -115,26 +120,34 @@ public class EarthQuaker implements Listener {
         return stack;
     }
 
-    private BukkitTask wave(Location location){
-        return new BukkitRunnable() {
-            int rad = 1;
+    private static void createGravityOrb(Location loc){
+        ArmorStand orb = loc.getWorld().spawn(loc, ArmorStand.class);
+        orb.setInvulnerable(true);
+        orb.setGravity(false);
+        orb.setInvisible(true);
+        orb.setVisible(false);
+        orb.setBasePlate(false);
+        orb.setCustomNameVisible(true);
+        orb.addScoreboardTag("adm_remove_when_reload");
+        orb.customName(Component.text("중력 오브").color(TextColor.color(0xAA00AA)).decorate(TextDecoration.BOLD));
+        orb.setHeadPose(new EulerAngle(56, 36, 34));
+        orb.getEquipment().setHelmet(Skulls.getSkull("https://textures.minecraft.net/texture/78cf2596fb4cca004ee79561a062819c247cb4ba711d9540970e4398d9dbac43"));
+        orb.addDisabledSlots(EquipmentSlot.values());
+        new BukkitRunnable(){
+            int i = 0;
             @Override
             public void run() {
-                for (Location loc : UtilMethods.getCircle(location, rad, (rad * ((int) (Math.PI * 2))))) {
-                    if(loc.getBlock().getType().getBlastResistance() >= 3000000) continue;
-                    FallingBlock fb = loc.getWorld().spawnFallingBlock(loc, loc.getBlock().getBlockData());
-                    fb.setHurtEntities(true);
-                    fb.setDropItem(false);
-                    fb.setVelocity(new Vector(0, .5, 0));
-                    loc.getBlock().setType(Material.AIR);
-                    for(Entity entity : fb.getNearbyEntities(0.5, 0.5, 0.5)){
-                        if(entity instanceof LivingEntity && !entity.getScoreboardTags().contains("adm_miniboss_earthquaker")){
-                            ((LivingEntity) entity).damage(15);
-                        }
+                if(i>=100){
+                    orb.remove();
+                    cancel();
+                }else{
+                    for(Entity entity : orb.getNearbyEntities(10, 10, 10)){
+                        if(entity.getScoreboardTags().contains("adm_miniboss_earthquaker")) continue;
+                        entity.setVelocity(entity.getVelocity().clone().add(orb.getLocation().clone().toVector().subtract(entity.getLocation().clone().toVector()).multiply(0.005)));
                     }
                 }
-                rad++;
+                i++;
             }
-        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 180, 2);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0, 1);
     }
 }
