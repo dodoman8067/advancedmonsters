@@ -19,8 +19,7 @@ public class TankModifier implements Listener {
         double ignoreDamageChance = Math.random() * 100;
         if(ignoreDamageChance <= config.getDouble("ignore_damage_chance")){
             event.setCancelled(true);
-            if(event.getDamager() instanceof Player){
-                Player player = (Player) event.getDamager();
+            if(event.getDamager() instanceof Player player){
                 if(!config.getBoolean("send_damage_nullify_message")) return;
                 player.sendMessage(ChatColor.DARK_GRAY + "❇Tank" + ChatColor.RED + " 능력으로 인해 대미지가 무력화 되었습니다!");
             }

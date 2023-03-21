@@ -1,5 +1,8 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -47,7 +50,7 @@ public class DiamondZombie {
         zombie.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_AXE));
         zombie.addScoreboardTag("adm_miniboss_diamond_zombie");
         zombie.addScoreboardTag("adm_remove_when_reload");
-        zombie.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + ChatColor.GRAY + "Diamond Zombie");
+        zombie.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Diamond Zombie").color(TextColor.color(0xAAAAAA))));
         zombie.setCustomNameVisible(true);
     }
 }

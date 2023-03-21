@@ -20,8 +20,7 @@ public class TeleporterModifier {
             public void run() {
                 for(World world : Bukkit.getWorlds()){
                     for(LivingEntity entity : world.getLivingEntities()){
-                        if(entity instanceof Monster) {
-                            Monster monster = (Monster) entity;
+                        if(entity instanceof Monster monster) {
                             if(monster.getScoreboardTags().contains("adm_modifier_teleporter")){
                                 FileConfiguration config = TeleportModifierConfig.getTeleporterModifierConfig();
                                 double range = config.getDouble("teleport_range");

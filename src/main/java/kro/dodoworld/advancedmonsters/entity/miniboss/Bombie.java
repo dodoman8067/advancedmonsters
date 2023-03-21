@@ -1,6 +1,9 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,6 +13,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -23,8 +27,8 @@ public class Bombie implements Listener {
         Bombie.plugin = plugin;
     }
     public static void createBombie(Location loc){
-        Zombie bombie = loc.getWorld().spawn(loc, Zombie.class);
-        bombie.setCustomName(net.md_5.bungee.api.ChatColor.of(new java.awt.Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + ChatColor.RED + "Bombie");
+        Zombie bombie = loc.getWorld().spawn(loc, Zombie.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
+        bombie.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Bombie").color(TextColor.color(0xFF5555))));
         bombie.setCustomNameVisible(true);
         bombie.setCanBreakDoors(true);
         bombie.addScoreboardTag("adm_miniboss_bombie");

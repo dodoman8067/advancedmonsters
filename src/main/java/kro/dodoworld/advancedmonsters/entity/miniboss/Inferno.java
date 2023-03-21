@@ -1,7 +1,10 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
-import kro.dodoworld.advancedmonsters.util.UtilMethods;
+import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -38,16 +41,16 @@ public class Inferno implements Listener {
         blaze.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(9);
         blaze.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(7);
         blaze.setCustomNameVisible(true);
-        blaze.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(247, 163, 17)) + ChatColor.BOLD + "Inferno");
+        blaze.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Inferno").color(TextColor.color(247, 163, 17)).decorate(TextDecoration.BOLD)));
         new BukkitRunnable(){
 
             @Override
             public void run() {
                 if(blaze.isDead()) cancel();
                 if(blaze.getHealth() <= blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2){
-                    UtilMethods.createCircle(blaze.getLocation(), 0.47F, 255, 238, 0, 0.78F);
-                    UtilMethods.createCircle(blaze.getLocation().add(0, 0.6,0), 0.47F, 255, 238, 0, 0.78F);
-                    UtilMethods.createCircle(blaze.getLocation().add(0, 1.2, 0), 0.47F, 255, 238, 0, 0.78F);
+                    BlockUtilMethods.createCircle(blaze.getLocation(), 0.47F, 255, 238, 0, 0.78F);
+                    BlockUtilMethods.createCircle(blaze.getLocation().add(0, 0.6,0), 0.47F, 255, 238, 0, 0.78F);
+                    BlockUtilMethods.createCircle(blaze.getLocation().add(0, 1.2, 0), 0.47F, 255, 238, 0, 0.78F);
                 }
             }
         }.runTaskTimer(plugin, 0L, 1L);

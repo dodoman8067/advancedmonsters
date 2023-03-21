@@ -3,8 +3,8 @@ version: '${version}'
 main: kro.dodoworld.advancedmonsters.AdvancedMonsters
 api-version: 1.18
 authors: [ _dodoman ]
-description: This Plugin Will Give Monster A Ability
+description: This plugin will give monster an ability
 commands:
   ability:
-    description: Returns Unlocked Monster Abilities
+    description: Returns unlocked monster abilities
     usage: /<command>

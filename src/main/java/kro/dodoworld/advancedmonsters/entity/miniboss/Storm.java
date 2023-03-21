@@ -2,16 +2,14 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.util.Skulls;
-import kro.dodoworld.advancedmonsters.util.UtilMethods;
+import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -25,15 +23,11 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.awt.Color;
 
 public class Storm implements Listener {
 
@@ -114,7 +108,7 @@ public class Storm implements Listener {
             }
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            for(Block block : UtilMethods.getNearbyBlocks(damager.getLocation().getBlock(), radius)){
+            for(Block block : BlockUtilMethods.getNearbyBlocks(damager.getLocation().getBlock(), radius)){
                 LightningStrike strike = block.getWorld().strikeLightningEffect(block.getLocation());
                 for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
                     if(!(entity instanceof Monster) && entity instanceof LivingEntity && entity != damager){
@@ -160,9 +154,9 @@ public class Storm implements Listener {
             int i = 0;
             @Override
             public void run() {
-                UtilMethods.createCircle(loc, radius, 13, 163, 158, 1f);
+                BlockUtilMethods.createCircle(loc, radius, 13, 163, 158, 1f);
                 if(i >= ticks){
-                    for(Block block : UtilMethods.getNearbyBlocks(loc.getBlock(), radius - 1)){
+                    for(Block block : BlockUtilMethods.getNearbyBlocks(loc.getBlock(), radius - 1)){
                         LightningStrike strike = block.getWorld().strikeLightningEffect(block.getLocation());
                         strike.addScoreboardTag("adm_entity_lighting_aura");
                         for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){

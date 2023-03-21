@@ -5,6 +5,10 @@ import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
@@ -35,7 +39,7 @@ public class EntityModifier implements Listener {
                 FileConfiguration healthyConfig = HealthyModifierConfig.getHealthyModifierConfig();
                 entity.addScoreboardTag("adm_modifier_healthy");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.RED + "❤Healthy " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.HEALTHY).append(Component.text(MonsterAbility.HEALTHY.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
                 entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * healthyConfig.getDouble("health_multiply_amount"));
                 entity.setHealth(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
                 
@@ -44,14 +48,14 @@ public class EntityModifier implements Listener {
                 if(!config.getBoolean("strong")) return;
                 entity.addScoreboardTag("adm_modifier_strong");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.DARK_RED + "🗡Strong " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STRONG).append(Component.text(MonsterAbility.STRONG.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 3){
                 if(!config.getBoolean("tank")) return;
                 FileConfiguration tankConfig = TankModifierConfig.getTankModifierConfig();
                 entity.addScoreboardTag("adm_modifier_tank");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.DARK_GRAY + "❇Tank " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TANK).append(Component.text(MonsterAbility.TANK.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
                 entity.getAttribute(Attribute.GENERIC_ARMOR).addModifier(new AttributeModifier("generic.Armor", tankConfig.getDouble("bonus_defence_amount"), AttributeModifier.Operation.ADD_NUMBER));
                 entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * tankConfig.getDouble("speed_multiply_amount"));
             }
@@ -60,7 +64,7 @@ public class EntityModifier implements Listener {
                 FileConfiguration speedyConfig = SpeedyModifierConfig.getSpeedyModifierConfig();
                 entity.addScoreboardTag("adm_modifier_speedy");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.WHITE + "✴Speedy " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.SPEEDY).append(Component.text(MonsterAbility.SPEEDY.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
                 entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * speedyConfig.getDouble("health_multiply_amount"));
                 entity.setHealth(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
                 entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedyConfig.getDouble("speed_multiply_amount"));
@@ -70,44 +74,44 @@ public class EntityModifier implements Listener {
                 Monster monster = (Monster) entity;
                 monster.addScoreboardTag("adm_modifier_teleporter");
                 monster.setCustomNameVisible(true);
-                monster.setCustomName(ChatColor.DARK_AQUA + "☯Teleporter " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TELEPORTER).append(Component.text(MonsterAbility.TELEPORTER.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 6){
                 if(!config.getBoolean("invisible")) return;
                 entity.addScoreboardTag("adm_modifier_invisible");
                 entity.setInvisible(true);
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.DARK_GRAY + "▫Invisible " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.INVISIBLE).append(Component.text(MonsterAbility.INVISIBLE.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 7){
                 if(!config.getBoolean("punchy")) return;
                 entity.addScoreboardTag("adm_modifier_punchy");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.GREEN + "⇧Punchy " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.PUNCHY).append(Component.text(MonsterAbility.PUNCHY.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 8){
                 if(!config.getBoolean("boomer")) return;
                 entity.addScoreboardTag("adm_modifier_boomer");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.RED + "■Boomer " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.BOOMER).append(Component.text(MonsterAbility.BOOMER.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 9){
                 if(!config.getBoolean("flaming")) return;
                 entity.addScoreboardTag("adm_modifier_flaming");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(ChatColor.GOLD + "\uD83D\uDD25Flaming " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FLAMING).append(Component.text(MonsterAbility.FLAMING.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 10){
                 if(!config.getBoolean("laser")) return;
                 entity.addScoreboardTag("adm_modifier_laser");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(250, 74, 20)) + "◎Laser " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.LASER).append(Component.text(MonsterAbility.LASER.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 11){
                 if(!config.getBoolean("venomous")) return;
                 entity.addScoreboardTag("adm_modifier_venomous");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(199, 204, 53)) + "☣Venomous " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.VENOMOUS).append(Component.text(MonsterAbility.VENOMOUS.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             if(modifiedEntityType == 12){
                 if(!config.getBoolean("stormy")) return;
@@ -117,13 +121,13 @@ public class EntityModifier implements Listener {
                 }
                 entity.addScoreboardTag("adm_modifier_stormy");
                 entity.setCustomNameVisible(true);
-                entity.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(22, 184, 162)) + "\uD83C\uDF27Stormy " + ChatColor.GRAY + toMobName(entity.getType().name()));
+                entity.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString() + " ").append(Component.text(toMobName(entity.getType().name())))));
             }
             //💣⚔ ️⚡▶️➖💠❇ ️🔰⚙️💥🎆🎈🎇🧨✨🎉🎎🎍🎋🎄🎃🎁🍖🍗🍩🍪🥄🚗❤ ️🧡💛💚💢♒♑☯ ️☦ ️🛐⛎♈♎🆔♑⚛ ️♾️✴ ️✳ ️
         }
     }
 
     private String toMobName(String name){
-        return WordUtils.capitalizeFully(name.toLowerCase().replace('_', ' '));
+        return ChatColor.GRAY + WordUtils.capitalizeFully(name.toLowerCase().replace('_', ' '));
     }
 }

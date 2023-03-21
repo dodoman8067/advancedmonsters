@@ -1,6 +1,9 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -35,7 +38,7 @@ public class LeapingSpider implements Listener {
         spider.setHealth(80);
         spider.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.22);
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
-        spider.setCustomName(net.md_5.bungee.api.ChatColor.of(new Color(219, 42, 216)) + "" + ChatColor.BOLD + "⚛MINIBOSS " + net.md_5.bungee.api.ChatColor.of(new Color(212, 197, 38)) + "Leaping Spider");
+        spider.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Leaping Spider").color(TextColor.color(212, 197, 38))));
         spider.setCustomNameVisible(true);
         spider.addScoreboardTag("adm_remove_when_reload");
             new BukkitRunnable(){
