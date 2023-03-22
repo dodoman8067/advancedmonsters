@@ -1,6 +1,8 @@
 package kro.dodoworld.advancedmonsters;
 
+import kro.dodoworld.advancedmonsters.command.MiniBossSpawnCommand;
 import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
+import kro.dodoworld.advancedmonsters.command.tab.MiniBossSpawnTabCompleter;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
@@ -28,28 +30,29 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Loading configs took " + (System.currentTimeMillis() - configMs) + "ms.");
         logger.info("Loading modifier threads...");
         long modifierMs = System.currentTimeMillis();
-        VoidGloom voidGloom = new VoidGloom(this);
         TeleporterModifier.run(this);
         LaserModifier.run(this);
         StormyModifier.run(this);
         logger.info("Loading modifier threads took " + (System.currentTimeMillis() - modifierMs) + "ms.");
         logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();
-        getServer().getPluginManager().registerEvents(new Storm(this), this);
-        getServer().getPluginManager().registerEvents(new MiniBossSpawn(this), this);
+        getServer().getPluginManager().registerEvents(new Storm(), this);
+        getServer().getPluginManager().registerEvents(new MiniBossSpawn(), this);
         getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
         getServer().getPluginManager().registerEvents(new TankModifier(), this);
         getServer().getPluginManager().registerEvents(new StrongModifier(), this);
         getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
-        getServer().getPluginManager().registerEvents(new LeapingSpider(this), this);
+        getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
-        getServer().getPluginManager().registerEvents(new Inferno(this), this);
-        getServer().getPluginManager().registerEvents(new Bombie(this), this);
+        getServer().getPluginManager().registerEvents(new Inferno(), this);
+        getServer().getPluginManager().registerEvents(new Bombie(), this);
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
-        getServer().getPluginManager().registerEvents(voidGloom, this);
+        getServer().getPluginManager().registerEvents(new VoidGloom(), this);
         getCommand("ability").setExecutor(new UnlockedMobs());
+        getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
+        getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Plugin successfully enabled.");
     }

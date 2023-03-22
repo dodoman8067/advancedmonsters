@@ -8,3 +8,18 @@ commands:
   ability:
     description: Returns unlocked monster abilities
     usage: /<command>
+
+  admminiboss:
+    description: Command to spawn miniboss manually
+    usage: /<command> <miniboss_name>
+    permission: advancedmonsters.miniboss.spawn
+
+permissions:
+  advancedmonsters.*:
+    description: Gives access to all AdvancedMonsters commands.
+    children:
+      advancedmonsters.miniboss.spawn: true
+
+  advancedmonsters.miniboss.spawn:
+    description: Allows you spawn miniboss with /admminiboss command.
+    default: op
