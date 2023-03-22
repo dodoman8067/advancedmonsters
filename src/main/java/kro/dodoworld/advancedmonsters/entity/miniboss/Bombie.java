@@ -21,11 +21,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Bombie implements Listener {
-    private static AdvancedMonsters plugin;
-
-    public Bombie(AdvancedMonsters plugin){
-        Bombie.plugin = plugin;
-    }
     public static void createBombie(Location loc){
         Zombie bombie = loc.getWorld().spawn(loc, Zombie.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         bombie.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Bombie").color(TextColor.color(0xFF5555))));
@@ -69,7 +64,7 @@ public class Bombie implements Listener {
                 }
                 i++;
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 
     private static ItemStack getRedArmor(Material material){

@@ -26,12 +26,6 @@ import java.awt.Color;
 
 public class LeapingSpider implements Listener {
 
-    private static AdvancedMonsters plugin;
-
-    public LeapingSpider(AdvancedMonsters plugin){
-        LeapingSpider.plugin = plugin;
-    }
-
     public static void createLeapingSpider(Location loc){
         CaveSpider spider = loc.getWorld().spawn(loc, CaveSpider.class);
         spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(80);
@@ -60,7 +54,7 @@ public class LeapingSpider implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(plugin, 1L, 1L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 1L, 1L);
     }
 
     @EventHandler

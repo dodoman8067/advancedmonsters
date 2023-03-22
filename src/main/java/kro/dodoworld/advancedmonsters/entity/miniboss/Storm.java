@@ -30,20 +30,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Storm implements Listener {
-
-    private static AdvancedMonsters plugin;
-
-    public Storm(AdvancedMonsters plugin){
-        Storm.plugin = plugin;
-    }
     public static void createStorm(Location loc){
         Skeleton storm = loc.getWorld().spawn(loc, Skeleton.class);
         storm.setCustomNameVisible(true);
         storm.getWorld().setStorm(true);
         storm.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(380);
         storm.setHealth(380);
-        storm.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(20);
-        storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(20);
+        storm.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(15);
+        storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(9);
         storm.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
         storm.customName(getName());
         storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
@@ -70,11 +64,11 @@ public class Storm implements Listener {
                 if(storm.getTarget() != null && !storm.getTarget().isDead()){
                     if(i % 180 == 0){
                         for(int j = 0; j<(int) (Math.random() * 5); j++){
-                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, plugin);
+                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
                         }
                     }
                     if(i % 1800 == 0){
-                        createMegaStormAbility(storm, 3, 200, plugin);
+                        createMegaStormAbility(storm, 3, 200, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
                     }
                 }
                 if(i >= Integer.MAX_VALUE - 1000000){
@@ -82,7 +76,7 @@ public class Storm implements Listener {
                 }
                 i++;
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 
 

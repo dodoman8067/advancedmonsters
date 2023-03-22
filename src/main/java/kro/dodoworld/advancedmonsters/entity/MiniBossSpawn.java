@@ -14,16 +14,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MiniBossSpawn implements Listener {
-    private final AdvancedMonsters plugin;
-    public MiniBossSpawn(AdvancedMonsters plugin){
-        this.plugin = plugin;
-    }
     @EventHandler
     public void onSpawn(EntitySpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
@@ -47,8 +42,7 @@ public class MiniBossSpawn implements Listener {
             }
             if(entity.getType().equals(EntityType.ENDERMAN)){
                 event.setCancelled(true);
-                VoidGloom voidGloom = new VoidGloom(plugin);
-                voidGloom.createVoidGloom(event.getLocation());
+                VoidGloom.createVoidGloom(event.getLocation());
             }
             if(entity.getType().equals(EntityType.BLAZE)){
                 event.setCancelled(true);

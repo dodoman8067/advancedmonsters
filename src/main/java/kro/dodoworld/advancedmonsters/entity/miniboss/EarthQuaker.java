@@ -4,11 +4,13 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
@@ -41,8 +43,8 @@ public class EarthQuaker implements Listener {
         earthQuaker.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_SWORD));
         earthQuaker.getEquipment().setItemInMainHandDropChance(0f);
         earthQuaker.getEquipment().setBootsDropChance(0f);
-        earthQuaker.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(30);
-        earthQuaker.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(20);
+        earthQuaker.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(17);
+        earthQuaker.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(16);
         earthQuaker.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(320);
         earthQuaker.addScoreboardTag("adm_remove_when_reload");
         earthQuaker.addScoreboardTag("adm_miniboss_earthquaker");
@@ -68,6 +70,7 @@ public class EarthQuaker implements Listener {
                                     if(loc.getBlock().getType().getBlastResistance() >= 3000000) continue;
                                     FallingBlock fb = loc.getWorld().spawnFallingBlock(loc, loc.getBlock().getBlockData());
                                     fb.setHurtEntities(true);
+                                    fb.addScoreboardTag("adm_remove_when_reload");
                                     fb.setDropItem(false);
                                     fb.setVelocity(new Vector(0, .5, 0));
                                     loc.getBlock().setType(Material.AIR);
@@ -86,7 +89,7 @@ public class EarthQuaker implements Listener {
                     }
                     if(i % 360 == 0){
                         for(int i1 = 0; i1<(int) (Math.random() * 5); i1++){
-                            createGravityOrb(earthQuaker.getLocation().add(Math.random() * 20, 0, Math.random() * 20));
+                            createGravityOrb(earthQuaker.getLocation().add(Math.random() * 30, 0, Math.random() * 30));
                         }
                     }
                 }
@@ -137,13 +140,18 @@ public class EarthQuaker implements Listener {
             int i = 0;
             @Override
             public void run() {
-                if(i>=100){
+                if(i>=280){
                     orb.remove();
                     cancel();
                 }else{
-                    for(Entity entity : orb.getNearbyEntities(10, 10, 10)){
+                    EulerAngle rot = orb.getHeadPose();
+                    EulerAngle rowNew = rot.add(0, 0, 0.6);
+                    orb.setHeadPose(rowNew);
+                    orb.getWorld().spawnParticle(Particle.SPELL_WITCH, orb.getEyeLocation(), 7, 0, 0, 0, 0, null);
+                    for(Entity entity : orb.getNearbyEntities(20, 20, 20)){
                         if(entity.getScoreboardTags().contains("adm_miniboss_earthquaker")) continue;
                         entity.setVelocity(entity.getVelocity().clone().add(orb.getLocation().clone().toVector().subtract(entity.getLocation().clone().toVector()).multiply(0.005)));
+                        entity.sendMessage(Component.text("중력 오브").color(TextColor.color(0xAA00AA)).decorate(TextDecoration.BOLD).append(Component.text(" 에 이끌리고 있습니다!").color(NamedTextColor.LIGHT_PURPLE)));
                     }
                 }
                 i++;

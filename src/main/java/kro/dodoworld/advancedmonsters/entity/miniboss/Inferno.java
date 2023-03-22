@@ -26,11 +26,6 @@ import org.bukkit.util.Vector;
 import java.awt.Color;
 
 public class Inferno implements Listener {
-    private static AdvancedMonsters plugin;
-
-    public Inferno(AdvancedMonsters plugin){
-        Inferno.plugin = plugin;
-    }
     public static void createInferno(Location loc){
         Blaze blaze = loc.getWorld().spawn(loc, Blaze.class);
         blaze.addScoreboardTag("adm_remove_when_reload");
@@ -53,7 +48,7 @@ public class Inferno implements Listener {
                     BlockUtilMethods.createCircle(blaze.getLocation().add(0, 1.2, 0), 0.47F, 255, 238, 0, 0.78F);
                 }
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 
     @EventHandler
@@ -125,6 +120,6 @@ public class Inferno implements Listener {
                     cancel();
                 }
             }
-        }.runTaskTimer(plugin, 0L, 2L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 2L);
     }
 }

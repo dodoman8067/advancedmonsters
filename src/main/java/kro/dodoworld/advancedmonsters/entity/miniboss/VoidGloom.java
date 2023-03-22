@@ -24,12 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.awt.Color;
 
 public class VoidGloom implements Listener {
-    private AdvancedMonsters plugin;
-
-    public VoidGloom(AdvancedMonsters plugin){
-        this.plugin = plugin;
-    }
-    public void createVoidGloom(Location loc){
+    public static void createVoidGloom(Location loc){
         Enderman enderman = loc.getWorld().spawn(loc, Enderman.class);
         enderman.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200);
         enderman.setHealth(200);
@@ -45,7 +40,7 @@ public class VoidGloom implements Listener {
     }
 
 
-    private void endermanRunnable(Enderman enderman){
+    private static void endermanRunnable(Enderman enderman){
         new BukkitRunnable(){
             int i = 0;
             @Override
@@ -76,6 +71,6 @@ public class VoidGloom implements Listener {
                     i = 0;
                 }
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 }
