@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters;
 import kro.dodoworld.advancedmonsters.command.MiniBossSpawnCommand;
 import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
 import kro.dodoworld.advancedmonsters.command.tab.MiniBossSpawnTabCompleter;
+import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
@@ -68,6 +69,9 @@ public final class AdvancedMonsters extends JavaPlugin {
         RevealedAbilities.init();
         RevealedAbilities.saveConfig();
         RevealedAbilities.reloadConfig();
+        MonsterEquipmentLevel.init();
+        MonsterEquipmentLevel.saveConfig();
+        MonsterEquipmentLevel.reloadConfig();
         HealthyModifierConfig.init();
         HealthyModifierConfig.saveConfig();
         HealthyModifierConfig.reloadConfig();
