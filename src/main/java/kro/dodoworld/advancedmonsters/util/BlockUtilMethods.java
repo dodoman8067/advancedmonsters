@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
@@ -45,7 +46,8 @@ public class BlockUtilMethods {
         return locations;
     }
 
-    public static Component getRGB(int r, int g, int b){
-        return Component.text().color(TextColor.color(r, g, b)).asComponent();
+    public static boolean isSnowy(Biome biome){
+        return biome.equals(Biome.FROZEN_OCEAN) || biome.equals(Biome.FROZEN_PEAKS) || biome.equals(Biome.FROZEN_RIVER) || biome.equals(Biome.SNOWY_BEACH) || biome.equals(Biome.SNOWY_PLAINS)
+                || biome.equals(Biome.SNOWY_SLOPES) || biome.equals(Biome.SNOWY_TAIGA);
     }
 }
