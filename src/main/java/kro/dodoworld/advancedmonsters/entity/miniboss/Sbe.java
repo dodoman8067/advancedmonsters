@@ -41,6 +41,7 @@ public class Sbe implements Listener {
         sbe.getEquipment().setBootsDropChance(0f);
         sbe.setHealth(80);
         sbe.addScoreboardTag("adm_remove_when_reload");
+        sbe.addScoreboardTag("adm_miniboss_sbe");
         PolarBear bear = loc.getWorld().spawn(loc, PolarBear.class);
         bear.setStanding(false);
         bear.setAdult();
@@ -51,6 +52,7 @@ public class Sbe implements Listener {
         bear.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(25);
         bear.setHealth(150);
         bear.addScoreboardTag("adm_remove_when_reload");
+        bear.addScoreboardTag("adm_miniboss_sbe");
         bear.addPassenger(sbe);
         new BukkitRunnable(){
 

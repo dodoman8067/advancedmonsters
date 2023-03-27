@@ -72,9 +72,11 @@ public class MiniBossSpawn implements Listener {
 
     @EventHandler
     public void onHit(ProjectileHitEvent event){
-        if(!(event.getHitEntity() instanceof PolarBear)) return;
+        if(!(event.getHitEntity() instanceof PolarBear) || event.getHitEntity() == null) return;
+        if(!BlockUtilMethods.isSnowy(event.getHitEntity().getWorld().getBiome(event.getHitEntity().getLocation()))) return;
+        if(event.getHitEntity().getScoreboardTags().contains("adm_miniboss_sbe")) return;
         if(event.getEntity().getShooter() != null && event.getEntity().getShooter() instanceof Stray){
-            if(!BlockUtilMethods.isSnowy(event.getHitEntity().getWorld().getBiome(event.getHitEntity().getLocation()))) return;
+            if(((Stray) event.getEntity().getShooter()).getScoreboardTags().contains("adm_miniboss_sbe")) return;
             event.getHitEntity().getWorld().strikeLightningEffect(event.getHitEntity().getLocation());
             event.getHitEntity().remove();
             Sbe.createSbe(event.getHitEntity().getLocation());
