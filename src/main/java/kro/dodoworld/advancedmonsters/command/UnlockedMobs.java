@@ -7,10 +7,12 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
+import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class UnlockedMobs implements CommandExecutor {
