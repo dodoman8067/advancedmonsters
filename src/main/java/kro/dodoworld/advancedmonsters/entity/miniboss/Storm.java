@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -31,7 +32,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Storm implements Listener {
     public static void createStorm(Location loc){
-        Skeleton storm = loc.getWorld().spawn(loc, Skeleton.class);
+        Skeleton storm = loc.getWorld().spawn(loc, Skeleton.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         storm.setCustomNameVisible(true);
         storm.getWorld().setStorm(true);
         storm.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(380);
@@ -68,7 +69,7 @@ public class Storm implements Listener {
                         }
                     }
                     if(i % 1800 == 0){
-                        createMegaStormAbility(storm, 3, 200, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
+                        createMegaStormAbility(storm, 2, 200, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
                     }
                 }
                 if(i >= Integer.MAX_VALUE - 1000000){

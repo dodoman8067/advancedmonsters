@@ -1,10 +1,13 @@
 package kro.dodoworld.advancedmonsters.util;
 
+import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
+import kro.dodoworld.advancedmonsters.modifiers.equipment.level.EquipmentLevel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 
@@ -12,6 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedMonstersUtilMethods {
+    private static final EquipmentLevel EQUIPMENT_LEVEL = new EquipmentLevel();
+
+
+    public static EquipmentLevel getEquipmentLevel() {
+        return EQUIPMENT_LEVEL;
+    }
+
     public static List<MonsterAbility> getAbilities(LivingEntity entity){
         List<MonsterAbility> returnValue;
 
@@ -157,5 +167,10 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
         }
         return returnValue;
+    }
+
+    public static double getMonsterEquipmentLevel(World world){
+        FileConfiguration config = MonsterEquipmentLevel.getMonsterEquipmentLevel();
+        return config.getDouble(world.getName());
     }
 }

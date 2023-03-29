@@ -15,6 +15,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Stray;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 public class Sbe implements Listener {
     public static void createSbe(Location loc){
-        Stray sbe = loc.getWorld().spawn(loc, Stray.class);
+        Stray sbe = loc.getWorld().spawn(loc, Stray.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         sbe.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD)
                 .append(Component.text("S_be").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD)));
         sbe.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(80);

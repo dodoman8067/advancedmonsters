@@ -28,6 +28,7 @@ public class EntityModifier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
         if(!(event.getEntity() instanceof Monster entity)) return;
         if(event.getEntity().getScoreboardTags().contains("adm_miniboss")) return;
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();

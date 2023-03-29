@@ -20,6 +20,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ import org.bukkit.util.Vector;
 public class EarthQuaker implements Listener {
 
     public static void createEarthQuaker(Location loc){
-        Skeleton earthQuaker = loc.getWorld().spawn(loc, Skeleton.class);
+        Skeleton earthQuaker = loc.getWorld().spawn(loc, Skeleton.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         earthQuaker.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/2c2d745dc69979e75d9c9fc045ad0f7f306455f5c385838c2cbf742c80cb021c")));
         earthQuaker.getEquipment().setHelmetDropChance(0f);
         earthQuaker.getEquipment().setChestplate(getGrayArmor(Material.LEATHER_CHESTPLATE));

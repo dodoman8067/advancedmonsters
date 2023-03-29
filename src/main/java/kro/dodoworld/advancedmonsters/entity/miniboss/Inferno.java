@@ -15,6 +15,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.SmallFireball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -27,7 +28,7 @@ import java.awt.Color;
 
 public class Inferno implements Listener {
     public static void createInferno(Location loc){
-        Blaze blaze = loc.getWorld().spawn(loc, Blaze.class);
+        Blaze blaze = loc.getWorld().spawn(loc, Blaze.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         blaze.addScoreboardTag("adm_remove_when_reload");
         blaze.addScoreboardTag("adm_miniboss_inferno");
         blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(300);

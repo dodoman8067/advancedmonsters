@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -27,7 +28,7 @@ import java.awt.Color;
 public class LeapingSpider implements Listener {
 
     public static void createLeapingSpider(Location loc){
-        CaveSpider spider = loc.getWorld().spawn(loc, CaveSpider.class);
+        CaveSpider spider = loc.getWorld().spawn(loc, CaveSpider.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(80);
         spider.setHealth(80);
         spider.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.22);

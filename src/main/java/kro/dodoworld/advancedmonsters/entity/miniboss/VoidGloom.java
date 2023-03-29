@@ -17,6 +17,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -25,7 +26,7 @@ import java.awt.Color;
 
 public class VoidGloom implements Listener {
     public static void createVoidGloom(Location loc){
-        Enderman enderman = loc.getWorld().spawn(loc, Enderman.class);
+        Enderman enderman = loc.getWorld().spawn(loc, Enderman.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         enderman.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200);
         enderman.setHealth(200);
         enderman.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(25);

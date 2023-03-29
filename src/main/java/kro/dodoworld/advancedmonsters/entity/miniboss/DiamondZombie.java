@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Zombie;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -16,7 +17,7 @@ import java.awt.Color;
 
 public class DiamondZombie {
     public static void createZombie(Location loc){
-        Zombie zombie = loc.getWorld().spawn(loc, Zombie.class);
+        Zombie zombie = loc.getWorld().spawn(loc, Zombie.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.4);
         zombie.setCanBreakDoors(true);
         ItemStack stack = new ItemStack(Material.DIAMOND_HELMET);
