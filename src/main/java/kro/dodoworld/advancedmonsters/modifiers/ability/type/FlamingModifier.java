@@ -4,11 +4,11 @@ import kro.dodoworld.advancedmonsters.config.modifier.FlamingModifierConfig;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 
 public class FlamingModifier implements Listener {
@@ -31,5 +31,14 @@ public class FlamingModifier implements Listener {
         if(!monster.getScoreboardTags().contains("adm_modifier_flaming")) return;
         Arrow arrow = (Arrow) event.getEntity();
         arrow.setFireTicks(Integer.MAX_VALUE - 10000000);
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(!(event.getEntity() instanceof Monster)) return;
+        if(!(event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK)
+        || event.getCause().equals(EntityDamageEvent.DamageCause.LAVA))) return;
+        if(!event.getEntity().getScoreboardTags().contains("adm_modifier_flaming")) return;
+        event.setCancelled(true);
     }
 }
