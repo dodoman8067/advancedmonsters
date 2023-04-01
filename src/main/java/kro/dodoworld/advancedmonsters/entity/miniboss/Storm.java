@@ -104,8 +104,9 @@ public class Storm implements Listener {
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             for(Block block : BlockUtilMethods.getNearbyBlocks(damager.getLocation().getBlock(), radius)){
+                if(!((int) (Math.random() * 8) <= 2)) return;
                 LightningStrike strike = block.getWorld().strikeLightningEffect(block.getLocation());
-                for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
+                for(Entity entity : strike.getNearbyEntities(0.5, 0.5, 0.5)){
                     if(!(entity instanceof Monster) && entity instanceof LivingEntity && entity != damager){
                         ((LivingEntity) entity).damage(Integer.MAX_VALUE, damager);
                     }
