@@ -3,7 +3,7 @@ package kro.dodoworld.advancedmonsters.util;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
-import kro.dodoworld.advancedmonsters.modifiers.level.EquipmentLevel;
+import kro.dodoworld.advancedmonsters.modifiers.level.MonsterLevel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedMonstersUtilMethods {
-    private static final EquipmentLevel EQUIPMENT_LEVEL = new EquipmentLevel();
+    private static final MonsterLevel EQUIPMENT_LEVEL = new MonsterLevel();
 
 
-    public static EquipmentLevel getEquipmentLevel() {
+    public static MonsterLevel getEquipmentLevel() {
         return EQUIPMENT_LEVEL;
     }
 
