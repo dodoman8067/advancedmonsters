@@ -4,10 +4,10 @@ import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class EquipmentLevel {
+public class MonsterLevel {
     private final FileConfiguration config;
 
-    public EquipmentLevel(){
+    public MonsterLevel(){
         config = MonsterEquipmentLevel.getMonsterEquipmentLevel();
     }
 
