@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers.equipment.level;
+package kro.dodoworld.advancedmonsters.modifiers.level;
 
 import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import org.bukkit.World;
