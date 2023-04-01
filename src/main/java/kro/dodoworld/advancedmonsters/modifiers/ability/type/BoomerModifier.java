@@ -1,14 +1,12 @@
 package kro.dodoworld.advancedmonsters.modifiers.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.BoomerModifierConfig;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 
 public class BoomerModifier implements Listener {
     @EventHandler

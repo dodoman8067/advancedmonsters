@@ -1,16 +1,14 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
-import com.destroystokyo.paper.profile.CraftPlayerProfile;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_19_R1.CraftOfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Stray;
@@ -20,8 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.UUID;
 
 public class Sbe implements Listener {
     public static void createSbe(Location loc){
@@ -84,7 +80,7 @@ public class Sbe implements Listener {
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
         meta.setUnbreakable(true);
         meta.displayName(Component.text("S_be의 머리").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD));
-        meta.setPlayerProfile(new CraftPlayerProfile(UUID.fromString("7aa895ed-8413-483e-ab41-d6032e4fdb9f"), "S_be"));
+        meta.setOwningPlayer(Bukkit.getOfflinePlayer("7aa895ed-8413-483e-ab41-d6032e4fdb9f"));
         stack.setItemMeta(meta);
         return stack;
     }
