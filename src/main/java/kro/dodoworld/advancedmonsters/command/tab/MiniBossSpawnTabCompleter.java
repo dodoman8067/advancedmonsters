@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MiniBossSpawnTabCompleter implements TabCompleter {
-    private List<String> returnArgs;
+    private final List<String> returnArgs;
     public MiniBossSpawnTabCompleter(){
         returnArgs = new ArrayList<>();
         returnArgs.add("diamond_zombie");
