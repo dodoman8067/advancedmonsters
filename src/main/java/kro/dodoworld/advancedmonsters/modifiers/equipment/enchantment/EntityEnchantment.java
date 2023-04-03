@@ -1,6 +1,5 @@
 package kro.dodoworld.advancedmonsters.modifiers.equipment.enchantment;
 
-import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
