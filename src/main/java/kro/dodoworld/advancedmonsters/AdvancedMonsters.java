@@ -12,6 +12,7 @@ import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 
+import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -51,6 +52,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Bombie(), this);
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(new VoidGloom(), this);
+        getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
         getCommand("ability").setExecutor(new UnlockedMobs());
         getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
         getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());

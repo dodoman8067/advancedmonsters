@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifiers.equipment;
 
+import kro.dodoworld.advancedmonsters.modifiers.equipment.armor.EntityArmor;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class EntityEquipment implements Listener {
     @EventHandler
@@ -16,7 +18,13 @@ public class EntityEquipment implements Listener {
         if(!(event.getEntity() instanceof Monster entity)) return;
         if(event.getEntity().getScoreboardTags().contains("adm_miniboss")) return;
         World world = entity.getWorld();
-        if(getLevel(world) >= 3.0){
+
+        if((Math.random() * 100) <= getLevel(world) * 2){
+            entity.getEquipment().clear();
+            entity.getEquipment().setHelmet(EntityArmor.getRandomArmor(world, EquipmentSlot.HEAD));
+            entity.getEquipment().setChestplate(EntityArmor.getRandomArmor(world, EquipmentSlot.CHEST));
+            entity.getEquipment().setLeggings(EntityArmor.getRandomArmor(world, EquipmentSlot.LEGS));
+            entity.getEquipment().setBoots(EntityArmor.getRandomArmor(world, EquipmentSlot.FEET));
         }
     }
     
