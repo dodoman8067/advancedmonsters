@@ -11,7 +11,6 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.*;
 import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
-
 import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
