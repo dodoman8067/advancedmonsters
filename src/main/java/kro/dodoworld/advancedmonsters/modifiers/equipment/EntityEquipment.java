@@ -20,7 +20,6 @@ public class EntityEquipment implements Listener {
         World world = entity.getWorld();
 
         if((Math.random() * 100) <= getLevel(world) * 2){
-            entity.getEquipment().clear();
             entity.getEquipment().setHelmet(EntityArmor.getRandomArmor(world, EquipmentSlot.HEAD));
             entity.getEquipment().setChestplate(EntityArmor.getRandomArmor(world, EquipmentSlot.CHEST));
             entity.getEquipment().setLeggings(EntityArmor.getRandomArmor(world, EquipmentSlot.LEGS));

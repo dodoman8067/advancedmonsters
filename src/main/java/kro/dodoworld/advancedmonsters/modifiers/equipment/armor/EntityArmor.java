@@ -18,7 +18,7 @@ public class EntityArmor {
             item = getLeatherArmor(slot);
         }
         if(level >= 3.1 && level <= 7.0){
-            int type = (int) (Math.random() * 1);
+            int type = (int) (Math.random() * 2);
             if(type == 0){
                 item = getLeatherArmor(slot);
             }
@@ -27,7 +27,7 @@ public class EntityArmor {
             }
         }
         if(level >= 7.1 && level <= 15.4){
-            int type = (int) (Math.random() * 2);
+            int type = (int) (Math.random() * 3);
             if(type == 0){
                 item = getChainMailArmor(slot);
             }
@@ -39,7 +39,7 @@ public class EntityArmor {
             }
         }
         if(level >= 15.5 && level <= 28.7){
-            int type = (int) (Math.random() * 2);
+            int type = (int) (Math.random() * 3);
             if(type == 0){
                 item = getChainMailArmor(slot);
             }
@@ -51,7 +51,7 @@ public class EntityArmor {
             }
         }
         if(level >= 28.8 && level <= 49.7){
-            int type = (int) (Math.random() * 2);
+            int type = (int) (Math.random() * 3);
             int chance = (int) (Math.random() * 100);
             if(type == 0){
                 item = getChainMailArmor(slot);

@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class EntityEnchantment {
     public static void addRandomLevelEnchant(Enchantment enchantment, ItemStack stack, int max){
         ItemMeta meta = stack.getItemMeta();
-        int level = (int) (Math.random() * max);
+        int level = (int) (Math.random() * max + 1);
         if(level != 0 || !(level > max)){
             meta.addEnchant(enchantment, max, true);
             stack.setItemMeta(meta);
