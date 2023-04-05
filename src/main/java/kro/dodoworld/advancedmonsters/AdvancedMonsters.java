@@ -12,6 +12,7 @@ import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,16 +26,17 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
         logger.info("Loading configs...");
         long configMs = System.currentTimeMillis();
         initConfigs();
         logger.info("Loading configs took " + (System.currentTimeMillis() - configMs) + "ms.");
-        logger.info("Loading modifier threads...");
+        logger.info("Loading modifier runnable classes...");
         long modifierMs = System.currentTimeMillis();
         TeleporterModifier.run(this);
         LaserModifier.run(this);
         StormyModifier.run(this);
-        logger.info("Loading modifier threads took " + (System.currentTimeMillis() - modifierMs) + "ms.");
+        logger.info("Loading modifier runnable classes took " + (System.currentTimeMillis() - modifierMs) + "ms.");
         logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();
         getServer().getPluginManager().registerEvents(new Storm(), this);
@@ -52,10 +54,13 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(new VoidGloom(), this);
         getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
+        logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
+        logger.info("Loading commands...");
+        long commandMs = System.currentTimeMillis();
         getCommand("ability").setExecutor(new UnlockedMobs());
         getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
         getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
-        logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
+        logger.info("Loading commands took " + (System.currentTimeMillis() - commandMs) + "ms.");
         logger.info("Plugin successfully enabled.");
     }
 
