@@ -1,6 +1,5 @@
 package kro.dodoworld.advancedmonsters.modifiers.equipment.armor;
 
-import kro.dodoworld.advancedmonsters.modifiers.equipment.enchantment.EntityEnchantment;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -8,6 +7,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Random;
 
 public class EntityArmor {
 
@@ -109,9 +110,8 @@ public class EntityArmor {
             item = new ItemStack(Material.IRON_BOOTS);
         }
         ItemMeta meta = item.getItemMeta();
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 4);
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.THORNS, item, 3);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 4);
+        addRandomLevelEnchant(Enchantment.THORNS, item, 3);
 
         return item;
     }
@@ -135,8 +135,7 @@ public class EntityArmor {
             item = new ItemStack(Material.CHAINMAIL_BOOTS);
         }
         ItemMeta meta = item.getItemMeta();
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 2);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 2);
 
         return item;
     }
@@ -160,8 +159,7 @@ public class EntityArmor {
             item = new ItemStack(Material.LEATHER_BOOTS);
         }
         ItemMeta meta = item.getItemMeta();
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
 
         return item;
     }
@@ -185,8 +183,7 @@ public class EntityArmor {
             item = new ItemStack(Material.GOLDEN_BOOTS);
         }
         ItemMeta meta = item.getItemMeta();
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
 
         return item;
     }
@@ -211,11 +208,10 @@ public class EntityArmor {
         }
         ItemMeta meta = item.getItemMeta();
         if(item.getType().equals(Material.DIAMOND_BOOTS)){
-            EntityEnchantment.addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 3);
+            addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 3);
         }
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 4);
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.THORNS, item, 3);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 4);
+        addRandomLevelEnchant(Enchantment.THORNS, item, 3);
 
         return item;
     }
@@ -240,12 +236,21 @@ public class EntityArmor {
         }
         ItemMeta meta = item.getItemMeta();
         if(item.getType().equals(Material.NETHERITE_BOOTS)){
-            EntityEnchantment.addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 4);
+            addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 4);
         }
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 5);
-        EntityEnchantment.addRandomLevelEnchant(Enchantment.THORNS, item, 4);
-        item.setItemMeta(meta);
+        addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 5);
+        addRandomLevelEnchant(Enchantment.THORNS, item, 4);
 
         return item;
+    }
+
+    private static void addRandomLevelEnchant(Enchantment enchantment, ItemStack stack, int max){
+        ItemMeta meta = stack.getItemMeta();
+        Random random = new Random();
+        int level = random.nextInt(0, max);
+        if(level != 0){
+            meta.addEnchant(enchantment, max, true);
+            stack.setItemMeta(meta);
+        }
     }
 }
