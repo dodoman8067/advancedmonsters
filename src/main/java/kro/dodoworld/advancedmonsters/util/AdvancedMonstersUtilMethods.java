@@ -44,6 +44,11 @@ public class AdvancedMonstersUtilMethods {
         return returnValue;
     }
 
+    public static String getNMSVersion(){
+        String v = Bukkit.getServer().getClass().getPackage().getName();
+        return v.substring(v.lastIndexOf('.') + 1);
+    }
+
     public static String getAbilitySymbol(MonsterAbility monsterAbility){
         String returnValue = null;
             switch (monsterAbility) {
@@ -61,11 +66,6 @@ public class AdvancedMonstersUtilMethods {
                 case STORMY -> returnValue = "\uD83C\uDF27";
             }
         return returnValue;
-    }
-
-    public static String getNMSVersion(){
-        String v = Bukkit.getServer().getClass().getPackage().getName();
-        return v.substring(v.lastIndexOf('.') + 1);
     }
 
 
