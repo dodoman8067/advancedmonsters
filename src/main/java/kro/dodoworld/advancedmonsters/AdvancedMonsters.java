@@ -16,7 +16,6 @@ import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.File;
 import java.util.logging.Logger;
 
@@ -26,7 +25,14 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if(!isPaperServer()){
+            logger.severe("Plugin requires Paper or fork of Paper server.");
+            logger.severe("Disabling plugin...");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
         logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
+        if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")) logger.warning("This plugin is designed to support 1.19.2. Bugs may crawl up in this version");
         logger.info("Loading configs...");
         long configMs = System.currentTimeMillis();
         initConfigs();
@@ -62,6 +68,15 @@ public final class AdvancedMonsters extends JavaPlugin {
         getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
         logger.info("Loading commands took " + (System.currentTimeMillis() - commandMs) + "ms.");
         logger.info("Plugin successfully enabled.");
+    }
+
+    private boolean isPaperServer(){
+        try{
+            Class<?> a = Class.forName("io.papermc.paper.entity.PaperBucketable");
+        }catch (ClassNotFoundException e){
+            return false;
+        }
+        return true;
     }
 
     private void initConfigs(){
