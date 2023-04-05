@@ -14,12 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedMonstersUtilMethods {
-    private static final MonsterLevel EQUIPMENT_LEVEL = new MonsterLevel();
 
-
-    public static MonsterLevel getEquipmentLevel() {
-        return EQUIPMENT_LEVEL;
-    }
 
     public static List<MonsterAbility> getAbilities(LivingEntity entity){
         List<MonsterAbility> returnValue;

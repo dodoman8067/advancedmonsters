@@ -1,7 +1,7 @@
 package kro.dodoworld.advancedmonsters.modifiers.equipment;
 
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.modifiers.equipment.armor.EntityArmor;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.entity.Monster;
@@ -28,7 +28,7 @@ public class EntityEquipment implements Listener {
     }
     
     private double getLevel(World world){
-        return AdvancedMonstersUtilMethods.getEquipmentLevel().getMonsterEquipmentLevel(world);
+        return AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(world);
     }
 
 }

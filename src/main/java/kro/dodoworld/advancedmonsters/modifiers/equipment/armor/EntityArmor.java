@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifiers.equipment.armor;
 
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
@@ -13,7 +13,7 @@ import java.util.Random;
 public class EntityArmor {
 
     public static ItemStack getRandomArmor(World world, EquipmentSlot slot){
-        double level = AdvancedMonstersUtilMethods.getEquipmentLevel().getMonsterEquipmentLevel(world);
+        double level = AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(world);
         ItemStack item = null;
         if(level >= 1.0 && level <= 3.0){
             item = getLeatherArmor(slot);

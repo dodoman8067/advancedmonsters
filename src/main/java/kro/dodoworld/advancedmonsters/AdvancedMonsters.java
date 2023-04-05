@@ -12,6 +12,7 @@ import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
+import kro.dodoworld.advancedmonsters.modifiers.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 public final class AdvancedMonsters extends JavaPlugin {
 
     private final Logger logger = getLogger();
+    private static MonsterLevel monsterLevel;
 
     @Override
     public void onEnable() {
@@ -35,6 +37,10 @@ public final class AdvancedMonsters extends JavaPlugin {
         if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")) logger.warning("This plugin is designed to support 1.19.2. Bugs may crawl up in this version");
         logger.info("Loading configs...");
         long configMs = System.currentTimeMillis();
+        MonsterEquipmentLevel.init();
+        MonsterEquipmentLevel.saveConfig();
+        MonsterEquipmentLevel.reloadConfig();
+        monsterLevel = new MonsterLevel();
         initConfigs();
         logger.info("Loading configs took " + (System.currentTimeMillis() - configMs) + "ms.");
         logger.info("Loading modifier runnable classes...");
@@ -70,6 +76,10 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Plugin successfully enabled.");
     }
 
+    public static MonsterLevel getMonsterLevel() {
+        return monsterLevel;
+    }
+
     private boolean isPaperServer(){
         try{
             Class<?> a = Class.forName("io.papermc.paper.entity.PaperBucketable");
@@ -90,9 +100,6 @@ public final class AdvancedMonsters extends JavaPlugin {
         RevealedAbilities.init();
         RevealedAbilities.saveConfig();
         RevealedAbilities.reloadConfig();
-        MonsterEquipmentLevel.init();
-        MonsterEquipmentLevel.saveConfig();
-        MonsterEquipmentLevel.reloadConfig();
         HealthyModifierConfig.init();
         HealthyModifierConfig.saveConfig();
         HealthyModifierConfig.reloadConfig();
