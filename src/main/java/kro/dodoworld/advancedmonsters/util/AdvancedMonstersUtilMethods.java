@@ -6,6 +6,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.modifiers.level.MonsterLevel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 
@@ -60,6 +61,11 @@ public class AdvancedMonstersUtilMethods {
                 case STORMY -> returnValue = "\uD83C\uDF27";
             }
         return returnValue;
+    }
+
+    public static String getNMSVersion(){
+        String v = Bukkit.getServer().getClass().getPackage().getName();
+        return v.substring(v.lastIndexOf('.') + 1);
     }
 
 
