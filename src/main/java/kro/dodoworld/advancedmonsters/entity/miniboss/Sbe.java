@@ -1,11 +1,11 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
+import com.destroystokyo.paper.profile.CraftPlayerProfile;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -19,11 +19,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class Sbe implements Listener {
     public static void createSbe(Location loc){
         Stray sbe = loc.getWorld().spawn(loc, Stray.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         sbe.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD)
                 .append(Component.text("S_be").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD)));
+        sbe.setCustomNameVisible(true);
         sbe.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(80);
         sbe.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2f);
         sbe.getEquipment().setItemInMainHand(getBow());
@@ -80,7 +83,7 @@ public class Sbe implements Listener {
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
         meta.setUnbreakable(true);
         meta.displayName(Component.text("S_be의 머리").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD));
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer("7aa895ed-8413-483e-ab41-d6032e4fdb9f"));
+        meta.setPlayerProfile(new CraftPlayerProfile(UUID.fromString("7aa895ed-8413-483e-ab41-d6032e4fdb9f"), "S_be"));
         stack.setItemMeta(meta);
         return stack;
     }
