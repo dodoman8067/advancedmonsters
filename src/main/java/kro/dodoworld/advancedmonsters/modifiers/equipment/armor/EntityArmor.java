@@ -249,7 +249,7 @@ public class EntityArmor {
         Random random = new Random();
         int level = random.nextInt(0, max);
         if(level != 0){
-            meta.addEnchant(enchantment, max, true);
+            meta.addEnchant(enchantment, level, true);
             stack.setItemMeta(meta);
         }
     }
