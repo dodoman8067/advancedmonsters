@@ -35,7 +35,7 @@ public class StormyModifier implements Listener {
                             if(monster.getScoreboardTags().contains("adm_modifier_stormy")){
                                 if(monster.isDead()) cancel();
                                 if(monster.getTarget() != null){
-                                    if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget())){
+                                    if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())){
                                         monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation());
                                         monster.getTarget().damage(lightingDamage, monster);
                                         monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ticks, amplifier));

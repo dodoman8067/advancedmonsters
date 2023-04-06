@@ -31,7 +31,7 @@ public class LaserModifier {
                             if(monster.getScoreboardTags().contains("adm_modifier_laser")){
                                 if(monster.isDead()) cancel();
                                 if(monster.getTarget() != null){
-                                    if(monster.getNearbyEntities(range, range, range).contains(monster.getTarget())){
+                                    if(monster.getNearbyEntities(range, range, range).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())){
                                         spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
                                         monster.getTarget().damage(damage, monster);
                                     }
