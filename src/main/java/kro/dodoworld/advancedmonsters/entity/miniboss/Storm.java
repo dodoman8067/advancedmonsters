@@ -65,7 +65,7 @@ public class Storm implements Listener {
                 if(storm.getTarget() != null && !storm.getTarget().isDead()){
                     if(i % 180 == 0){
                         for(int j = 0; j<(int) (Math.random() * 5); j++){
-                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
+                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
                         }
                     }
                     if(i % 1800 == 0){
@@ -145,11 +145,12 @@ public class Storm implements Listener {
 
 
 
-    private static void createLightingAura(Location loc, int radius, final int ticks, Plugin plugin){
+    private static void createLightingAura(Location loc, int radius, final int ticks, Plugin plugin, Mob attacker){
         new BukkitRunnable(){
             int i = 0;
             @Override
             public void run() {
+                attacker.getPathfinder().moveTo(loc);
                 BlockUtilMethods.createCircle(loc, radius, 13, 163, 158, 1f);
                 if(i >= ticks){
                     for(Block block : BlockUtilMethods.getNearbyBlocks(loc.getBlock(), radius - 1)){
@@ -158,6 +159,7 @@ public class Storm implements Listener {
                         for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
                             if(!(entity instanceof Monster) && entity instanceof LivingEntity){
                                 ((LivingEntity) entity).damage(100, strike);
+                                attacker.getPathfinder().stopPathfinding();
                             }
                         }
                     }
