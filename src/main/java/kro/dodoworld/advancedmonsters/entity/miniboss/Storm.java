@@ -38,7 +38,7 @@ public class Storm implements Listener {
         storm.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(380);
         storm.setHealth(380);
         storm.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(15);
-        storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(9);
+        storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(12);
         storm.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
         storm.customName(getName());
         storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
@@ -159,7 +159,6 @@ public class Storm implements Listener {
                         for(Entity entity : strike.getNearbyEntities(radius, radius, radius)){
                             if(!(entity instanceof Monster) && entity instanceof LivingEntity){
                                 ((LivingEntity) entity).damage(100, strike);
-                                attacker.getPathfinder().stopPathfinding();
                             }
                         }
                     }
