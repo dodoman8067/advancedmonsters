@@ -13,6 +13,7 @@ import kro.dodoworld.advancedmonsters.modifiers.ability.type.*;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.modifiers.level.MonsterLevel;
+import kro.dodoworld.advancedmonsters.modifiers.level.increase.MonsterLevelIncrease;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
@@ -67,6 +68,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(new VoidGloom(), this);
         getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
+        getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
