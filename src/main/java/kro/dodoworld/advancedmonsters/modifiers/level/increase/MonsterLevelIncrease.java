@@ -20,7 +20,7 @@ public class MonsterLevelIncrease implements Listener {
         if(!event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) return;
         if(!(event.getEntity().getKiller() instanceof Player)) return;
         if((Math.random() * 100) <= 4) {
-            AdvancedMonsters.getMonsterLevel().increase(event.getEntity().getWorld(), 1);
+            AdvancedMonsters.getMonsterLevel().increase(event.getEntity().getWorld(), (Math.random() * 1.8));
         }
     }
 
