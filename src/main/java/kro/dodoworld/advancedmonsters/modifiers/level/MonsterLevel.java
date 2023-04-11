@@ -4,7 +4,6 @@ import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.event.WorldMonsterLevelIncreaseEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class MonsterLevel {
 
