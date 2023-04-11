@@ -51,24 +51,29 @@ public class EntityArmor {
                 item = getIronArmor(slot);
             }
         }
-        if(level >= 28.8 && level <= 49.7){
-            int type = (int) (Math.random() * 3);
-            int chance = (int) (Math.random() * 100);
+        if(level >= 28.8 && level <= 39.7){
+            int type = (int) (Math.random() * 2);
+
             if(type == 0){
                 item = getChainMailArmor(slot);
             }
-            if(type == 2){
-                if(chance <= 10){
-                    item = getDiamondArmor(slot);
-                }else{
-                    item = getIronArmor(slot);
-                }
+            if(type == 1){
+                item = getIronArmor(slot);
+            }
+        }
+        if(level >= 39.8 && level <= 49.7){
+            int chance = (int) (Math.random() * 100);
+
+            if(chance <= 1){
+                item = getDiamondArmor(slot);
+            }else{
+                item = getIronArmor(slot);
             }
         }
         if(level >= 49.8 && level <= 65.3){
             int chance = (int) (Math.random() * 100);
 
-            if(chance <= 5){
+            if(chance <= 40){
                 item = getIronArmor(slot);
             }else{
                 item = getDiamondArmor(slot);
@@ -79,9 +84,9 @@ public class EntityArmor {
             int chance = (int) (Math.random() * 100);
 
             if(chance <= 2){
-                item = getDiamondArmor(slot);
-            }else{
                 item = getNetheriteArmor(slot);
+            }else{
+                item = getDiamondArmor(slot);
             }
 
         }
