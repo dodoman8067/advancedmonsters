@@ -114,7 +114,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.IRON_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 4);
         addRandomLevelEnchant(Enchantment.THORNS, item, 3);
 
@@ -139,7 +138,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.CHAINMAIL_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 2);
 
         return item;
@@ -163,7 +161,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.LEATHER_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
 
         return item;
@@ -187,7 +184,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.GOLDEN_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         addRandomLevelEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, item, 3);
 
         return item;
@@ -211,7 +207,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.DIAMOND_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         if(item.getType().equals(Material.DIAMOND_BOOTS)){
             addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 3);
         }
@@ -239,7 +234,6 @@ public class EntityArmor {
         if(item == null){
             item = new ItemStack(Material.NETHERITE_BOOTS);
         }
-        ItemMeta meta = item.getItemMeta();
         if(item.getType().equals(Material.NETHERITE_BOOTS)){
             addRandomLevelEnchant(Enchantment.DEPTH_STRIDER, item, 4);
         }
