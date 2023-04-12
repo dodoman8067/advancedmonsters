@@ -15,7 +15,6 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.PolarBear;
@@ -83,14 +82,5 @@ public class MiniBossSpawn implements Listener {
             Bukkit.broadcast(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD)
                     .append(Component.text("S_be").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD)).append(Component.text("가 스폰되었습니다!").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)));
         }
-    }
-
-    private boolean isMiniboss(Entity entity){
-        for(String s : entity.getScoreboardTags()){
-            if(s.startsWith("adm_miniboss")){
-                return true;
-            }
-        }
-        return false;
     }
 }

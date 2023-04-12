@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;
@@ -83,7 +84,14 @@ public class AdvancedMonstersUtilMethods {
         return returnValue;
     }
 
-
+    public static boolean isMiniboss(Entity entity){
+        for(String s : entity.getScoreboardTags()){
+            if(s.startsWith("adm_miniboss")){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static boolean isUnlocked(MonsterAbility monsterAbility){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
