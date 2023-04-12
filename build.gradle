@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'kro.dodoworld'
-version = 'beta-0.4'
+version = 'beta-0.4.1'
 
 repositories {
     mavenLocal()
@@ -58,7 +58,7 @@ jar {
 
 compileJava.options.encoding = 'UTF-8'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
