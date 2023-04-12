@@ -19,7 +19,7 @@ import java.util.EnumSet;
  */
 public class NecromancerAttackGoal implements Goal<Creature>, Listener {
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
-    private final GoalKey<Creature> key = GoalKey.of(Creature.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "necromancer_attack"));
+    private final GoalKey<Creature> key = GoalKey.of(Creature.class, new NamespacedKey(plugin, "necromancer_attack"));
     private final Creature entity;
 
     public NecromancerAttackGoal(Creature entity){
