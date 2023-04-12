@@ -1,5 +1,7 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -7,12 +9,16 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class DiamondZombie {
+public class DiamondZombie implements Listener {
     public static void createZombie(Location loc){
         Zombie zombie = loc.getWorld().spawn(loc, Zombie.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.4);
@@ -50,5 +56,15 @@ public class DiamondZombie {
         zombie.addScoreboardTag("adm_remove_when_reload");
         zombie.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Diamond Zombie").color(TextColor.color(0xAAAAAA))));
         zombie.setCustomNameVisible(true);
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent event){
+        if(event.getEntity().getKiller() == null) return;
+        if(!(event.getEntity().getKiller() instanceof Player)) return;
+        if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
+        if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.TANK)){
+            AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.TANK, true);
+        }
     }
 }

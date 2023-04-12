@@ -1,7 +1,9 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -39,7 +41,13 @@ public class Inferno implements Listener {
 
             @Override
             public void run() {
-                if(blaze.isDead()) cancel();
+                if(blaze.isDead()){
+                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.FLAMING)){
+                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.FLAMING, true);
+                    }
+                    cancel();
+                    return;
+                }
                 if(blaze.getHealth() <= blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2){
                     BlockUtilMethods.createCircle(blaze.getLocation(), 0.47F, 255, 238, 0, 0.78F);
                     BlockUtilMethods.createCircle(blaze.getLocation().add(0, 0.6,0), 0.47F, 255, 238, 0, 0.78F);

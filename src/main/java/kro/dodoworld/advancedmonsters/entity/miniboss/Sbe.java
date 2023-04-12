@@ -60,6 +60,7 @@ public class Sbe implements Listener {
             public void run() {
                 if(sbe.isDead() || bear.isDead()){
                     cancel();
+                    return;
                 }
                 if(sbe.getTarget() != null){
                     bear.setTarget(sbe.getTarget());

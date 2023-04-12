@@ -1,6 +1,8 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -46,6 +48,9 @@ public class Bombie implements Listener {
             @Override
             public void run() {
                 if(bombie.isDead()){
+                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.BOOMER)){
+                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.BOOMER, true);
+                    }
                     cancel();
                     return;
                 }

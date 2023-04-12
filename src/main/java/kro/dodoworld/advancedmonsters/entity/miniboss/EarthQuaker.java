@@ -1,6 +1,8 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;
@@ -55,7 +57,11 @@ public class EarthQuaker implements Listener {
             @Override
             public void run() {
                 if(earthQuaker.isDead()){
+                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.TANK)){
+                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.TANK, true);
+                    }
                     cancel();
+                    return;
                 }
                 if(earthQuaker.getTarget() != null && !earthQuaker.getTarget().isDead()){
                     if(i % 180 == 0){

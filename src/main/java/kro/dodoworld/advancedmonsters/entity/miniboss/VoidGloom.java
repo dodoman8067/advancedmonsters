@@ -2,6 +2,8 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.modifiers.ability.type.LaserModifier;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -37,7 +39,13 @@ public class VoidGloom implements Listener {
             int i = 0;
             @Override
             public void run() {
-                if(enderman.isDead()) cancel();
+                if(enderman.isDead()){
+                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.TELEPORTER)){
+                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.TELEPORTER, true);
+                    }
+                    cancel();
+                    return;
+                }
                 enderman.getWorld().spawnParticle(Particle.SPELL_WITCH, enderman.getLocation(), 4, null);
                 if(enderman.getTarget() != null){
                     if(i % 80 == 0){

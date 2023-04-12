@@ -19,7 +19,7 @@ public class MonsterLevelIncrease implements Listener {
         if(event.getEntity().getKiller() == null) return;
         if(!event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) return;
         if(!(event.getEntity().getKiller() instanceof Player)) return;
-        if((Math.random() * 100) <= 4) {
+        if((Math.random() * 100) <= 6) {
             AdvancedMonsters.getMonsterLevel().increase(event.getEntity().getWorld(), (Math.random() * 1.8));
         }
     }
@@ -34,7 +34,7 @@ public class MonsterLevelIncrease implements Listener {
     @EventHandler
     public void onFish(PlayerFishEvent event){
         if(!event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) return;
-        if((Math.random() * 100) <= 1){
+        if((Math.random() * 100) <= 2){
             AdvancedMonsters.getMonsterLevel().increase(event.getPlayer().getWorld(), (Math.random() * 1.4));
         }
     }
