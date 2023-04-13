@@ -1,6 +1,7 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
@@ -61,8 +62,11 @@ public class Storm implements Listener {
             @Override
             public void run() {
                 if(storm.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.STORMY)){
-                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.STORMY, true);
+                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.STORMY)){
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
+                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        if(!event.isCancelled()) return;
+                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
                     }
                     cancel();
                     return;

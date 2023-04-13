@@ -1,11 +1,13 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
@@ -39,8 +41,11 @@ public class LeapingSpider implements Listener {
             @Override
             public void run() {
                 if(spider.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.VENOMOUS)){
-                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.VENOMOUS, true);
+                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.VENOMOUS)){
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.VENOMOUS);
+                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        if(!event.isCancelled()) return;
+                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
                     }
                     cancel();
                     return;

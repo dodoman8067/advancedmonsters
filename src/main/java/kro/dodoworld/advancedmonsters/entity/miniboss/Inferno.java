@@ -1,12 +1,14 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
@@ -42,8 +44,11 @@ public class Inferno implements Listener {
             @Override
             public void run() {
                 if(blaze.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.FLAMING)){
-                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.FLAMING, true);
+                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.FLAMING)){
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.FLAMING);
+                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        if(!event.isCancelled()) return;
+                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
                     }
                     cancel();
                     return;

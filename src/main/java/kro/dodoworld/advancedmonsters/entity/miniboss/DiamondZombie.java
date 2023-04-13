@@ -1,10 +1,12 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -63,8 +65,11 @@ public class DiamondZombie implements Listener {
         if(event.getEntity().getKiller() == null) return;
         if(!(event.getEntity().getKiller() instanceof Player)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
-        if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.TANK)){
-            AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.TANK, true);
+        if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.SPEEDY)){
+            MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.SPEEDY);
+            Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
+            if(!monsterAbilityUnlockEvent.isCancelled()) return;
+            AdvancedMonstersUtilMethods.setRevealed(monsterAbilityUnlockEvent.getAbility(), true);
         }
     }
 }

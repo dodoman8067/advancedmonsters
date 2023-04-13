@@ -1,6 +1,7 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
@@ -9,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -57,8 +59,11 @@ public class EarthQuaker implements Listener {
             @Override
             public void run() {
                 if(earthQuaker.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.TANK)){
-                        AdvancedMonstersUtilMethods.setRevealed(MonsterAbility.TANK, true);
+                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.TANK)){
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TANK);
+                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        if(!event.isCancelled()) return;
+                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
                     }
                     cancel();
                     return;
