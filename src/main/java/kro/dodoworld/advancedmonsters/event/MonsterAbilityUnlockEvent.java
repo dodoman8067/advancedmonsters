@@ -15,7 +15,7 @@ public class MonsterAbilityUnlockEvent extends Event implements Cancellable {
     private boolean cancel = false;
 
     /**
-     * Constructor for class
+     * Constructor for event
      * @param ability Unlocked ability
      */
     public MonsterAbilityUnlockEvent(MonsterAbility ability){

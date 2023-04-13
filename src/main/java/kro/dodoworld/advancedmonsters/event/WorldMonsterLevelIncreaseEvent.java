@@ -6,6 +6,9 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.world.WorldEvent;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Called when monster level is increased
+ */
 public class WorldMonsterLevelIncreaseEvent extends WorldEvent implements Cancellable {
 
     private final HandlerList handlerList = new HandlerList();
@@ -14,7 +17,7 @@ public class WorldMonsterLevelIncreaseEvent extends WorldEvent implements Cancel
     private boolean cancel = false;
 
     /**
-     * Called when monster level is increased
+     * Constructor for event
      * @param world Increased world
      * @param amount Increased amount
      */
