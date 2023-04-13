@@ -14,6 +14,9 @@ public enum MonsterAbility {
     STORMY,
     VENOMOUS;
 
+    /**
+     * @return User-friendly ability name
+     */
     @Override
     public String toString(){
         String value = null;
