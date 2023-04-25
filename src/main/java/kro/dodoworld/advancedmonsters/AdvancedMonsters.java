@@ -31,7 +31,11 @@ import java.io.File;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
-    //TODO : Add frozen entity ability
+
+    /**
+     * TODO: Add frozen entity ability
+     * TODO: Add Necromancer boss
+     */
 
     private final Logger logger = getLogger();
     private static MonsterLevel monsterLevel;
