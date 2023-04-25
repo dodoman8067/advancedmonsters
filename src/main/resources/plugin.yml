@@ -1,5 +1,5 @@
 name: AdvancedMonsters
-version: beta-0.4.2
+version: '${version}'
 main: kro.dodoworld.advancedmonsters.AdvancedMonsters
 api-version: 1.18
 authors: [ _dodoman ]
