@@ -53,8 +53,9 @@ public class Bombie implements Listener {
                     if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.BOOMER)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOOMER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
-                        if(!event.isCancelled()) return;
-                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        }
                     }
                     cancel();
                     return;
@@ -65,7 +66,7 @@ public class Bombie implements Listener {
                         tnt.setSource(bombie);
                         tnt.setFuseTicks(100);
                         tnt.addScoreboardTag("adm_bombie_tnt");
-                        tnt.setVelocity(bombie.getLocation().getDirection());
+                        tnt.setVelocity(bombie.getLocation().getDirection().multiply(2));
                     }
                 }
                 if(i >= (Integer.MAX_VALUE - 100)){

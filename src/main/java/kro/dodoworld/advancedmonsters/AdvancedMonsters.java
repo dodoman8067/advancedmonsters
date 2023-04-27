@@ -69,6 +69,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
+        getServer().getPluginManager().registerEvents(new DiamondZombie(), this);
         getServer().getPluginManager().registerEvents(new Inferno(), this);
         getServer().getPluginManager().registerEvents(new Bombie(), this);
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);

@@ -45,8 +45,9 @@ public class VoidGloom implements Listener {
                     if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.TELEPORTER)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TELEPORTER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
-                        if(!event.isCancelled()) return;
-                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        }
                     }
                     cancel();
                     return;
