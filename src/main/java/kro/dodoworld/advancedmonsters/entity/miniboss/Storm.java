@@ -81,7 +81,7 @@ public class Storm implements Listener {
                         for(int j = 0; j<(int) (Math.random() * 5); j++){
                             Location loc = storm.getLocation().add(rnd.nextDouble(1, 8), 0, rnd.nextDouble(1, 8));
                             Block block = storm.getWorld().getHighestBlockAt(loc);
-                            createLightingAura(block.getLocation().add(0, 0.8, 0), getRadius(4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
+                            createLightingAura(block.getLocation().add(0, 1.1, 0), getRadius(4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
                         }
                     }
                     if(i % 1800 == 0){

@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.modifiers.ability.LaserModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
