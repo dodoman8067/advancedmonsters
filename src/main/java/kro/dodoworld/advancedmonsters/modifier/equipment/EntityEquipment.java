@@ -1,7 +1,7 @@
-package kro.dodoworld.advancedmonsters.modifiers.equipment;
+package kro.dodoworld.advancedmonsters.modifier.equipment;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
-import kro.dodoworld.advancedmonsters.modifiers.equipment.armor.EntityArmor;
+import kro.dodoworld.advancedmonsters.modifier.equipment.armor.EntityArmor;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.entity.Monster;

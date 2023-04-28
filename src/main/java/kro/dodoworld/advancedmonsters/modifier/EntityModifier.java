@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers;
+package kro.dodoworld.advancedmonsters.modifier;
 
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;

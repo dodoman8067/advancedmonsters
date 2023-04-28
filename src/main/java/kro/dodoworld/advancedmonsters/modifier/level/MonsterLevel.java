@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers.level;
+package kro.dodoworld.advancedmonsters.modifier.level;
 
 import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.event.WorldMonsterLevelIncreaseEvent;
