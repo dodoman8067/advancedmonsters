@@ -16,12 +16,12 @@ public class AbilityUnlock implements Listener {
     }
 
     private void sendMessage(MonsterAbilityUnlockEvent event){
-        Bukkit.broadcast(Component.text("----------------------------------------", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        Bukkit.broadcast(Component.text("              능력 해제", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        Bukkit.broadcast(Component.text("               ").append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(event.getAbility()).append(Component.text(event.getAbility().toString()))));
+        Bukkit.broadcast(Component.text("-----------------------------------------", NamedTextColor.YELLOW, TextDecoration.BOLD));
+        Bukkit.broadcast(Component.text("                    능력 해제", NamedTextColor.YELLOW, TextDecoration.BOLD));
+        Bukkit.broadcast(Component.text("                       ").append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(event.getAbility()).append(Component.text(event.getAbility().toString()))));
         Bukkit.broadcast(Component.text("               "));
         for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(event.getAbility()).getStringList("command_description")){
-            Bukkit.broadcast(Component.text(s));
+            Bukkit.broadcast(Component.text(AdvancedMonstersUtilMethods.replace(s)));
         }
         Bukkit.broadcast(Component.text("-----------------------------------------", NamedTextColor.YELLOW, TextDecoration.BOLD));
     }

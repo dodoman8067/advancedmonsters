@@ -63,7 +63,7 @@ public class EarthQuaker implements Listener {
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TANK);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();

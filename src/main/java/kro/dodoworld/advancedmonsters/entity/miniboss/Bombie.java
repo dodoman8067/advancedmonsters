@@ -54,7 +54,7 @@ public class Bombie implements Listener {
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOOMER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();

@@ -99,7 +99,7 @@ public class AdvancedMonstersUtilMethods {
 
     public static void setUnlocked(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
-        configuration.set(monsterAbility.toString(), value);
+        configuration.set(monsterAbility.toString().toLowerCase(), value);
         if(value) setRevealed(monsterAbility, true);
         UnlockedEntityAbilities.saveConfig();
         UnlockedEntityAbilities.reloadConfig();

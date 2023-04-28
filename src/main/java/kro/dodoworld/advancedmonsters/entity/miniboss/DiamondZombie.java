@@ -70,12 +70,13 @@ public class DiamondZombie implements Listener {
     public void onDeath(EntityDeathEvent event){
         if(event.getEntity().getKiller() == null) return;
         if(!(event.getEntity().getKiller() instanceof Player)) return;
+        if(!(event.getEntity() instanceof Zombie)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
         if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.SPEEDY)){
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.SPEEDY);
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
-            if(!monsterAbilityUnlockEvent.isCancelled()) return;
-            AdvancedMonstersUtilMethods.setRevealed(monsterAbilityUnlockEvent.getAbility(), true);
+            if(monsterAbilityUnlockEvent.isCancelled()) return;
+            AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
     }
 
