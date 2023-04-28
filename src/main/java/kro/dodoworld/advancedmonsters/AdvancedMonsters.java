@@ -8,20 +8,21 @@ import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
 import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
 import kro.dodoworld.advancedmonsters.entity.miniboss.*;
-import kro.dodoworld.advancedmonsters.modifiers.EntityModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.BoomerModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.FlamingModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.LaserModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.PunchyModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.StormyModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.StrongModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.TankModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.TeleporterModifier;
-import kro.dodoworld.advancedmonsters.modifiers.ability.VenomousModifier;
+import kro.dodoworld.advancedmonsters.modifier.EntityModifier;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
-import kro.dodoworld.advancedmonsters.modifiers.equipment.EntityEquipment;
-import kro.dodoworld.advancedmonsters.modifiers.level.MonsterLevel;
-import kro.dodoworld.advancedmonsters.modifiers.level.increase.MonsterLevelIncrease;
+import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.BoomerModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.FlamingModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.PunchyModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.StormyModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.StrongModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.TankModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.VenomousModifier;
+import kro.dodoworld.advancedmonsters.modifier.equipment.EntityEquipment;
+import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
+import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
@@ -35,6 +36,7 @@ public final class AdvancedMonsters extends JavaPlugin {
     /**
      * TODO: Add frozen entity ability
      * TODO: Add Necromancer boss
+     * TODO: Rewrite all code (Current code is hard to maintain)
      */
 
     private final Logger logger = getLogger();
@@ -42,14 +44,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if(!isPaperServer()){
-            logger.severe("Plugin requires Paper or fork of Paper server.");
-            logger.severe("Disabling plugin...");
-            getPluginLoader().disablePlugin(this);
-            return;
-        }
-        logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
-        if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")) logger.warning("This plugin is designed to support 1.19.2. Bugs may crawl up in this version");
+        if(!checkServerEnvironment()) return;
         logger.info("Loading configs...");
         long configMs = System.currentTimeMillis();
         MonsterEquipmentLevel.init();
@@ -76,12 +71,14 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
+        getServer().getPluginManager().registerEvents(new DiamondZombie(), this);
         getServer().getPluginManager().registerEvents(new Inferno(), this);
         getServer().getPluginManager().registerEvents(new Bombie(), this);
         getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
         getServer().getPluginManager().registerEvents(new VoidGloom(), this);
         getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
         getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
+        getServer().getPluginManager().registerEvents(new AbilityUnlock(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
@@ -100,6 +97,24 @@ public final class AdvancedMonsters extends JavaPlugin {
         try{
             Class<?> a = Class.forName("io.papermc.paper.entity.PaperBucketable");
         }catch (ClassNotFoundException e){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkServerEnvironment(){
+        if(!isPaperServer()){
+            logger.severe("Plugin requires Paper or fork of Paper server.");
+            logger.severe("Disabling plugin...");
+            getPluginLoader().disablePlugin(this);
+            return false;
+        }
+        logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
+        if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
+            logger.severe("This plugin uses minecraft code.");
+            logger.severe("Means this plugin can't be enabled in other versions. (Supported version is 1.19.1 ~ 1.19.2)");
+            logger.severe("Disabling plugin...");
+            getPluginLoader().disablePlugin(this);
             return false;
         }
         return true;

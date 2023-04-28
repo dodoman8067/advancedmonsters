@@ -47,8 +47,9 @@ public class Inferno implements Listener {
                     if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.FLAMING)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.FLAMING);
                         Bukkit.getServer().getPluginManager().callEvent(event);
-                        if(!event.isCancelled()) return;
-                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                        }
                     }
                     cancel();
                     return;

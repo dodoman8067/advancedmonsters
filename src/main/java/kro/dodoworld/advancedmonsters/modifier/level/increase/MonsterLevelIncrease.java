@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers.level.increase;
+package kro.dodoworld.advancedmonsters.modifier.level.increase;
 
 import io.papermc.paper.event.player.PlayerDeepSleepEvent;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;

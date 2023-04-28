@@ -7,10 +7,10 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Called when ability is unlocked by kiling miniboss
+ * Called when ability is unlocked by killing miniboss
  */
 public class MonsterAbilityUnlockEvent extends Event implements Cancellable {
-    private final HandlerList handlerList = new HandlerList();
+    private static final HandlerList handlerList = new HandlerList();
     private MonsterAbility ability;
     private boolean cancel = false;
 
@@ -33,7 +33,7 @@ public class MonsterAbilityUnlockEvent extends Event implements Cancellable {
     /**
      * @return HandlerList instance
      */
-    public HandlerList getHandlerList() {
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 

@@ -44,8 +44,9 @@ public class LeapingSpider implements Listener {
                     if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.VENOMOUS)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.VENOMOUS);
                         Bukkit.getServer().getPluginManager().callEvent(event);
-                        if(!event.isCancelled()) return;
-                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                        }
                     }
                     cancel();
                     return;

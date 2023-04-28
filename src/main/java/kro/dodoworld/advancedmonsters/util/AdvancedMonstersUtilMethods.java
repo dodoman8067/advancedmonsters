@@ -99,7 +99,7 @@ public class AdvancedMonstersUtilMethods {
 
     public static void setUnlocked(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
-        configuration.set(monsterAbility.toString(), value);
+        configuration.set(monsterAbility.toString().toLowerCase(), value);
         if(value) setRevealed(monsterAbility, true);
         UnlockedEntityAbilities.saveConfig();
         UnlockedEntityAbilities.reloadConfig();
@@ -157,7 +157,7 @@ public class AdvancedMonstersUtilMethods {
 
 
     public static FileConfiguration getAbilityConfig(MonsterAbility ability){
-        FileConfiguration returnValue = null;
+        FileConfiguration returnValue;
         switch (ability){
             case HEALTHY -> returnValue = HealthyModifierConfig.getHealthyModifierConfig();
             case STRONG -> returnValue = StrongModifierConfig.getStrongModifierConfig();
@@ -171,6 +171,7 @@ public class AdvancedMonstersUtilMethods {
             case LASER -> returnValue = LaserModifierConfig.getLaserModifierConfig();
             case VENOMOUS -> returnValue = VenomousModifierConfig.getVenomousModifierConfig();
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
+            default -> throw new IllegalArgumentException("Unknown MonsterAbility enum value");
         }
         return returnValue;
     }

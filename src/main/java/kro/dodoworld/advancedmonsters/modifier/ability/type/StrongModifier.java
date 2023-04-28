@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifiers.ability;
+package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.StrongModifierConfig;
 import org.bukkit.configuration.file.FileConfiguration;

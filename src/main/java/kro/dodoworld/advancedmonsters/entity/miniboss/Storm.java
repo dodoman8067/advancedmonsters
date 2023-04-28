@@ -33,8 +33,11 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Random;
+
 public class Storm implements Listener {
     public static void createStorm(Location loc){
+        Random rnd = new Random();
         Skeleton storm = loc.getWorld().spawn(loc, Skeleton.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         storm.setCustomNameVisible(true);
         storm.getWorld().setStorm(true);
@@ -65,16 +68,20 @@ public class Storm implements Listener {
                     if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.STORMY)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
                         Bukkit.getServer().getPluginManager().callEvent(event);
-                        if(!event.isCancelled()) return;
-                        AdvancedMonstersUtilMethods.setRevealed(event.getAbility(), true);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                        }
                     }
                     cancel();
+
                     return;
                 }
                 if(storm.getTarget() != null && !storm.getTarget().isDead()){
                     if(i % 180 == 0){
                         for(int j = 0; j<(int) (Math.random() * 5); j++){
-                            createLightingAura(storm.getLocation().add(Math.random() * 7, 0, Math.random() * 7), (int) (Math.random() * 4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
+                            Location loc = storm.getLocation().add(rnd.nextDouble(1, 8), 0, rnd.nextDouble(1, 8));
+                            Block block = storm.getWorld().getHighestBlockAt(loc);
+                            createLightingAura(block.getLocation().add(0, 1.1, 0), getRadius(4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
                         }
                     }
                     if(i % 1800 == 0){
@@ -87,6 +94,11 @@ public class Storm implements Listener {
                 i++;
             }
         }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+    }
+
+    private static int getRadius(int max){
+        Random rnd = new Random();
+        return rnd.nextInt(1, max + 1);
     }
 
 

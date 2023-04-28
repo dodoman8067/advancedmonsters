@@ -6,16 +6,22 @@ import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.minecraft.world.damagesource.DamageSource;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftLivingEntity;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -64,12 +70,21 @@ public class DiamondZombie implements Listener {
     public void onDeath(EntityDeathEvent event){
         if(event.getEntity().getKiller() == null) return;
         if(!(event.getEntity().getKiller() instanceof Player)) return;
+        if(!(event.getEntity() instanceof Zombie)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
         if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.SPEEDY)){
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.SPEEDY);
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
-            if(!monsterAbilityUnlockEvent.isCancelled()) return;
-            AdvancedMonstersUtilMethods.setRevealed(monsterAbilityUnlockEvent.getAbility(), true);
+            if(monsterAbilityUnlockEvent.isCancelled()) return;
+            AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event){
+        if(!event.getDamager().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
+        if(!(event.getEntity() instanceof LivingEntity living)) return;
+        event.setCancelled(true);
+        ((CraftLivingEntity) living).getHandle().hurt(DamageSource.MAGIC, (float) event.getFinalDamage() * 1.2f);
     }
 }
