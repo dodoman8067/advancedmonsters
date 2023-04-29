@@ -68,7 +68,7 @@ public class UnlockedMobs implements CommandExecutor {
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
         }else{
-            if(!AdvancedMonstersUtilMethods.isUnlocked(ability)){
+            if(!AdvancedMonstersUtilMethods.isRevealed(ability)){
                 sender.sendMessage(ChatColor.RED + "알 수 없는 능력입니다!");
                 return;
             }

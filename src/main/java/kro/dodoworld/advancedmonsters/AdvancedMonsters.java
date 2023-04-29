@@ -167,6 +167,15 @@ public final class AdvancedMonsters extends JavaPlugin {
         VenomousModifierConfig.init();
         VenomousModifierConfig.saveConfig();
         VenomousModifierConfig.reloadConfig();
+        FrozenModifierConfig.init();
+        FrozenModifierConfig.saveConfig();
+        FrozenModifierConfig.reloadConfig();
+        LightingModifierConfig.init();
+        LightingModifierConfig.saveConfig();
+        LightingModifierConfig.reloadConfig();
+        RevenantModifierConfig.init();
+        RevenantModifierConfig.saveConfig();
+        RevenantModifierConfig.reloadConfig();
     }
 
     private void removeEntities(){

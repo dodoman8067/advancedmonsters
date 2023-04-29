@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.config.data;
 
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,18 +24,9 @@ public class RevealedAbilities {
         }
 
         revealedAbilityConfig = YamlConfiguration.loadConfiguration(file);
-        revealedAbilityConfig.addDefault("healthy", false);
-        revealedAbilityConfig.addDefault("strong", false);
-        revealedAbilityConfig.addDefault("tank", false);
-        revealedAbilityConfig.addDefault("speedy", false);
-        revealedAbilityConfig.addDefault("invisible", false);
-        revealedAbilityConfig.addDefault("laser", false);
-        revealedAbilityConfig.addDefault("boomer", false);
-        revealedAbilityConfig.addDefault("flaming", false);
-        revealedAbilityConfig.addDefault("punchy", false);
-        revealedAbilityConfig.addDefault("teleporter", false);
-        revealedAbilityConfig.addDefault("venomous", false);
-        revealedAbilityConfig.addDefault("stormy", false);
+        for(MonsterAbility ability : MonsterAbility.values()){
+            revealedAbilityConfig.addDefault(ability.toString().toLowerCase(), false);
+        }
         revealedAbilityConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();
