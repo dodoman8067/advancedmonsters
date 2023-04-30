@@ -13,6 +13,7 @@ import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.BoomerModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.FlamingModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.FrozenModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.PunchyModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.StormyModifier;
@@ -68,6 +69,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new StrongModifier(), this);
         getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
+        getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
