@@ -31,7 +31,8 @@ public class EntityModifier implements Listener {
 
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
             MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
-            MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS
+            MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
+            MonsterAbility.FROZEN
     );
     private final Random random = new Random();
 
@@ -144,6 +145,11 @@ public class EntityModifier implements Listener {
                 monster.addScoreboardTag("adm_modifier_stormy");
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+            }
+            case FROZEN -> {
+                monster.addScoreboardTag("adm_modifier_frozen");
+                monster.setCustomNameVisible(true);
+                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FROZEN).append(Component.text(MonsterAbility.FROZEN.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
         }
     }
