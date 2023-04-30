@@ -10,16 +10,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AdvancedMonstersUtilMethods {
 
 
-    public static List<MonsterAbility> getAbilities(LivingEntity entity){
-        List<MonsterAbility> returnValue;
+    public static Set<MonsterAbility> getAbilities(LivingEntity entity){
+        Set<MonsterAbility> returnValue;
 
-        returnValue = new ArrayList<>();
+        returnValue = new HashSet<>();
         for (String tag : entity.getScoreboardTags()) {
             switch (tag) {
                 case "adm_modifier_healthy" -> returnValue.add(MonsterAbility.HEALTHY);
@@ -146,8 +146,14 @@ public class AdvancedMonstersUtilMethods {
                 .replaceAll("\\{applyEffectChance}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("apply_effect_chance")))
                 .replaceAll("\\{stormyLightingRange}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_range")))
                 .replaceAll("\\{stormyLightingCooldown}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_lighting_cooldown")))
-                .replaceAll("\\{stormyLightingDamage}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_damage")));
-
+                .replaceAll("\\{stormyLightingDamage}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_damage")))
+                .replaceAll("\\{freezeEffectChance}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getDouble("freeze_effect_chance")))
+                .replaceAll("\\{freezeEffectTicks}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getInt("freeze_effect_ticks")))
+                .replaceAll("\\{lightingStrikeChance}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_strike_chance")))
+                .replaceAll("\\{maxLightingStrikeAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getInt("max_lighting_strike_amount")))
+                .replaceAll("\\{lightingDamageAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")))
+                .replaceAll("\\{monsterReviveRange}", String.valueOf(RevenantModifierConfig.getRevenantModifierConfig().getDouble("monster_revive_range")))
+                .replaceAll("\\{monsterReviveChance}", String.valueOf(RevenantModifierConfig.getRevenantModifierConfig().getDouble("monster_revive_chance")));
 
         return returnValue;
     }
