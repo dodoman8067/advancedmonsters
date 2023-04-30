@@ -1,7 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.FrozenModifierConfig;
-import kro.dodoworld.advancedmonsters.config.modifier.StrongModifierConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Projectile;

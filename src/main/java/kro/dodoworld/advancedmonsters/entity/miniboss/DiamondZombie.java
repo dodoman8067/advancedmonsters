@@ -11,8 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftLivingEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -21,10 +19,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class DiamondZombie implements Listener {
     public static void createZombie(Location loc){
@@ -78,13 +77,5 @@ public class DiamondZombie implements Listener {
             if(monsterAbilityUnlockEvent.isCancelled()) return;
             AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
-    }
-
-    @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event){
-        if(!event.getDamager().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
-        if(!(event.getEntity() instanceof LivingEntity living)) return;
-        event.setCancelled(true);
-        ((CraftLivingEntity) living).getHandle().hurt(DamageSource.MAGIC, (float) event.getFinalDamage() * 1.2f);
     }
 }
