@@ -113,11 +113,9 @@ public final class AdvancedMonsters extends JavaPlugin {
         }
         logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
         if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
-            logger.severe("This plugin uses minecraft code.");
-            logger.severe("Means this plugin can't be enabled in other versions. (Supported version is 1.19.1 ~ 1.19.2)");
-            logger.severe("Disabling plugin...");
-            getPluginLoader().disablePlugin(this);
-            return false;
+            logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
+            logger.warning("Bugs may crawl in this version.");
+            return true;
         }
         return true;
     }
