@@ -12,10 +12,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class TeleporterModifier {
 
-    private static final Set<Monster> teleportingMonsters = new HashSet<>();
+    private static final Set<UUID> teleportingMonsters = new HashSet<>();
 
 
     public static void run(AdvancedMonsters plugin) {
@@ -30,11 +31,11 @@ public class TeleporterModifier {
                         if (!(entity instanceof Monster monster)) {
                             continue;
                         }
-                        if (!teleportingMonsters.contains(monster)) {
+                        if (!teleportingMonsters.contains(monster.getUniqueId())) {
                             continue;
                         }
                         if (monster.isDead()) {
-                            teleportingMonsters.remove(monster);
+                            teleportingMonsters.remove(monster.getUniqueId());
                             continue;
                         }
                         if (monster.getTarget() != null) {
@@ -53,7 +54,7 @@ public class TeleporterModifier {
                     continue;
                 }
                 if (monster.getScoreboardTags().contains("adm_modifier_teleporter")) {
-                    teleportingMonsters.add(monster);
+                    teleportingMonsters.add(monster.getUniqueId());
                 }
             }
         }
