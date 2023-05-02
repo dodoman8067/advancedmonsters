@@ -5,6 +5,8 @@ import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
@@ -105,6 +107,7 @@ public class EntityModifier implements Listener {
                 monster.addScoreboardTag("adm_modifier_teleporter");
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TELEPORTER).append(Component.text(MonsterAbility.TELEPORTER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                TeleporterModifier.getTeleportingMonsters().add(monster.getUniqueId());
             }
             case INVISIBLE -> {
                 monster.addScoreboardTag("adm_modifier_invisible");

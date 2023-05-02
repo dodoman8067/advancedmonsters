@@ -18,6 +18,9 @@ public class TeleporterModifier {
 
     private static final Set<UUID> teleportingMonsters = new HashSet<>();
 
+    public static Set<UUID> getTeleportingMonsters() {
+        return teleportingMonsters;
+    }
 
     public static void run(AdvancedMonsters plugin) {
         FileConfiguration config = TeleportModifierConfig.getTeleporterModifierConfig();
