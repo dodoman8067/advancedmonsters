@@ -6,6 +6,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.RevenantModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
@@ -34,13 +35,13 @@ public class EntityModifier implements Listener {
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
             MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
-            MonsterAbility.FROZEN
+            MonsterAbility.FROZEN, MonsterAbility.REVENANT
     );
     private final Random random = new Random();
 
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event) {
-        if (event.getEntity().getWorld().getDifficulty() == Difficulty.PEACEFUL) return;
+        if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM) return;
         if (!(event.getEntity() instanceof Monster monster)) return;
         if (monster.getScoreboardTags().contains("adm_miniboss")) return;
@@ -153,6 +154,15 @@ public class EntityModifier implements Listener {
                 monster.addScoreboardTag("adm_modifier_frozen");
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FROZEN).append(Component.text(MonsterAbility.FROZEN.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+            }
+            case LIGHTING -> {
+                throw new UnsupportedOperationException("Lighting not added!");
+            }
+            case REVENANT -> {
+                monster.setCustomNameVisible(true);
+                monster.addScoreboardTag("adm_modifier_revenant");
+                RevenantModifier.getRevenantMonsters().add(monster.getUniqueId());
+                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.REVENANT).append(Component.text(MonsterAbility.REVENANT.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
         }
     }

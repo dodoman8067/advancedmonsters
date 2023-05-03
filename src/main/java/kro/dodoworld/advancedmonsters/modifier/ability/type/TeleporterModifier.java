@@ -16,10 +16,10 @@ import java.util.UUID;
 
 public class TeleporterModifier {
 
-    private static final Set<UUID> teleportingMonsters = new HashSet<>();
+    private static final Set<UUID> TELEPORTING_MONSTERS = new HashSet<>();
 
     public static Set<UUID> getTeleportingMonsters() {
-        return teleportingMonsters;
+        return TELEPORTING_MONSTERS;
     }
 
     public static void run(AdvancedMonsters plugin) {
@@ -34,11 +34,11 @@ public class TeleporterModifier {
                         if (!(entity instanceof Monster monster)) {
                             continue;
                         }
-                        if (!teleportingMonsters.contains(monster.getUniqueId())) {
+                        if (!TELEPORTING_MONSTERS.contains(monster.getUniqueId())) {
                             continue;
                         }
                         if (monster.isDead()) {
-                            teleportingMonsters.remove(monster.getUniqueId());
+                            TELEPORTING_MONSTERS.remove(monster.getUniqueId());
                             continue;
                         }
                         if (monster.getTarget() != null) {
@@ -57,7 +57,7 @@ public class TeleporterModifier {
                     continue;
                 }
                 if (monster.getScoreboardTags().contains("adm_modifier_teleporter")) {
-                    teleportingMonsters.add(monster.getUniqueId());
+                    TELEPORTING_MONSTERS.add(monster.getUniqueId());
                 }
             }
         }
