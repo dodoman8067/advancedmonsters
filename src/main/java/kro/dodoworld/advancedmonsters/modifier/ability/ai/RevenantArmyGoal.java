@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
+@Deprecated
 public class RevenantArmyGoal implements Listener, Goal<Creature> {
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
     private final GoalKey<Creature> key = GoalKey.of(Creature.class, new NamespacedKey(plugin, "revenant_army"));
@@ -37,7 +38,7 @@ public class RevenantArmyGoal implements Listener, Goal<Creature> {
 
     @Override
     public boolean shouldStayActive() {
-        return Goal.super.shouldStayActive();
+        return true;
     }
 
     @Override
@@ -59,11 +60,15 @@ public class RevenantArmyGoal implements Listener, Goal<Creature> {
         if(i % 1000 == 0){
             i = 0;
         }
-        entity.setTarget(summoner.getTarget());
-        if(summoner.getTarget() != null && !entity.hasLineOfSight(summoner.getTarget())){
+        if(summoner.getTarget() != null){
+            entity.setTarget(summoner.getTarget());
             if(i % 200 == 0){
                 entity.teleport(summoner.getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
             }
+        }
+        if(summoner.isDead()){
+            entity.getWorld().strikeLightningEffect(entity.getLocation());
+            entity.remove();
         }
     }
 
@@ -72,7 +77,7 @@ public class RevenantArmyGoal implements Listener, Goal<Creature> {
         if(event.getEntity() != entity) return;
         if((Math.random() * 10) <= 4){
             if(event.getEntity().isDead()) return;
-            event.getEntity().getWorld().spawnParticle(Particle.SOUL, event.getEntity().getLocation(), 2);
+            event.getEntity().getWorld().spawnParticle(Particle.SOUL, event.getEntity().getLocation(), 5, 0, 0, 0, 2);
         }
     }
 

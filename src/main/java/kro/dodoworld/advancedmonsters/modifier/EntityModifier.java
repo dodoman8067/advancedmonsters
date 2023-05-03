@@ -5,8 +5,6 @@ import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.RevenantModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
@@ -35,7 +33,7 @@ public class EntityModifier implements Listener {
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
             MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
-            MonsterAbility.FROZEN, MonsterAbility.REVENANT
+            MonsterAbility.FROZEN
     );
     private final Random random = new Random();
 
@@ -157,12 +155,6 @@ public class EntityModifier implements Listener {
             }
             case LIGHTING -> {
                 throw new UnsupportedOperationException("Lighting not added!");
-            }
-            case REVENANT -> {
-                monster.setCustomNameVisible(true);
-                monster.addScoreboardTag("adm_modifier_revenant");
-                RevenantModifier.getRevenantMonsters().add(monster.getUniqueId());
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.REVENANT).append(Component.text(MonsterAbility.REVENANT.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
         }
     }

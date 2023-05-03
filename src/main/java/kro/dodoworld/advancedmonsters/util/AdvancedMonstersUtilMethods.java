@@ -36,7 +36,6 @@ public class AdvancedMonstersUtilMethods {
                 case "adm_modifier_stormy" -> returnValue.add(MonsterAbility.STORMY);
                 case "adm_modifier_frozen" -> returnValue.add(MonsterAbility.FROZEN);
                 case "adm_modifier_lighting" -> returnValue.add(MonsterAbility.LIGHTING);
-                case "adm_modifier_revenant" -> returnValue.add(MonsterAbility.REVENANT);
             }
         }
         return returnValue;
@@ -64,7 +63,6 @@ public class AdvancedMonstersUtilMethods {
                 case STORMY -> returnValue = "\uD83C\uDF27";
                 case FROZEN -> returnValue = "❄";
                 case LIGHTING -> returnValue = "⚡";
-                case REVENANT -> returnValue = "☠";
             }
         return returnValue;
     }
@@ -87,7 +85,6 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = Component.text("\uD83C\uDF27").color(TextColor.color(22, 184, 162)).asComponent();
             case FROZEN -> returnValue = Component.text("❄").color(TextColor.color(165, 197, 217)).asComponent();
             case LIGHTING -> returnValue = Component.text("⚡").color(TextColor.color(251, 242, 198)).asComponent();
-            case REVENANT -> returnValue = Component.text("☠").color(TextColor.color(86, 32, 125)).asComponent();
         }
         return returnValue;
     }
@@ -152,8 +149,6 @@ public class AdvancedMonstersUtilMethods {
                 .replaceAll("\\{lightingStrikeChance}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_strike_chance")))
                 .replaceAll("\\{maxLightingStrikeAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getInt("max_lighting_strike_amount")))
                 .replaceAll("\\{lightingDamageAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")))
-                .replaceAll("\\{monsterReviveRange}", String.valueOf(RevenantModifierConfig.getRevenantModifierConfig().getDouble("monster_revive_range")))
-                .replaceAll("\\{monsterReviveChance}", String.valueOf(RevenantModifierConfig.getRevenantModifierConfig().getDouble("monster_revive_chance")));
 
         return returnValue;
     }
@@ -188,7 +183,6 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
             case FROZEN -> returnValue = FrozenModifierConfig.getFrozenModifierConfig();
             case LIGHTING -> returnValue = LightingModifierConfig.getLightingModifierConfig();
-            case REVENANT -> returnValue = RevenantModifierConfig.getRevenantModifierConfig();
             default -> throw new IllegalArgumentException("Unknown MonsterAbility enum value");
         }
         return returnValue;

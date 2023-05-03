@@ -14,8 +14,7 @@ public enum MonsterAbility {
     STORMY,
     VENOMOUS,
     FROZEN,
-    LIGHTING,
-    REVENANT;
+    LIGHTING;
 
     /**
      * @return User-friendly ability name
@@ -38,7 +37,6 @@ public enum MonsterAbility {
             case VENOMOUS -> value = "Venomous";
             case FROZEN -> value = "Frozen";
             case LIGHTING -> value = "Lighting";
-            case REVENANT -> value = "Revenant";
         }
         return value;
     }
