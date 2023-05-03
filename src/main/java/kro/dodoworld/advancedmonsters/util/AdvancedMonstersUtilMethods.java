@@ -148,7 +148,7 @@ public class AdvancedMonstersUtilMethods {
                 .replaceAll("\\{freezeEffectTicks}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getInt("freeze_effect_ticks")))
                 .replaceAll("\\{lightingStrikeChance}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_strike_chance")))
                 .replaceAll("\\{maxLightingStrikeAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getInt("max_lighting_strike_amount")))
-                .replaceAll("\\{lightingDamageAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")))
+                .replaceAll("\\{lightingDamageAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")));
 
         return returnValue;
     }
