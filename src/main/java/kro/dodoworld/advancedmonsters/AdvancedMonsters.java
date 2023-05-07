@@ -15,6 +15,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.type.BoomerModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.FlamingModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.FrozenModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.LightingModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.PunchyModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.StormyModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.StrongModifier;
@@ -70,6 +71,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
         getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
+        getServer().getPluginManager().registerEvents(new LightingModifier(), this);
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
@@ -114,7 +116,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
         if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
             logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
-            logger.warning("Bugs may crawl in this version.");
+            logger.warning("Bugs may crawl up in this version.");
             return true;
         }
         return true;

@@ -154,7 +154,9 @@ public class EntityModifier implements Listener {
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FROZEN).append(Component.text(MonsterAbility.FROZEN.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case LIGHTING -> {
-                throw new UnsupportedOperationException("Lighting not added!");
+                monster.addScoreboardTag("adm_modifier_lighting");
+                monster.setCustomNameVisible(true);
+                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.LIGHTING).append(Component.text(MonsterAbility.LIGHTING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
         }
     }
