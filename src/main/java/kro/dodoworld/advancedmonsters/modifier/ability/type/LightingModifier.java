@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.LightingModifierConfig;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Projectile;
@@ -21,7 +22,7 @@ public class LightingModifier implements Listener {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
         if(!(event.getDamager() instanceof Monster)) return;
-        if(!(event.getEntity() instanceof Mob)) return;
+        if(!(event.getEntity() instanceof LivingEntity)) return;
         if(!event.getDamager().getScoreboardTags().contains("adm_modifier_lighting")) return;
         FileConfiguration config = LightingModifierConfig.getLightingModifierConfig();
         double chance = config.getDouble("lighting_strike_chance");
@@ -32,7 +33,7 @@ public class LightingModifier implements Listener {
             int amount = rnd.nextInt(0, maxAmount + 1);
             for(int i = 0; i<=amount; i++){
                 event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
-                ((Mob) event.getEntity()).damage(damageAmount, event.getDamager());
+                ((LivingEntity) event.getEntity()).damage(damageAmount);
             }
         }
     }
@@ -42,7 +43,7 @@ public class LightingModifier implements Listener {
         if(!(event.getDamager() instanceof Projectile)) return;
         if(((Projectile) event.getDamager()).getShooter() == null) return;
         if(!(((Projectile) event.getDamager()).getShooter() instanceof Monster monster)) return;
-        if(!(event.getEntity() instanceof Mob)) return;
+        if(!(event.getEntity() instanceof LivingEntity)) return;
         if(!monster.getScoreboardTags().contains("adm_modifier_lighting")) return;
         FileConfiguration config = LightingModifierConfig.getLightingModifierConfig();
         double chance = config.getDouble("lighting_strike_chance");
@@ -53,7 +54,7 @@ public class LightingModifier implements Listener {
             int amount = rnd.nextInt(0, maxAmount + 1);
             for(int i = 0; i<=amount; i++){
                 event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation());
-                ((Mob) event.getEntity()).damage(damageAmount, event.getDamager());
+                ((LivingEntity) event.getEntity()).damage(damageAmount);
             }
         }
     }

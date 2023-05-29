@@ -33,7 +33,7 @@ public class EntityModifier implements Listener {
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
             MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
-            MonsterAbility.FROZEN
+            MonsterAbility.FROZEN, MonsterAbility.LIGHTING
     );
     private final Random random = new Random();
 
