@@ -1,7 +1,8 @@
 package kro.dodoworld.advancedmonsters;
 
 import kro.dodoworld.advancedmonsters.command.MiniBossSpawnCommand;
-import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
+import kro.dodoworld.advancedmonsters.command.AbilityCommand;
+import kro.dodoworld.advancedmonsters.command.tab.AbilityTabCompleter;
 import kro.dodoworld.advancedmonsters.command.tab.MiniBossSpawnTabCompleter;
 import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
@@ -84,7 +85,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
-        getCommand("ability").setExecutor(new UnlockedMobs());
+        getCommand("ability").setExecutor(new AbilityCommand());
+        getCommand("ability").setTabCompleter(new AbilityTabCompleter());
         getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
         getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
         logger.info("Loading commands took " + (System.currentTimeMillis() - commandMs) + "ms.");
