@@ -56,8 +56,12 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
-jar {
-    destinationDirectory.set(file("C:\\Users\\HP\\Desktop\\test\\plugins"))
+
+tasks.register('copyJarToPluginDir') {
+    copy {
+        from 'build/libs/' + rootProject.name + '-' + version + '.jar'
+        into 'C:\\Users\\HP\\Desktop\\test\\plugins'
+    }
 }
 
 compileJava.options.encoding = 'UTF-8'
