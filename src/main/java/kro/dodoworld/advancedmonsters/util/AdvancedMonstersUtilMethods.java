@@ -36,6 +36,7 @@ public class AdvancedMonstersUtilMethods {
                 case "adm_modifier_stormy" -> returnValue.add(MonsterAbility.STORMY);
                 case "adm_modifier_frozen" -> returnValue.add(MonsterAbility.FROZEN);
                 case "adm_modifier_lighting" -> returnValue.add(MonsterAbility.LIGHTING);
+                case "adm_modifier_revitalize" -> returnValue.add(MonsterAbility.REVITALIZE);
             }
         }
         return returnValue;
@@ -63,6 +64,7 @@ public class AdvancedMonstersUtilMethods {
                 case STORMY -> returnValue = "\uD83C\uDF27";
                 case FROZEN -> returnValue = "❄";
                 case LIGHTING -> returnValue = "⚡";
+                case REVITALIZE -> returnValue = "✙";
             }
         return returnValue;
     }
@@ -85,6 +87,7 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = Component.text("\uD83C\uDF27").color(TextColor.color(22, 184, 162)).asComponent();
             case FROZEN -> returnValue = Component.text("❄").color(TextColor.color(165, 197, 217)).asComponent();
             case LIGHTING -> returnValue = Component.text("⚡").color(TextColor.color(251, 242, 198)).asComponent();
+            case REVITALIZE -> returnValue = Component.text("✙").color(TextColor.color(25, 189, 63)).asComponent();
         }
         return returnValue;
     }
@@ -183,6 +186,7 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
             case FROZEN -> returnValue = FrozenModifierConfig.getFrozenModifierConfig();
             case LIGHTING -> returnValue = LightingModifierConfig.getLightingModifierConfig();
+            case REVITALIZE -> throw new UnsupportedOperationException("This ability's config isn't supported");
             default -> throw new IllegalArgumentException("Unknown MonsterAbility enum value");
         }
         return returnValue;
