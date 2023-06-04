@@ -72,5 +72,11 @@ public class DiamondZombie implements Listener {
             if(monsterAbilityUnlockEvent.isCancelled()) return;
             AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
+        if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.STRONG)){
+            MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.STRONG);
+            Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
+            if(monsterAbilityUnlockEvent.isCancelled()) return;
+            AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
+        }
     }
 }
