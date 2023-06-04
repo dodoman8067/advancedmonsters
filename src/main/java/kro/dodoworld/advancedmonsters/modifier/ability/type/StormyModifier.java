@@ -39,7 +39,7 @@ public class StormyModifier implements Listener {
                                         monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation());
                                         monster.getTarget().damage(lightingDamage, monster);
                                         monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ticks, amplifier));
-                                        if(config.getBoolean("show_lighting_damage_message")) monster.getTarget().sendMessage(
+                                        if(config.getBoolean("stormy_show_lighting_damage_message")) monster.getTarget().sendMessage(
                                                 AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString())).append(Component.text(" 능력에 의해 번개에 맞았습니다!")
                                                         .color(TextColor.color(0xFF5555))));
                                     }

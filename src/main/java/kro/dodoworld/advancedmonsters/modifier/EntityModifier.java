@@ -73,7 +73,7 @@ public class EntityModifier implements Listener {
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.HEALTHY)
                         .append(Component.text(MonsterAbility.HEALTHY + " " + toMobName(monster.getType().name()))));
                 AttributeInstance maxHealthAttribute = monster.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-                double healthMultiplier = healthyConfig.getDouble("health_multiply_amount");
+                double healthMultiplier = healthyConfig.getDouble("healthy_health_multiply_amount");
                 maxHealthAttribute.setBaseValue(maxHealthAttribute.getBaseValue() * healthMultiplier);
                 monster.setHealth(maxHealthAttribute.getBaseValue());
             }
@@ -89,8 +89,8 @@ public class EntityModifier implements Listener {
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TANK).append(Component.text(MonsterAbility.TANK.toString() + " ")
                         .append(Component.text(toMobName(monster.getType().name())))));
-                monster.getAttribute(Attribute.GENERIC_ARMOR).addModifier(new AttributeModifier("generic.Armor", tankConfig.getDouble("bonus_defence_amount"), AttributeModifier.Operation.ADD_NUMBER));
-                monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * tankConfig.getDouble("speed_multiply_amount"));
+                monster.getAttribute(Attribute.GENERIC_ARMOR).addModifier(new AttributeModifier("generic.Armor", tankConfig.getDouble("tank_bonus_defence_amount"), AttributeModifier.Operation.ADD_NUMBER));
+                monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * tankConfig.getDouble("tank_speed_multiply_amount"));
             }
             case SPEEDY -> {
                 FileConfiguration speedyConfig = SpeedyModifierConfig.getSpeedyModifierConfig();
@@ -98,9 +98,9 @@ public class EntityModifier implements Listener {
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.SPEEDY).append(Component.text(MonsterAbility.SPEEDY.toString() + " ")
                         .append(Component.text(toMobName(monster.getType().name())))));
-                monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * speedyConfig.getDouble("health_multiply_amount"));
+                monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * speedyConfig.getDouble("speedy_health_multiply_amount"));
                 monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
-                monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedyConfig.getDouble("speed_multiply_amount"));
+                monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedyConfig.getDouble("speedy_speed_multiply_amount"));
             }
             case TELEPORTER -> {
                 monster.addScoreboardTag("adm_modifier_teleporter");
@@ -141,7 +141,7 @@ public class EntityModifier implements Listener {
             }
             case STORMY -> {
                 FileConfiguration stormyConfig = StormyModifierConfig.getStormyModifierConfig();
-                if(stormyConfig.getBoolean("only_spawn_when_storming")){
+                if(stormyConfig.getBoolean("stormy_only_spawn_when_storming")){
                     if(!monster.getWorld().hasStorm()) return;
                 }
                 monster.addScoreboardTag("adm_modifier_stormy");

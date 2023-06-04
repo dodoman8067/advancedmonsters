@@ -26,7 +26,7 @@ public class LightingModifier implements Listener {
         if(!event.getDamager().getScoreboardTags().contains("adm_modifier_lighting")) return;
         FileConfiguration config = LightingModifierConfig.getLightingModifierConfig();
         double chance = config.getDouble("lighting_strike_chance");
-        int maxAmount = config.getInt("max_lighting_strike_amount");
+        int maxAmount = config.getInt("lighting_max_lighting_strike_amount");
         double damageAmount = config.getDouble("lighting_damage_amount");
 
         if((Math.random() * 100) <= chance){

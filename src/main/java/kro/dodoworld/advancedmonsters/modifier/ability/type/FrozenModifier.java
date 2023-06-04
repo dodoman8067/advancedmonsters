@@ -14,8 +14,8 @@ public class FrozenModifier implements Listener {
         if(!(event.getDamager() instanceof Monster)) return;
         if(!event.getDamager().getScoreboardTags().contains("adm_modifier_frozen")) return;
         FileConfiguration config = FrozenModifierConfig.getFrozenModifierConfig();
-        if((Math.random() * 100) <= config.getDouble("freeze_effect_chance")){
-            event.getEntity().setFreezeTicks(config.getInt("freeze_effect_ticks"));
+        if((Math.random() * 100) <= config.getDouble("frozen_freeze_effect_chance")){
+            event.getEntity().setFreezeTicks(config.getInt("frozen_freeze_effect_ticks"));
         }
     }
 
@@ -26,8 +26,8 @@ public class FrozenModifier implements Listener {
             Monster monster = (Monster) projectile.getShooter();
             if(!monster.getScoreboardTags().contains("adm_modifier_frozen")) return;
             FileConfiguration config = FrozenModifierConfig.getFrozenModifierConfig();
-            if((Math.random() * 100) <= config.getDouble("freeze_effect_chance")){
-                event.getEntity().setFreezeTicks(config.getInt("freeze_effect_ticks"));
+            if((Math.random() * 100) <= config.getDouble("frozen_freeze_effect_chance")){
+                event.getEntity().setFreezeTicks(config.getInt("frozen_freeze_effect_ticks"));
             }
         }
     }

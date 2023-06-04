@@ -26,14 +26,14 @@ public class VenomousModifierConfig {
         }
 
         venomousModifierConfig = YamlConfiguration.loadConfiguration(file);
-        venomousModifierConfig.addDefault("apply_effect_chance", 100.0);
-        venomousModifierConfig.addDefault("poison_effect_ticks", 200);
-        venomousModifierConfig.addDefault("poison_effect_amplifier", 3);
-        venomousModifierConfig.addDefault("weakness_effect_ticks", 240);
-        venomousModifierConfig.addDefault("weakness_effect_amplifier", 2);
-        venomousModifierConfig.addDefault("attack_damage_multiply_amount", 1.2);
+        venomousModifierConfig.addDefault("venomous_apply_effect_chance", 100.0);
+        venomousModifierConfig.addDefault("venomous_poison_effect_ticks", 200);
+        venomousModifierConfig.addDefault("venomous_poison_effect_amplifier", 3);
+        venomousModifierConfig.addDefault("venomous_weakness_effect_ticks", 240);
+        venomousModifierConfig.addDefault("venomous_weakness_effect_amplifier", 2);
+        venomousModifierConfig.addDefault("venomous_attack_damage_multiply_amount", 1.2);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "공격 시 {applyEffectChance}% 확률로 독에 걸린다.");
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {venomous_apply_effect_chance}% 확률로 독에 걸린다.");
         venomousModifierConfig.addDefault("command_description", commandDescription);
         venomousModifierConfig.options().copyDefaults(true);
         saveConfig();

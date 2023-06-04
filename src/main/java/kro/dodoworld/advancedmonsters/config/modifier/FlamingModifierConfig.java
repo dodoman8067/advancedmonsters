@@ -26,10 +26,11 @@ public class FlamingModifierConfig {
         }
 
         flamingModifierConfig = YamlConfiguration.loadConfiguration(file);
-        flamingModifierConfig.addDefault("fire_effect_chance", 100.0);
-        flamingModifierConfig.addDefault("fire_effect_ticks", 200);
+        flamingModifierConfig.addDefault("flaming_fire_effect_chance", 100.0);
+        flamingModifierConfig.addDefault("flaming_fire_effect_ticks", 200);
+        flamingModifierConfig.addDefault("flaming_set_fire_on_explode", true);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "공격 시 {fireEffectChance}% 확률로 {fireEffectTicks}틱 동안 불에 붙는다.");
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {flaming_fire_effect_chance}% 확률로 {flaming_fire_effect_ticks}틱 동안 불에 붙는다.");
         flamingModifierConfig.addDefault("command_description", commandDescription);
         flamingModifierConfig.options().copyDefaults(true);
         saveConfig();

@@ -24,7 +24,7 @@ public class TeleporterModifier {
 
     public static void run(AdvancedMonsters plugin) {
         FileConfiguration config = TeleportModifierConfig.getTeleporterModifierConfig();
-        double range = config.getDouble("teleport_range");
+        double range = config.getDouble("teleporter_teleport_range");
 
         new BukkitRunnable() {
             @Override

@@ -27,11 +27,11 @@ public class LightingModifierConfig {
 
         lightingModifierConfig = YamlConfiguration.loadConfiguration(file);
         lightingModifierConfig.addDefault("lighting_strike_chance", 100.0);
-        lightingModifierConfig.addDefault("max_lighting_strike_amount", 4);
+        lightingModifierConfig.addDefault("lighting_max_lighting_strike_amount", 4);
         lightingModifierConfig.addDefault("lighting_damage_amount", 5.0);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "공격 시 {lightingStrikeChance}% 확률로 최대 {maxLightingStrikeAmount}번 만큼 ");
-        commandDescription.add(ChatColor.YELLOW + "{lightingDamageAmount}대미지를 주는 번개를 생성한다.");
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {lighting_strike_chance}% 확률로 최대 {lighting_max_lighting_strike_amount}번 만큼 ");
+        commandDescription.add(ChatColor.YELLOW + "{lighting_damage_amount}대미지를 주는 번개를 생성한다.");
         lightingModifierConfig.addDefault("command_description", commandDescription);
         lightingModifierConfig.options().copyDefaults(true);
         saveConfig();

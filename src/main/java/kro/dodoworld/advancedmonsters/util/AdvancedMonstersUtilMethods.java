@@ -128,31 +128,55 @@ public class AdvancedMonstersUtilMethods {
 
     public static String replace(String value){
         String returnValue;
-        returnValue = value.replaceAll("\\{healthMultiplyAmount}", String.valueOf(HealthyModifierConfig.getHealthyModifierConfig().getDouble("health_multiply_amount")))
-                .replaceAll("\\{damageMultiplyChance}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("damage_multiply_chance")))
-                .replaceAll("\\{damageMultiplyAmount}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("damage_multiply_amount")))
-                .replaceAll("\\{ignoreDamageChance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("ignore_damage_chance")))
-                .replaceAll("\\{bounsDefenceAmount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getInt("bouns_defence_amount")))
-                .replaceAll("\\{tankSpeedMultiplyAmount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("speed_multiply_amount")))
-                .replaceAll("\\{speedMultiplyAmount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("speed_multiply_amount")))
-                .replaceAll("\\{speedyHealthMultiplyAmount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("health_multiply_amount")))
-                .replaceAll("\\{teleportRange}", String.valueOf(TeleportModifierConfig.getTeleporterModifierConfig().getDouble("teleport_range")))
-                .replaceAll("\\{punchAirChance}", String.valueOf(PunchyModifierConfig.getPunchyModifierConfig().getDouble("punch_air_chance")))
-                .replaceAll("\\{tntDropChance}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getDouble("tnt_drop_chance")))
-                .replaceAll("\\{fireEffectChance}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("fire_effect_chance")))
-                .replaceAll("\\{fireEffectTicks}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("fire_effect_ticks")))
-                .replaceAll("\\{laserShootRange}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_shoot_range")))
-                .replaceAll("\\{laserDamage}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_damage")))
-                .replaceAll("\\{applyEffectChance}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("apply_effect_chance")))
-                .replaceAll("\\{stormyLightingRange}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_range")))
-                .replaceAll("\\{stormyLightingCooldown}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_lighting_cooldown")))
-                .replaceAll("\\{stormyLightingDamage}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_damage")))
-                .replaceAll("\\{freezeEffectChance}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getDouble("freeze_effect_chance")))
-                .replaceAll("\\{freezeEffectTicks}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getInt("freeze_effect_ticks")))
-                .replaceAll("\\{lightingStrikeChance}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_strike_chance")))
-                .replaceAll("\\{maxLightingStrikeAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getInt("max_lighting_strike_amount")))
-                .replaceAll("\\{lightingDamageAmount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")));
+        returnValue = value.replaceAll("\\{boomer_tnt_drop_chance}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getDouble("boomer_tnt_drop_chance")))
+                .replaceAll("\\{boomer_tnt_fuse_ticks}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getInt("boomer_tnt_fuse_ticks")))
 
+                .replaceAll("\\{flaming_fire_effect_chance}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("flaming_fire_effect_chance")))
+                .replaceAll("\\{flaming_fire_effect_ticks}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getInt("flaming_fire_effect_ticks")))
+                .replaceAll("\\{flaming_set_fire_on_explode}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getBoolean("flaming_set_fire_on_explode")))
+
+                .replaceAll("\\{frozen_freeze_effect_chance}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getDouble("frozen_freeze_effect_chance")))
+                .replaceAll("\\{frozen_freeze_effect_ticks}", String.valueOf(FrozenModifierConfig.getFrozenModifierConfig().getInt("frozen_freeze_effect_ticks")))
+
+                .replaceAll("\\{healthy_health_multiply_amount}", String.valueOf(HealthyModifierConfig.getHealthyModifierConfig().getDouble("healthy_health_multiply_amount")))
+
+                .replaceAll("\\{laser_shoot_range}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_shoot_range")))
+                .replaceAll("\\{laser_damage}", String.valueOf(LaserModifierConfig.getLaserModifierConfig().getDouble("laser_damage")))
+
+                .replaceAll("\\{lighting_strike_chance}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_strike_chance")))
+                .replaceAll("\\{lighting_max_lighting_strike_amount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getInt("lighting_max_lighting_strike_amount")))
+                .replaceAll("\\{lighting_damage_amount}", String.valueOf(LightingModifierConfig.getLightingModifierConfig().getDouble("lighting_damage_amount")))
+
+                .replaceAll("\\{punchy_punch_air_chance}", String.valueOf(PunchyModifierConfig.getPunchyModifierConfig().getDouble("punchy_punch_air_chance")))
+                .replaceAll("\\{punchy_show_punch_air_message}", String.valueOf(PunchyModifierConfig.getPunchyModifierConfig().getBoolean("punchy_show_punch_air_message")))
+
+                .replaceAll("\\{stormy_lighting_range}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_range")))
+                .replaceAll("\\{stormy_lighting_damage}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getDouble("stormy_lighting_damage")))
+                .replaceAll("\\{stormy_show_lighting_damage_message}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getBoolean("stormy_show_lighting_damage_message")))
+                .replaceAll("\\{stormy_slow_effect_ticks}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_slow_effect_ticks")))
+                .replaceAll("\\{stormy_slow_effect_amplifier}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_slow_effect_amplifier")))
+                .replaceAll("\\{stormy_lighting_cooldown}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getInt("stormy_lighting_cooldown")))
+                .replaceAll("\\{stormy_only_spawn_when_storming}", String.valueOf(StormyModifierConfig.getStormyModifierConfig().getBoolean("stormy_only_spawn_when_storming")))
+
+                .replaceAll("\\{strong_damage_multiply_chance}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("strong_damage_multiply_chance")))
+                .replaceAll("\\{strong_damage_multiply_amount}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("strong_damage_multiply_amount")))
+
+                .replaceAll("\\{tank_ignore_damage_chance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_ignore_damage_chance")))
+                .replaceAll("\\{tank_send_damage_nullify_message}", String.valueOf(TankModifierConfig.getTankModifierConfig().getBoolean("tank_send_damage_nullify_message")))
+                .replaceAll("\\{tank_ignore_damage_chance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_bouns_defence_amount")))
+                .replaceAll("\\{tank_speed_multiply_amount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_speed_multiply_amount")))
+
+                .replaceAll("\\{speedy_health_multiply_amount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("speedy_health_multiply_amount")))
+                .replaceAll("\\{speedy_speed_multiply_amount}", String.valueOf(SpeedyModifierConfig.getSpeedyModifierConfig().getDouble("speedy_speed_multiply_amount")))
+
+                .replaceAll("\\{teleporter_teleport_range}", String.valueOf(TeleportModifierConfig.getTeleporterModifierConfig().getDouble("teleporter_teleport_range")))
+
+                .replaceAll("\\{venomous_apply_effect_chance}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_apply_effect_chance")))
+                .replaceAll("\\{venomous_poison_effect_ticks}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_poison_effect_ticks")))
+                .replaceAll("\\{venomous_poison_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_poison_effect_amplifier")))
+                .replaceAll("\\{venomous_weakness_effect_ticks}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_ticks")))
+                .replaceAll("\\{venomous_weakness_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_amplifier")))
+                .replaceAll("\\{venomous_attack_damage_multiply_amount}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_attack_damage_multiply_amount")));
         return returnValue;
     }
 

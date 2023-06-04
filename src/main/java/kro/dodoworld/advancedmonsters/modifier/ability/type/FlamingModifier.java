@@ -21,8 +21,8 @@ public class FlamingModifier implements Listener {
         if(!(event.getEntity() instanceof LivingEntity entity)) return;
         if(!monster.getScoreboardTags().contains("adm_modifier_flaming")) return;
         double chance = Math.random() * 100;
-        if(!(chance <= FlamingModifierConfig.getFlamingModifierConfig().getDouble("fire_effect_chance"))) return;
-        int ticks = FlamingModifierConfig.getFlamingModifierConfig().getInt("fire_effect_ticks");
+        if(!(chance <= FlamingModifierConfig.getFlamingModifierConfig().getDouble("flaming_fire_effect_chance"))) return;
+        int ticks = FlamingModifierConfig.getFlamingModifierConfig().getInt("flaming_fire_effect_ticks");
         entity.setFireTicks(ticks);
     }
 
@@ -40,6 +40,7 @@ public class FlamingModifier implements Listener {
     public void onExplode(ExplosionPrimeEvent event){
         if(!(event.getEntity() instanceof Monster monster)) return;
         if(!monster.getScoreboardTags().contains("adm_modifier_flaming")) return;
+        if(!FlamingModifierConfig.getFlamingModifierConfig().getBoolean("flaming_set_fire_on_explode")) return;
         event.setFire(true);
     }
 

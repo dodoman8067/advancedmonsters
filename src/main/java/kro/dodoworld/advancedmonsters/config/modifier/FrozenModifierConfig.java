@@ -26,10 +26,10 @@ public class FrozenModifierConfig {
         }
 
         frozenModifierConfig = YamlConfiguration.loadConfiguration(file);
-        frozenModifierConfig.addDefault("freeze_effect_chance", 100.0);
-        frozenModifierConfig.addDefault("freeze_effect_ticks", 200);
+        frozenModifierConfig.addDefault("frozen_freeze_effect_chance", 100.0);
+        frozenModifierConfig.addDefault("frozen_freeze_effect_ticks", 200);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "공격 시 {freezeEffectChance}% 확률로 {freezeEffectTicks}틱 동안 몸이 얼어버린다.");
+        commandDescription.add(ChatColor.YELLOW + "공격 시 {frozen_freeze_effect_chance}% 확률로 {frozen_freeze_effect_ticks}틱 동안 몸이 얼어버린다.");
         frozenModifierConfig.addDefault("command_description", commandDescription);
         frozenModifierConfig.options().copyDefaults(true);
         saveConfig();

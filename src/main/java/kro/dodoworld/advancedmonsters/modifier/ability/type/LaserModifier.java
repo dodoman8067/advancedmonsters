@@ -26,8 +26,7 @@ public class LaserModifier {
 
                 for(World world : Bukkit.getWorlds()){
                     for(LivingEntity entity : world.getLivingEntities()){
-                        if(entity instanceof Monster) {
-                            Monster monster = (Monster) entity;
+                        if(entity instanceof Monster monster) {
                             if(monster.getScoreboardTags().contains("adm_modifier_laser")){
                                 if(monster.isDead()) cancel();
                                 if(monster.getTarget() != null){

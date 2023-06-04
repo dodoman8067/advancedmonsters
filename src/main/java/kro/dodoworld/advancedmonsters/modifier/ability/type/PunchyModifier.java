@@ -26,13 +26,13 @@ public class PunchyModifier implements Listener {
         if(event.getDamager() instanceof Monster && event.getEntity() instanceof LivingEntity){
             if(event.getDamager().getScoreboardTags().contains("adm_modifier_punchy")){
                 double rnd = Math.random() * 100;
-                if(rnd <= PunchyModifierConfig.getPunchyModifierConfig().getDouble("punch_air_chance")){
+                if(rnd <= PunchyModifierConfig.getPunchyModifierConfig().getDouble("punchy_punch_air_chance")){
                     event.setCancelled(true);
                     LivingEntity player = (LivingEntity) event.getEntity();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                         player.setVelocity(new Vector(0,2,0));
                     }, 1L);
-                    if(player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("show_punch_air_message")){
+                    if(player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("punchy_show_punch_air_message")){
                         player.sendMessage(ChatColor.GREEN + "Punchy " + ChatColor.RED + "능력으로 의해 하늘로 날려졌습니다!");
                     }
                 }
@@ -41,13 +41,13 @@ public class PunchyModifier implements Listener {
         if(event.getDamager() instanceof Projectile && ((Projectile) event.getDamager()).getShooter() instanceof Monster){
             if(!(((Monster) ((Projectile) event.getDamager()).getShooter()).getScoreboardTags().contains("adm_modifier_punchy"))) return;
             double rnd = Math.random() * 100;
-            if(rnd <= PunchyModifierConfig.getPunchyModifierConfig().getDouble("punch_air_chance")) {
+            if(rnd <= PunchyModifierConfig.getPunchyModifierConfig().getDouble("punchy_punch_air_chance")) {
                 event.setCancelled(true);
                 LivingEntity player = (LivingEntity) event.getEntity();
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     player.setVelocity(new Vector(0, 2, 0));
                 }, 1L);
-                if (player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("show_punch_air_message")) {
+                if (player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("punchy_show_punch_air_message")) {
                     player.sendMessage(ChatColor.GREEN + "Punchy " + ChatColor.RED + "능력으로 의해 하늘로 날려졌습니다!");
                 }
             }
