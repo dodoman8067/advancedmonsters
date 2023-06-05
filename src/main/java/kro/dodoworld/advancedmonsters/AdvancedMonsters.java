@@ -71,6 +71,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
         getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
         getServer().getPluginManager().registerEvents(new AbilityUnlock(), this);
+        getServer().getPluginManager().registerEvents(new SludgeGore(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();

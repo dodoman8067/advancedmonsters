@@ -6,6 +6,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Sbe;
+import kro.dodoworld.advancedmonsters.entity.miniboss.SludgeGore;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
@@ -65,6 +66,10 @@ public class MiniBossSpawn implements Listener {
                 if(bossType == 1){
                     EarthQuaker.createEarthQuaker(event.getLocation());
                 }
+            }
+            if(entity.getType().equals(EntityType.SLIME)){
+                event.setCancelled(true);
+                SludgeGore.createSludgeGore(event.getLocation());
             }
         }
     }

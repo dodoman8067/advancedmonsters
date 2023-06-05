@@ -2,6 +2,10 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.PunchyModifierConfig;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
@@ -33,7 +37,7 @@ public class PunchyModifier implements Listener {
                         player.setVelocity(new Vector(0,2,0));
                     }, 1L);
                     if(player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("punchy_show_punch_air_message")){
-                        player.sendMessage(ChatColor.GREEN + "Punchy " + ChatColor.RED + "능력으로 의해 하늘로 날려졌습니다!");
+                        player.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.PUNCHY).append(Component.text(MonsterAbility.PUNCHY.toString() + " ").append(Component.text("능력으로 의해 하늘로 날려졌습니다!", NamedTextColor.RED))));
                     }
                 }
             }
@@ -48,7 +52,7 @@ public class PunchyModifier implements Listener {
                     player.setVelocity(new Vector(0, 2, 0));
                 }, 1L);
                 if (player instanceof Player && PunchyModifierConfig.getPunchyModifierConfig().getBoolean("punchy_show_punch_air_message")) {
-                    player.sendMessage(ChatColor.GREEN + "Punchy " + ChatColor.RED + "능력으로 의해 하늘로 날려졌습니다!");
+                    player.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.PUNCHY).append(Component.text(MonsterAbility.PUNCHY.toString() + " ").append(Component.text("능력으로 의해 하늘로 날려졌습니다!", NamedTextColor.RED))));
                 }
             }
         }

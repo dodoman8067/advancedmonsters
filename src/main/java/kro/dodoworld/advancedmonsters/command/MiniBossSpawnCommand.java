@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.DiamondZombie;
 import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
+import kro.dodoworld.advancedmonsters.entity.miniboss.SludgeGore;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import net.kyori.adventure.text.Component;
@@ -38,6 +39,7 @@ public class MiniBossSpawnCommand implements CommandExecutor {
             case "bombie" -> Bombie.createBombie(loc);
             case "storm" -> Storm.createStorm(loc);
             case "earth_quaker" -> EarthQuaker.createEarthQuaker(loc);
+            case "sludgegore" -> SludgeGore.createSludgeGore(loc);
             default -> sender.sendMessage(Component.text("알 수 없는 미니보스 입니다!").color(NamedTextColor.LIGHT_PURPLE));
         }
         return true;
