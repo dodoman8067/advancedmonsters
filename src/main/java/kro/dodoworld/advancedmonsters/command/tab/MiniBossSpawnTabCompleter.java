@@ -20,6 +20,7 @@ public class MiniBossSpawnTabCompleter implements TabCompleter {
         returnArgs.add("bombie");
         returnArgs.add("storm");
         returnArgs.add("earth_quaker");
+        returnArgs.add("sludgegore");
     }
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
