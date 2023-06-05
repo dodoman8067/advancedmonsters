@@ -30,6 +30,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     private final Logger logger = getLogger();
     private static MonsterLevel monsterLevel;
+    private final boolean beta = true;
 
     @Override
     public void onEnable() {
@@ -106,6 +107,10 @@ public final class AdvancedMonsters extends JavaPlugin {
             logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
             logger.warning("Bugs may crawl up in this version.");
             return true;
+        }
+        if(beta){
+            logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
+            logger.warning("I suggest run stable version if you are NOT developer.");
         }
         return true;
     }
