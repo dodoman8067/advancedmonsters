@@ -16,12 +16,16 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Stray;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
@@ -31,7 +35,7 @@ public class MiniBossSpawn implements Listener {
     @EventHandler
     public void onSpawn(EntitySpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if(!(event.getEntity() instanceof Monster entity)) return;
+        Entity entity = event.getEntity();
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();
         if((rnd.nextInt(0, 51) == 1)){
 

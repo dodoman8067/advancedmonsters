@@ -11,6 +11,7 @@ import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -44,9 +45,17 @@ public class SludgeGore implements Listener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event){
+    public void onAttack(EntityDamageByEntityEvent event){
         if(!event.getDamager().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
         if(!(event.getEntity() instanceof LivingEntity entity)) return;
         entity.setVelocity(entity.getLocation().getDirection().multiply(-5));
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
+        if(event.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE) || event.getCause().equals(EntityDamageEvent.DamageCause.LAVA) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK) || event.getCause().equals(EntityDamageEvent.DamageCause.MAGIC)){
+            event.setCancelled(true);
+        }
     }
 }
