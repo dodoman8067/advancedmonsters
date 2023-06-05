@@ -26,10 +26,10 @@ public class BoomerModifierConfig {
         }
 
         boomerModifierConfig = YamlConfiguration.loadConfiguration(file);
-        boomerModifierConfig.addDefault("tnt_drop_chance", 100.0);
-        boomerModifierConfig.addDefault("tnt_fuse_ticks", 70);
+        boomerModifierConfig.addDefault("boomer_tnt_drop_chance", 100.0);
+        boomerModifierConfig.addDefault("boomer_tnt_fuse_ticks", 70);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "죽일 시 TNT를 {tntDropChance} 확률로 드롭 한다.");
+        commandDescription.add(ChatColor.YELLOW + "죽일 시 TNT를 {boomer_tnt_drop_chance} 확률로 드롭 한다.");
         boomerModifierConfig.addDefault("command_description", commandDescription);
         boomerModifierConfig.options().copyDefaults(true);
         saveConfig();

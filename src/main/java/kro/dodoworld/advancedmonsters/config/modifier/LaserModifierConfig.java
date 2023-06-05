@@ -29,8 +29,8 @@ public class LaserModifierConfig {
         laserModifierConfig.addDefault("laser_shoot_range", 50.0);
         laserModifierConfig.addDefault("laser_damage", 4.0);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "적이 {laserShootRange} 블록 이내에 있다면,");
-        commandDescription.add(ChatColor.YELLOW + "{laserDamage} 대미지를 주는 레이저를 쏜다.");
+        commandDescription.add(ChatColor.YELLOW + "적이 {laser_shoot_range} 블록 이내에 있다면,");
+        commandDescription.add(ChatColor.YELLOW + "{laser_damage} 대미지를 주는 레이저를 쏜다.");
         laserModifierConfig.addDefault("command_description", commandDescription);
         laserModifierConfig.options().copyDefaults(true);
         saveConfig();

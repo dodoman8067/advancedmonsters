@@ -26,9 +26,9 @@ public class TeleportModifierConfig {
         }
 
         teleporterModifierConfig = YamlConfiguration.loadConfiguration(file);
-        teleporterModifierConfig.addDefault("teleport_range", 4.0);
+        teleporterModifierConfig.addDefault("teleporter_teleport_range", 4.0);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "적이 주변 {teleportRange}블록 이내에 없다면 적의 위치로 텔레포트한다.");
+        commandDescription.add(ChatColor.YELLOW + "적이 주변 {teleporter_teleport_range}블록 이내에 없다면 적의 위치로 텔레포트한다.");
         teleporterModifierConfig.addDefault("command_description", commandDescription);
         teleporterModifierConfig.options().copyDefaults(true);
         saveConfig();

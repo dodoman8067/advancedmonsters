@@ -1,8 +1,7 @@
 package kro.dodoworld.advancedmonsters;
 
-import kro.dodoworld.advancedmonsters.command.MiniBossSpawnCommand;
-import kro.dodoworld.advancedmonsters.command.UnlockedMobs;
-import kro.dodoworld.advancedmonsters.command.tab.MiniBossSpawnTabCompleter;
+import kro.dodoworld.advancedmonsters.command.*;
+import kro.dodoworld.advancedmonsters.command.tab.*;
 import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
 import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.*;
@@ -11,15 +10,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.*;
 import kro.dodoworld.advancedmonsters.modifier.EntityModifier;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.BoomerModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.FlamingModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.LaserModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.PunchyModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.StormyModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.StrongModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.TankModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.VenomousModifier;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
 import kro.dodoworld.advancedmonsters.modifier.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
@@ -34,13 +25,12 @@ import java.util.logging.Logger;
 public final class AdvancedMonsters extends JavaPlugin {
 
     /**
-     * TODO: Add frozen entity ability
      * TODO: Add Necromancer boss
-     * TODO: Rewrite all code (Current code is hard to maintain)
      */
 
     private final Logger logger = getLogger();
     private static MonsterLevel monsterLevel;
+    private final boolean beta = false;
 
     @Override
     public void onEnable() {
@@ -68,6 +58,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new StrongModifier(), this);
         getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
+        getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
+        getServer().getPluginManager().registerEvents(new LightingModifier(), this);
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
         getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
@@ -82,7 +74,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
-        getCommand("ability").setExecutor(new UnlockedMobs());
+        getCommand("ability").setExecutor(new AbilityCommand());
+        getCommand("ability").setTabCompleter(new AbilityTabCompleter());
         getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
         getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
         logger.info("Loading commands took " + (System.currentTimeMillis() - commandMs) + "ms.");
@@ -111,11 +104,13 @@ public final class AdvancedMonsters extends JavaPlugin {
         }
         logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
         if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
-            logger.severe("This plugin uses minecraft code.");
-            logger.severe("Means this plugin can't be enabled in other versions. (Supported version is 1.19.1 ~ 1.19.2)");
-            logger.severe("Disabling plugin...");
-            getPluginLoader().disablePlugin(this);
-            return false;
+            logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
+            logger.warning("Bugs may crawl up in this version.");
+            return true;
+        }
+        if(beta){
+            logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
+            logger.warning("I suggest run stable version if you are NOT developer.");
         }
         return true;
     }
@@ -167,6 +162,12 @@ public final class AdvancedMonsters extends JavaPlugin {
         VenomousModifierConfig.init();
         VenomousModifierConfig.saveConfig();
         VenomousModifierConfig.reloadConfig();
+        FrozenModifierConfig.init();
+        FrozenModifierConfig.saveConfig();
+        FrozenModifierConfig.reloadConfig();
+        LightingModifierConfig.init();
+        LightingModifierConfig.saveConfig();
+        LightingModifierConfig.reloadConfig();
     }
 
     private void removeEntities(){

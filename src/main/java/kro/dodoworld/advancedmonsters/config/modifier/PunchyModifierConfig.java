@@ -26,10 +26,10 @@ public class PunchyModifierConfig {
         }
 
         punchyModifierConfig = YamlConfiguration.loadConfiguration(file);
-        punchyModifierConfig.addDefault("punch_air_chance", 40.0);
-        punchyModifierConfig.addDefault("show_punch_air_message", true);
+        punchyModifierConfig.addDefault("punchy_punch_air_chance", 40.0);
+        punchyModifierConfig.addDefault("punchy_show_punch_air_message", true);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "적을 {punchAirChance}% 확률로 하늘로 날린다.");
+        commandDescription.add(ChatColor.YELLOW + "적을 {punchy_punch_air_chance}% 확률로 하늘로 날린다.");
         punchyModifierConfig.addDefault("command_description", commandDescription);
         punchyModifierConfig.options().copyDefaults(true);
         saveConfig();

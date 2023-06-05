@@ -13,7 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class UnlockedMobs implements CommandExecutor {
+public class AbilityCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(command.getName().equalsIgnoreCase("ability")){
@@ -38,7 +38,7 @@ public class UnlockedMobs implements CommandExecutor {
         for(MonsterAbility ability : MonsterAbility.values()){
             if(AdvancedMonstersUtilMethods.isRevealed(ability)){
                 returnValue.append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(getUnlockedMessage(ability)).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString() + ChatColor.YELLOW + " 능력의 설명 보기"))))
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString())) );
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString().toLowerCase())) );
             }else{
                 returnValue.append(Component.text(ChatColor.GRAY + "?").append(getUnlockedMessage(ability))).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text(ChatColor.GRAY + "아직 발견되지 않은 능력입니다!")));
             }
@@ -68,7 +68,7 @@ public class UnlockedMobs implements CommandExecutor {
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
         }else{
-            if(!AdvancedMonstersUtilMethods.isUnlocked(ability)){
+            if(!AdvancedMonstersUtilMethods.isRevealed(ability)){
                 sender.sendMessage(ChatColor.RED + "알 수 없는 능력입니다!");
                 return;
             }

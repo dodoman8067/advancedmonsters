@@ -25,10 +25,10 @@ public class StrongModifierConfig {
             }
         }
         strongModifierConfig = YamlConfiguration.loadConfiguration(file);
-        strongModifierConfig.addDefault("damage_multiply_chance", 100.0);
-        strongModifierConfig.addDefault("damage_multiply_amount", 2.75);
+        strongModifierConfig.addDefault("strong_damage_multiply_chance", 100.0);
+        strongModifierConfig.addDefault("strong_damage_multiply_amount", 2.75);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "{damageMultiplyChance}% 확률로 대미지가 {damageMultiplyAmount}배가 된다.");
+        commandDescription.add(ChatColor.YELLOW + "{strong_damage_multiply_chance}% 확률로 대미지가 {strong_damage_multiply_amount}배가 된다.");
         strongModifierConfig.addDefault("command_description", commandDescription);
         strongModifierConfig.options().copyDefaults(true);
         saveConfig();

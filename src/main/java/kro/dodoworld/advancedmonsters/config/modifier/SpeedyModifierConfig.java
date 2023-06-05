@@ -26,11 +26,11 @@ public class SpeedyModifierConfig {
         }
 
         speedyModifierConfig = YamlConfiguration.loadConfiguration(file);
-        speedyModifierConfig.addDefault("speed_multiply_amount", 2.0);
-        speedyModifierConfig.addDefault("health_multiply_amount", 0.5);
+        speedyModifierConfig.addDefault("speedy_speed_multiply_amount", 2.0);
+        speedyModifierConfig.addDefault("speedy_health_multiply_amount", 0.5);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "속도가 {speedMultiplyAmount}배가 되지만,");
-        commandDescription.add(ChatColor.YELLOW + "체력은 {speedyHealthMultiplyAmount}배가 된다.");
+        commandDescription.add(ChatColor.YELLOW + "속도가 {speedy_speed_multiply_amount}배가 되지만,");
+        commandDescription.add(ChatColor.YELLOW + "체력은 {speedy_health_multiply_amount}배가 된다.");
         speedyModifierConfig.addDefault("command_description", commandDescription);
         speedyModifierConfig.options().copyDefaults(true);
         saveConfig();

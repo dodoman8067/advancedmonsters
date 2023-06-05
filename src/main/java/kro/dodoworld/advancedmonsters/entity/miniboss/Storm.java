@@ -72,6 +72,13 @@ public class Storm implements Listener {
                             AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
                         }
                     }
+                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.LIGHTING)){
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.LIGHTING);
+                        Bukkit.getServer().getPluginManager().callEvent(event);
+                        if(!event.isCancelled()) {
+                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                        }
+                    }
                     cancel();
 
                     return;

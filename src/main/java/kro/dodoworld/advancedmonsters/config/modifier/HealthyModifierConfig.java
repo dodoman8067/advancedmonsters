@@ -26,9 +26,9 @@ public class HealthyModifierConfig {
         }
 
         healthyModifierConfig = YamlConfiguration.loadConfiguration(file);
-        healthyModifierConfig.addDefault("health_multiply_amount", 2.0);
+        healthyModifierConfig.addDefault("healthy_health_multiply_amount", 2.0);
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "체력이 {healthMultiplyAmount}배 늘어난 채로 스폰된다.");
+        commandDescription.add(ChatColor.YELLOW + "체력이 {healthy_health_multiply_amount}배 늘어난 채로 스폰된다.");
         healthyModifierConfig.addDefault("command_description", commandDescription);
         healthyModifierConfig.options().copyDefaults(true);
         saveConfig();

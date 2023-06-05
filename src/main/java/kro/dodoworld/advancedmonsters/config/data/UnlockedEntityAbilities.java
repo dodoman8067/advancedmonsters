@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.config.data;
 
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,18 +24,9 @@ public class UnlockedEntityAbilities {
         }
 
         unlockedEntityAbilityConfig = YamlConfiguration.loadConfiguration(file);
-        unlockedEntityAbilityConfig.addDefault("healthy", false);
-        unlockedEntityAbilityConfig.addDefault("strong", false);
-        unlockedEntityAbilityConfig.addDefault("tank", false);
-        unlockedEntityAbilityConfig.addDefault("speedy", false);
-        unlockedEntityAbilityConfig.addDefault("invisible", false);
-        unlockedEntityAbilityConfig.addDefault("laser", false);
-        unlockedEntityAbilityConfig.addDefault("boomer", false);
-        unlockedEntityAbilityConfig.addDefault("flaming", false);
-        unlockedEntityAbilityConfig.addDefault("punchy", false);
-        unlockedEntityAbilityConfig.addDefault("teleporter", false);
-        unlockedEntityAbilityConfig.addDefault("venomous", false);
-        unlockedEntityAbilityConfig.addDefault("stormy", false);
+        for(MonsterAbility ability : MonsterAbility.values()){
+            unlockedEntityAbilityConfig.addDefault(ability.toString().toLowerCase(), false);
+        }
         unlockedEntityAbilityConfig.options().copyDefaults(true);
         saveConfig();
         reloadConfig();
