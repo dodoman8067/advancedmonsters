@@ -8,11 +8,11 @@
 Maven 로컬 저장소에 paper-server 1.19.2 모장 매핑을 빌드해 publish 하셨다면
 이 저장소를 복사해 
 
-    ./gradlew build
+    ./gradlew reobfJar
 
 만약 명령 프롬프트에서 작업을 수행 할 경우
 
-    gradlew build
+    gradlew reobfJar
 
 으로 컴파일해 `build/libs` 폴더에서 컴파일된 파일을 구할 수 있습니다.
 
