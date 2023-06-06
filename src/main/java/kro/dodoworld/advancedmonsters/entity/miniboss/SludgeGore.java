@@ -1,19 +1,25 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
+import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class SludgeGore implements Listener {
     public static void createSludgeGore(Location loc){
@@ -27,15 +33,6 @@ public class SludgeGore implements Listener {
         slime.addScoreboardTag("adm_remove_when_reload");
         slime.addScoreboardTag("adm_miniboss_sludgegore");
         slime.setCustomNameVisible(true);
-        new BukkitRunnable(){
-
-            @Override
-            public void run() {
-                if(slime.isDead()){
-                    cancel();
-                }
-            }
-        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 
     @EventHandler
@@ -56,6 +53,19 @@ public class SludgeGore implements Listener {
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
         if(event.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE) || event.getCause().equals(EntityDamageEvent.DamageCause.LAVA) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK) || event.getCause().equals(EntityDamageEvent.DamageCause.MAGIC)){
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent event){
+        if(event.getEntity().getKiller() == null) return;
+        if(!(event.getEntity() instanceof Slime)) return;
+        if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
+        if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.PUNCHY)){
+            MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.PUNCHY);
+            Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
+            if(monsterAbilityUnlockEvent.isCancelled()) return;
+            AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
     }
 }
