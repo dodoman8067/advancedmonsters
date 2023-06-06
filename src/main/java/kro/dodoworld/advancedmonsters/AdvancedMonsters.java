@@ -107,7 +107,6 @@ public final class AdvancedMonsters extends JavaPlugin {
         if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
             logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
             logger.warning("Bugs may crawl up in this version.");
-            return true;
         }
         if(beta){
             logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
