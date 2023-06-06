@@ -19,10 +19,10 @@ import org.bukkit.util.Vector;
 
 public class PunchyModifier implements Listener {
 
-    private static AdvancedMonsters plugin;
+    private final AdvancedMonsters plugin;
 
     public PunchyModifier(AdvancedMonsters plugin){
-        PunchyModifier.plugin = plugin;
+        this.plugin = plugin;
     }
 
     @EventHandler
