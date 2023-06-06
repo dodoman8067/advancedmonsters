@@ -1,4 +1,4 @@
-# advancedmonsters
+# AdvancedMonsters
 
 몬스터들에게 갑옷과 능력을 부여하고 여러 미니 보스를 추가하는 저의 개인 서버용 마인크래프트 플러그인입니다.
 
