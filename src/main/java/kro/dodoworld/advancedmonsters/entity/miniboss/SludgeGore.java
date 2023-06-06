@@ -1,6 +1,5 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
-import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
@@ -11,9 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
