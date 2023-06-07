@@ -210,7 +210,7 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
             case FROZEN -> returnValue = FrozenModifierConfig.getFrozenModifierConfig();
             case LIGHTING -> returnValue = LightingModifierConfig.getLightingModifierConfig();
-            case REVITALIZE -> throw new UnsupportedOperationException("This ability's config isn't supported");
+            case REVITALIZE -> returnValue = RevitalizeModifierConfig.getRevitalizeModifierConfig();
             default -> throw new IllegalArgumentException("Unknown MonsterAbility enum value");
         }
         return returnValue;
