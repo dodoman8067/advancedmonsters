@@ -14,7 +14,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
 import kro.dodoworld.advancedmonsters.modifier.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -103,8 +103,8 @@ public final class AdvancedMonsters extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             return false;
         }
-        logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
-        if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
+        logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
+        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R1")){
             logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
             logger.warning("Bugs may crawl up in this version.");
         }

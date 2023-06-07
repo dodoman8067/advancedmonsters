@@ -6,7 +6,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.WordUtils;
@@ -70,7 +70,7 @@ public class EntityModifier implements Listener {
                 FileConfiguration healthyConfig = HealthyModifierConfig.getHealthyModifierConfig();
                 monster.addScoreboardTag("adm_modifier_healthy");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.HEALTHY)
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.HEALTHY)
                         .append(Component.text(MonsterAbility.HEALTHY + " " + toMobName(monster.getType().name()))));
                 AttributeInstance maxHealthAttribute = monster.getAttribute(Attribute.GENERIC_MAX_HEALTH);
                 double healthMultiplier = healthyConfig.getDouble("healthy_health_multiply_amount");
@@ -80,14 +80,14 @@ public class EntityModifier implements Listener {
             case STRONG -> {
                 monster.addScoreboardTag("adm_modifier_strong");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STRONG)
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.STRONG)
                         .append(Component.text(MonsterAbility.STRONG.toString() + " " + toMobName(monster.getType().name()))));
             }
             case TANK -> {
                 FileConfiguration tankConfig = TankModifierConfig.getTankModifierConfig();
                 monster.addScoreboardTag("adm_modifier_tank");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TANK).append(Component.text(MonsterAbility.TANK.toString() + " ")
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.TANK).append(Component.text(MonsterAbility.TANK.toString() + " ")
                         .append(Component.text(toMobName(monster.getType().name())))));
                 monster.getAttribute(Attribute.GENERIC_ARMOR).addModifier(new AttributeModifier("generic.Armor", tankConfig.getDouble("tank_bonus_defence_amount"), AttributeModifier.Operation.ADD_NUMBER));
                 monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * tankConfig.getDouble("tank_speed_multiply_amount"));
@@ -96,7 +96,7 @@ public class EntityModifier implements Listener {
                 FileConfiguration speedyConfig = SpeedyModifierConfig.getSpeedyModifierConfig();
                 monster.addScoreboardTag("adm_modifier_speedy");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.SPEEDY).append(Component.text(MonsterAbility.SPEEDY.toString() + " ")
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.SPEEDY).append(Component.text(MonsterAbility.SPEEDY.toString() + " ")
                         .append(Component.text(toMobName(monster.getType().name())))));
                 monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * speedyConfig.getDouble("speedy_health_multiply_amount"));
                 monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
@@ -105,39 +105,39 @@ public class EntityModifier implements Listener {
             case TELEPORTER -> {
                 monster.addScoreboardTag("adm_modifier_teleporter");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.TELEPORTER).append(Component.text(MonsterAbility.TELEPORTER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.TELEPORTER).append(Component.text(MonsterAbility.TELEPORTER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
                 TeleporterModifier.getTeleportingMonsters().add(monster.getUniqueId());
             }
             case INVISIBLE -> {
                 monster.addScoreboardTag("adm_modifier_invisible");
                 monster.setInvisible(true);
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.INVISIBLE).append(Component.text(MonsterAbility.INVISIBLE.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.INVISIBLE).append(Component.text(MonsterAbility.INVISIBLE.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case PUNCHY -> {
                 monster.addScoreboardTag("adm_modifier_punchy");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.PUNCHY).append(Component.text(MonsterAbility.PUNCHY.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.PUNCHY).append(Component.text(MonsterAbility.PUNCHY.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case BOOMER -> {
                 monster.addScoreboardTag("adm_modifier_boomer");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.BOOMER).append(Component.text(MonsterAbility.BOOMER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.BOOMER).append(Component.text(MonsterAbility.BOOMER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case FLAMING -> {
                 monster.addScoreboardTag("adm_modifier_flaming");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FLAMING).append(Component.text(MonsterAbility.FLAMING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.FLAMING).append(Component.text(MonsterAbility.FLAMING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case LASER -> {
                 monster.addScoreboardTag("adm_modifier_laser");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.LASER).append(Component.text(MonsterAbility.LASER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.LASER).append(Component.text(MonsterAbility.LASER.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case VENOMOUS -> {
                 monster.addScoreboardTag("adm_modifier_venomous");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.VENOMOUS).append(Component.text(MonsterAbility.VENOMOUS.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.VENOMOUS).append(Component.text(MonsterAbility.VENOMOUS.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case STORMY -> {
                 FileConfiguration stormyConfig = StormyModifierConfig.getStormyModifierConfig();
@@ -146,17 +146,17 @@ public class EntityModifier implements Listener {
                 }
                 monster.addScoreboardTag("adm_modifier_stormy");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case FROZEN -> {
                 monster.addScoreboardTag("adm_modifier_frozen");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.FROZEN).append(Component.text(MonsterAbility.FROZEN.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.FROZEN).append(Component.text(MonsterAbility.FROZEN.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
             case LIGHTING -> {
                 monster.addScoreboardTag("adm_modifier_lighting");
                 monster.setCustomNameVisible(true);
-                monster.customName(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.LIGHTING).append(Component.text(MonsterAbility.LIGHTING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.LIGHTING).append(Component.text(MonsterAbility.LIGHTING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
             }
         }
     }

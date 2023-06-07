@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.command.tab;
 
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ public class AbilityTabCompleter implements TabCompleter {
                 }else{
                     List<String> modifiedList = new ArrayList<>();
                     for(String s : returnArgs){
-                        if(!AdvancedMonstersUtilMethods.isRevealed(MonsterAbility.valueOf(s.toUpperCase()))) continue;
+                        if(!AdvancedUtils.isRevealed(MonsterAbility.valueOf(s.toUpperCase()))) continue;
                         modifiedList.add(s);
                     }
                     return modifiedList;

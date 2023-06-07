@@ -1,7 +1,7 @@
 package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -58,11 +58,11 @@ public class SludgeGore implements Listener {
         if(event.getEntity().getKiller() == null) return;
         if(!(event.getEntity() instanceof Slime)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
-        if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.PUNCHY)){
+        if(!AdvancedUtils.isUnlocked(MonsterAbility.PUNCHY)){
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.PUNCHY);
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
             if(monsterAbilityUnlockEvent.isCancelled()) return;
-            AdvancedMonstersUtilMethods.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
+            AdvancedUtils.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
     }
 }

@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.command;
 
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -36,8 +36,8 @@ public class AbilityCommand implements CommandExecutor {
     private Component getMessage(){
         TextComponent.Builder returnValue = Component.text();
         for(MonsterAbility ability : MonsterAbility.values()){
-            if(AdvancedMonstersUtilMethods.isRevealed(ability)){
-                returnValue.append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(getUnlockedMessage(ability)).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString() + ChatColor.YELLOW + " 능력의 설명 보기"))))
+            if(AdvancedUtils.isRevealed(ability)){
+                returnValue.append(AdvancedUtils.getAbilitySymbolWithColor(ability).append(getUnlockedMessage(ability)).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString() + ChatColor.YELLOW + " 능력의 설명 보기"))))
                         .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString().toLowerCase())) );
             }else{
                 returnValue.append(Component.text(ChatColor.GRAY + "?").append(getUnlockedMessage(ability))).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text(ChatColor.GRAY + "아직 발견되지 않은 능력입니다!")));
@@ -50,7 +50,7 @@ public class AbilityCommand implements CommandExecutor {
 
     private Component getUnlockedMessage(MonsterAbility ability){
         Component returnValue;
-        if(AdvancedMonstersUtilMethods.isUnlocked(ability) && AdvancedMonstersUtilMethods.isRevealed(ability)){
+        if(AdvancedUtils.isUnlocked(ability) && AdvancedUtils.isRevealed(ability)){
             returnValue = Component.text(ChatColor.GREEN + "" + ChatColor.BOLD + "✓");
         }else {
             returnValue = Component.text(ChatColor.RED + "" + ChatColor.BOLD + "✗");
@@ -61,22 +61,22 @@ public class AbilityCommand implements CommandExecutor {
     private void sendAbilityDescriptionMessage(MonsterAbility ability, CommandSender sender){
         if(sender.isOp()){
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
-            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
+            sender.sendMessage(AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
             sender.sendMessage(" ");
-            for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(ability).getStringList("command_description")){
-                sender.sendMessage(AdvancedMonstersUtilMethods.replace(s));
+            for(String s : AdvancedUtils.getAbilityConfig(ability).getStringList("command_description")){
+                sender.sendMessage(AdvancedUtils.replace(s));
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
         }else{
-            if(!AdvancedMonstersUtilMethods.isRevealed(ability)){
+            if(!AdvancedUtils.isRevealed(ability)){
                 sender.sendMessage(ChatColor.RED + "알 수 없는 능력입니다!");
                 return;
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
-            sender.sendMessage(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
+            sender.sendMessage(AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString()).append(Component.text(" 능력에 대한 정보").color(TextColor.color(0xFFAA00)))));
             sender.sendMessage(" ");
-            for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(ability).getStringList("command_description")){
-                sender.sendMessage(AdvancedMonstersUtilMethods.replace(s));
+            for(String s : AdvancedUtils.getAbilityConfig(ability).getStringList("command_description")){
+                sender.sendMessage(AdvancedUtils.replace(s));
             }
             sender.sendMessage(ChatColor.AQUA + "-------------------------------------------");
         }

@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -50,11 +50,11 @@ public class Bombie implements Listener {
             @Override
             public void run() {
                 if(bombie.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.BOOMER)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.BOOMER)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOOMER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();

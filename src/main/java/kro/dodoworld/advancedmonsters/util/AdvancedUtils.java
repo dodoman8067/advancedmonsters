@@ -13,7 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedMonstersUtilMethods {
+public class AdvancedUtils {
 
 
     public static Set<MonsterAbility> getAbilities(LivingEntity entity){

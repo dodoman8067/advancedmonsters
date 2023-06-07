@@ -1,7 +1,7 @@
 package kro.dodoworld.advancedmonsters.modifier.ability;
 
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -18,10 +18,10 @@ public class AbilityUnlock implements Listener {
     private void sendMessage(MonsterAbilityUnlockEvent event){
         Bukkit.broadcast(Component.text("-----------------------------------------", NamedTextColor.YELLOW, TextDecoration.BOLD));
         Bukkit.broadcast(Component.text("                    능력 해제", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        Bukkit.broadcast(Component.text("                       ").append(AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(event.getAbility()).append(Component.text(event.getAbility().toString()))));
+        Bukkit.broadcast(Component.text("                       ").append(AdvancedUtils.getAbilitySymbolWithColor(event.getAbility()).append(Component.text(event.getAbility().toString()))));
         Bukkit.broadcast(Component.text("               "));
-        for(String s : AdvancedMonstersUtilMethods.getAbilityConfig(event.getAbility()).getStringList("command_description")){
-            Bukkit.broadcast(Component.text(AdvancedMonstersUtilMethods.replace(s)));
+        for(String s : AdvancedUtils.getAbilityConfig(event.getAbility()).getStringList("command_description")){
+            Bukkit.broadcast(Component.text(AdvancedUtils.replace(s)));
         }
         Bukkit.broadcast(Component.text("-----------------------------------------", NamedTextColor.YELLOW, TextDecoration.BOLD));
     }

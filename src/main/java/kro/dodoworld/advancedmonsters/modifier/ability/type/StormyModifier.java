@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -40,7 +40,7 @@ public class StormyModifier implements Listener {
                                         monster.getTarget().damage(lightingDamage, monster);
                                         monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ticks, amplifier));
                                         if(config.getBoolean("stormy_show_lighting_damage_message")) monster.getTarget().sendMessage(
-                                                AdvancedMonstersUtilMethods.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString())).append(Component.text(" 능력에 의해 번개에 맞았습니다!")
+                                                AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.STORMY).append(Component.text(MonsterAbility.STORMY.toString())).append(Component.text(" 능력에 의해 번개에 맞았습니다!")
                                                         .color(TextColor.color(0xFF5555))));
                                     }
                                 }

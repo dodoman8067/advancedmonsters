@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
@@ -65,18 +65,18 @@ public class Storm implements Listener {
             @Override
             public void run() {
                 if(storm.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.STORMY)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.STORMY)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.LIGHTING)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.LIGHTING)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.LIGHTING);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();
