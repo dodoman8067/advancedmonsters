@@ -6,7 +6,9 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,11 +40,10 @@ public class AbilityCommand implements CommandExecutor {
         for(MonsterAbility ability : MonsterAbility.values()){
             if(AdvancedUtils.isRevealed(ability)){
                 returnValue.append(AdvancedUtils.getAbilitySymbolWithColor(ability).append(getUnlockedMessage(ability)).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability.toString() + ChatColor.YELLOW + " 능력의 설명 보기"))))
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString().toLowerCase())) );
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/ability " + ability.toString().toLowerCase())));
             }else{
-                returnValue.append(Component.text(ChatColor.GRAY + "?").append(getUnlockedMessage(ability))).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text(ChatColor.GRAY + "아직 발견되지 않은 능력입니다!")));
+                returnValue.append(Component.text("?", NamedTextColor.GRAY).append(getUnlockedMessage(ability))).hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("아직 발견되지 않은 능력입니다!", NamedTextColor.GRAY)));
             }
-            returnValue.append(Component.text(" "));
         }
 
         return returnValue.build().asComponent();
@@ -51,11 +52,11 @@ public class AbilityCommand implements CommandExecutor {
     private Component getUnlockedMessage(MonsterAbility ability){
         Component returnValue;
         if(AdvancedUtils.isUnlocked(ability) && AdvancedUtils.isRevealed(ability)){
-            returnValue = Component.text(ChatColor.GREEN + "" + ChatColor.BOLD + "✓");
+            returnValue = Component.text("✓", NamedTextColor.GREEN, TextDecoration.BOLD);
         }else {
-            returnValue = Component.text(ChatColor.RED + "" + ChatColor.BOLD + "✗");
+            returnValue = Component.text("✗", NamedTextColor.RED, TextDecoration.BOLD);
         }
-        return returnValue;
+        return returnValue.append(Component.text(" "));
     }
 
     private void sendAbilityDescriptionMessage(MonsterAbility ability, CommandSender sender){

@@ -73,21 +73,21 @@ public class AdvancedUtils {
     public static Component getAbilitySymbolWithColor(MonsterAbility monsterAbility){
         Component returnValue = null;
         switch (monsterAbility) {
-            case HEALTHY -> returnValue = Component.text("❤").color(TextColor.color(0xFF5555)).asComponent();
-            case STRONG -> returnValue = Component.text("🗡").color(TextColor.color(0xAA0000)).asComponent();
-            case TANK -> returnValue = Component.text("❇").color(TextColor.color(0x555555)).asComponent();
-            case SPEEDY -> returnValue = Component.text("✴").color(TextColor.color(0xFFFFFF)).asComponent();
-            case TELEPORTER -> returnValue = Component.text("☯").color(TextColor.color(0x00AAAA)).asComponent();
-            case INVISIBLE -> returnValue = Component.text("▫").color(TextColor.color(0x555555)).asComponent();
-            case PUNCHY -> returnValue = Component.text("⇧").color(TextColor.color(0x55FF55)).asComponent();
-            case BOOMER -> returnValue = Component.text("■").color(TextColor.color(0xFF5555)).asComponent();
-            case FLAMING -> returnValue = Component.text("\uD83D\uDD25").color(TextColor.color(0xFFAA00)).asComponent();
-            case LASER -> returnValue = Component.text("◎").color(TextColor.color(250, 74, 20)).asComponent();
-            case VENOMOUS -> returnValue = Component.text("☣").color(TextColor.color(199, 204, 53)).asComponent();
-            case STORMY -> returnValue = Component.text("\uD83C\uDF27").color(TextColor.color(22, 184, 162)).asComponent();
-            case FROZEN -> returnValue = Component.text("❄").color(TextColor.color(165, 197, 217)).asComponent();
-            case LIGHTING -> returnValue = Component.text("⚡").color(TextColor.color(251, 242, 198)).asComponent();
-            case REVITALIZE -> returnValue = Component.text("✙").color(TextColor.color(25, 189, 63)).asComponent();
+            case HEALTHY -> returnValue = Component.text("❤", TextColor.color(0xFF5555));
+            case STRONG -> returnValue = Component.text("🗡", TextColor.color(0xAA0000));
+            case TANK -> returnValue = Component.text("❇", TextColor.color(0x555555));
+            case SPEEDY -> returnValue = Component.text("✴", TextColor.color(0xFFFFFF));
+            case TELEPORTER -> returnValue = Component.text("☯", TextColor.color(0x00AAAA));
+            case INVISIBLE -> returnValue = Component.text("▫", TextColor.color(0x555555));
+            case PUNCHY -> returnValue = Component.text("⇧", TextColor.color(0x55FF55));
+            case BOOMER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
+            case FLAMING -> returnValue = Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00));
+            case LASER -> returnValue = Component.text("◎", TextColor.color(250, 74, 20));
+            case VENOMOUS -> returnValue = Component.text("☣", TextColor.color(199, 204, 53));
+            case STORMY -> returnValue = Component.text("\uD83C\uDF27", TextColor.color(22, 184, 162));
+            case FROZEN -> returnValue = Component.text("❄", TextColor.color(165, 197, 217));
+            case LIGHTING -> returnValue = Component.text("⚡", TextColor.color(251, 242, 198));
+            case REVITALIZE -> returnValue = Component.text("✙", TextColor.color(25, 189, 63));
         }
         return returnValue;
     }
