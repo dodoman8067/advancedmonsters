@@ -42,6 +42,7 @@ public class RevitalizeModifierConfig {
         revitalizeConfig.addDefault("revitalize_effect_apply_range", 8.0);
         revitalizeConfig.addDefault("revitalize_effect_apply_chance", 80.0);
         revitalizeConfig.addDefault("revitalize_effect_max_ticks", 2000);
+        revitalizeConfig.addDefault("revitalize_apply_effects_per_tick_amount", 200);
         for(String s : revitalizeConfig.getStringList("revitalize_effects")){
             if(PotionEffectType.getByKey(NamespacedKey.minecraft(s)) != null){
                 revitalizeConfig.addDefault("revitalize_max_effect_amplifier_" + s, 1);
@@ -51,7 +52,7 @@ public class RevitalizeModifierConfig {
             }
         }
         List<String> commandDescription = new ArrayList<>();
-        commandDescription.add(ChatColor.YELLOW + "주변 {revitalize_effect_apply_range}블럭 사이에 있는 적들에게 {revitalize_effect_apply_chance}% 확률로");
+        commandDescription.add(ChatColor.YELLOW + "매 {revitalize_apply_effects_per_tick_amount}틱 마다 주변 {revitalize_effect_apply_range}블럭 사이에 있는 적들에게 {revitalize_effect_apply_chance}% 확률로");
         commandDescription.add(ChatColor.YELLOW + "최대 {revitalize_effect_max_ticks}틱 동안 효과를 부여한다.");
         revitalizeConfig.addDefault("command_description", commandDescription);
         revitalizeConfig.options().copyDefaults(true);

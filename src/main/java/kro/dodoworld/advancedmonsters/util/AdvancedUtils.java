@@ -176,7 +176,12 @@ public class AdvancedUtils {
                 .replaceAll("\\{venomous_poison_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_poison_effect_amplifier")))
                 .replaceAll("\\{venomous_weakness_effect_ticks}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_ticks")))
                 .replaceAll("\\{venomous_weakness_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_amplifier")))
-                .replaceAll("\\{venomous_attack_damage_multiply_amount}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_attack_damage_multiply_amount")));
+                .replaceAll("\\{venomous_attack_damage_multiply_amount}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_attack_damage_multiply_amount")))
+
+                .replaceAll("\\{revitalize_effect_apply_range}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_range")))
+                .replaceAll("\\{revitalize_effect_apply_chance}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_chance")))
+                .replaceAll("\\{revitalize_effect_max_ticks}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_effect_max_ticks")))
+                .replaceAll("\\{revitalize_apply_effects_per_tick_amount}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_apply_effects_per_tick_amount")));
         return returnValue;
     }
 
