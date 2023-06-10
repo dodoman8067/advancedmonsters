@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
+import kro.dodoworld.advancedmonsters.modifier.ability.type.RevitalizeModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
@@ -33,7 +34,7 @@ public class EntityModifier implements Listener {
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
             MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
-            MonsterAbility.FROZEN, MonsterAbility.LIGHTING
+            MonsterAbility.FROZEN, MonsterAbility.LIGHTING, MonsterAbility.REVITALIZE
     );
     private final Random random = new Random();
 
@@ -157,6 +158,12 @@ public class EntityModifier implements Listener {
                 monster.addScoreboardTag("adm_modifier_lighting");
                 monster.setCustomNameVisible(true);
                 monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.LIGHTING).append(Component.text(MonsterAbility.LIGHTING.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+            }
+            case REVITALIZE -> {
+                monster.addScoreboardTag("adm_modifier_revitalize");
+                monster.setCustomNameVisible(true);
+                monster.customName(AdvancedUtils.getAbilitySymbolWithColor(MonsterAbility.REVITALIZE).append(Component.text(MonsterAbility.REVITALIZE.toString() + " ").append(Component.text(toMobName(monster.getType().name())))));
+                RevitalizeModifier.getRevitalizeMonsters().add(monster.getUniqueId());
             }
         }
     }

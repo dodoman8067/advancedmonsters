@@ -181,7 +181,8 @@ public class AdvancedUtils {
                 .replaceAll("\\{revitalize_effect_apply_range}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_range")))
                 .replaceAll("\\{revitalize_effect_apply_chance}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_chance")))
                 .replaceAll("\\{revitalize_effect_max_ticks}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_effect_max_ticks")))
-                .replaceAll("\\{revitalize_apply_effects_per_tick_amount}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_apply_effects_per_tick_amount")));
+                .replaceAll("\\{revitalize_apply_effects_per_tick_amount}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_apply_effects_per_tick_amount")))
+                .replaceAll("\\{revitalize_max_effect_amount_per_entity}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_max_effect_amount_per_entity")));
         return returnValue;
     }
 

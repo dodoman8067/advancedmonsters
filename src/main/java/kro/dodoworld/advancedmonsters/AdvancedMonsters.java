@@ -48,6 +48,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         TeleporterModifier.run(this);
         LaserModifier.run(this);
         StormyModifier.run(this);
+        RevitalizeModifier.run(this);
         logger.info("Loading modifier runnable classes took " + (System.currentTimeMillis() - modifierMs) + "ms.");
         logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();

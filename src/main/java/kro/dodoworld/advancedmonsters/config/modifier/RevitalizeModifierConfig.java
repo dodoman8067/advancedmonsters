@@ -43,6 +43,7 @@ public class RevitalizeModifierConfig {
         revitalizeConfig.addDefault("revitalize_effect_apply_chance", 80.0);
         revitalizeConfig.addDefault("revitalize_effect_max_ticks", 2000);
         revitalizeConfig.addDefault("revitalize_apply_effects_per_tick_amount", 200);
+        revitalizeConfig.addDefault("revitalize_max_effect_amount_per_entity", 3);
         for(String s : revitalizeConfig.getStringList("revitalize_effects")){
             if(PotionEffectType.getByKey(NamespacedKey.minecraft(s)) != null){
                 revitalizeConfig.addDefault("revitalize_max_effect_amplifier_" + s, 1);
