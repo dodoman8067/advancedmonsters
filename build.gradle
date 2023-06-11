@@ -29,7 +29,6 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
-    compileOnly 'io.papermc.paper:paper-server:1.19.2-R0.1-SNAPSHOT:mojang-mapped'
     compileOnly 'com.mojang:authlib:3.11.49'
     compileOnly 'com.mojang:brigadier:1.0.18'
     implementation 'commons-lang:commons-lang:2.6'
