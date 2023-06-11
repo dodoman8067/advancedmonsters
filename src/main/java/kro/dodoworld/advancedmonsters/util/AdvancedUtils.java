@@ -13,7 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedMonstersUtilMethods {
+public class AdvancedUtils {
 
 
     public static Set<MonsterAbility> getAbilities(LivingEntity entity){
@@ -73,21 +73,21 @@ public class AdvancedMonstersUtilMethods {
     public static Component getAbilitySymbolWithColor(MonsterAbility monsterAbility){
         Component returnValue = null;
         switch (monsterAbility) {
-            case HEALTHY -> returnValue = Component.text("❤").color(TextColor.color(0xFF5555)).asComponent();
-            case STRONG -> returnValue = Component.text("🗡").color(TextColor.color(0xAA0000)).asComponent();
-            case TANK -> returnValue = Component.text("❇").color(TextColor.color(0x555555)).asComponent();
-            case SPEEDY -> returnValue = Component.text("✴").color(TextColor.color(0xFFFFFF)).asComponent();
-            case TELEPORTER -> returnValue = Component.text("☯").color(TextColor.color(0x00AAAA)).asComponent();
-            case INVISIBLE -> returnValue = Component.text("▫").color(TextColor.color(0x555555)).asComponent();
-            case PUNCHY -> returnValue = Component.text("⇧").color(TextColor.color(0x55FF55)).asComponent();
-            case BOOMER -> returnValue = Component.text("■").color(TextColor.color(0xFF5555)).asComponent();
-            case FLAMING -> returnValue = Component.text("\uD83D\uDD25").color(TextColor.color(0xFFAA00)).asComponent();
-            case LASER -> returnValue = Component.text("◎").color(TextColor.color(250, 74, 20)).asComponent();
-            case VENOMOUS -> returnValue = Component.text("☣").color(TextColor.color(199, 204, 53)).asComponent();
-            case STORMY -> returnValue = Component.text("\uD83C\uDF27").color(TextColor.color(22, 184, 162)).asComponent();
-            case FROZEN -> returnValue = Component.text("❄").color(TextColor.color(165, 197, 217)).asComponent();
-            case LIGHTING -> returnValue = Component.text("⚡").color(TextColor.color(251, 242, 198)).asComponent();
-            case REVITALIZE -> returnValue = Component.text("✙").color(TextColor.color(25, 189, 63)).asComponent();
+            case HEALTHY -> returnValue = Component.text("❤", TextColor.color(0xFF5555));
+            case STRONG -> returnValue = Component.text("🗡", TextColor.color(0xAA0000));
+            case TANK -> returnValue = Component.text("❇", TextColor.color(0x555555));
+            case SPEEDY -> returnValue = Component.text("✴", TextColor.color(0xFFFFFF));
+            case TELEPORTER -> returnValue = Component.text("☯", TextColor.color(0x00AAAA));
+            case INVISIBLE -> returnValue = Component.text("▫", TextColor.color(0x555555));
+            case PUNCHY -> returnValue = Component.text("⇧", TextColor.color(0x55FF55));
+            case BOOMER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
+            case FLAMING -> returnValue = Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00));
+            case LASER -> returnValue = Component.text("◎", TextColor.color(250, 74, 20));
+            case VENOMOUS -> returnValue = Component.text("☣", TextColor.color(199, 204, 53));
+            case STORMY -> returnValue = Component.text("\uD83C\uDF27", TextColor.color(22, 184, 162));
+            case FROZEN -> returnValue = Component.text("❄", TextColor.color(165, 197, 217));
+            case LIGHTING -> returnValue = Component.text("⚡", TextColor.color(251, 242, 198));
+            case REVITALIZE -> returnValue = Component.text("✙", TextColor.color(25, 189, 63));
         }
         return returnValue;
     }
@@ -176,7 +176,13 @@ public class AdvancedMonstersUtilMethods {
                 .replaceAll("\\{venomous_poison_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_poison_effect_amplifier")))
                 .replaceAll("\\{venomous_weakness_effect_ticks}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_ticks")))
                 .replaceAll("\\{venomous_weakness_effect_amplifier}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getInt("venomous_weakness_effect_amplifier")))
-                .replaceAll("\\{venomous_attack_damage_multiply_amount}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_attack_damage_multiply_amount")));
+                .replaceAll("\\{venomous_attack_damage_multiply_amount}", String.valueOf(VenomousModifierConfig.getVenomousModifierConfig().getDouble("venomous_attack_damage_multiply_amount")))
+
+                .replaceAll("\\{revitalize_effect_apply_range}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_range")))
+                .replaceAll("\\{revitalize_effect_apply_chance}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getDouble("revitalize_effect_apply_chance")))
+                .replaceAll("\\{revitalize_effect_max_ticks}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_effect_max_ticks")))
+                .replaceAll("\\{revitalize_apply_effects_per_tick_amount}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_apply_effects_per_tick_amount")))
+                .replaceAll("\\{revitalize_max_effect_amount_per_entity}", String.valueOf(RevitalizeModifierConfig.getRevitalizeModifierConfig().getInt("revitalize_max_effect_amount_per_entity")));
         return returnValue;
     }
 
@@ -210,7 +216,7 @@ public class AdvancedMonstersUtilMethods {
             case STORMY -> returnValue = StormyModifierConfig.getStormyModifierConfig();
             case FROZEN -> returnValue = FrozenModifierConfig.getFrozenModifierConfig();
             case LIGHTING -> returnValue = LightingModifierConfig.getLightingModifierConfig();
-            case REVITALIZE -> throw new UnsupportedOperationException("This ability's config isn't supported");
+            case REVITALIZE -> returnValue = RevitalizeModifierConfig.getRevitalizeModifierConfig();
             default -> throw new IllegalArgumentException("Unknown MonsterAbility enum value");
         }
         return returnValue;

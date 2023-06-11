@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
@@ -59,11 +59,11 @@ public class EarthQuaker implements Listener {
             @Override
             public void run() {
                 if(earthQuaker.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.TANK)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.TANK)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TANK);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();

@@ -2,7 +2,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
@@ -65,18 +65,18 @@ public class Storm implements Listener {
             @Override
             public void run() {
                 if(storm.isDead()){
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.STORMY)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.STORMY)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
-                    if(!AdvancedMonstersUtilMethods.isUnlocked(MonsterAbility.LIGHTING)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.LIGHTING)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.LIGHTING);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
-                            AdvancedMonstersUtilMethods.setUnlocked(event.getAbility(), true);
+                            AdvancedUtils.setUnlocked(event.getAbility(), true);
                         }
                     }
                     cancel();
@@ -90,9 +90,6 @@ public class Storm implements Listener {
                             Block block = storm.getWorld().getHighestBlockAt(loc);
                             createLightingAura(block.getLocation().add(0, 1.1, 0), getRadius(4), 100, AdvancedMonsters.getPlugin(AdvancedMonsters.class), storm);
                         }
-                    }
-                    if(i % 1800 == 0){
-                        createMegaStormAbility(storm, 2, 200, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
                     }
                 }
                 if(i >= Integer.MAX_VALUE - 1000000){
@@ -122,29 +119,6 @@ public class Storm implements Listener {
     private static Component getName(){
         return Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Storm").color(TextColor.color(39, 198, 242)).decorate(TextDecoration.BOLD));
     }
-
-
-    private static void createMegaStormAbility(Mob damager, int radius, int ticks, Plugin plugin){
-        for(Entity entity : damager.getNearbyEntities(radius, radius, radius)){
-            if(entity instanceof Player && entity != damager){
-                entity.showTitle(Title.title(Component.text("위험!").color(TextColor.color(0xAA0000)).decorate(TextDecoration.BOLD), Component.text("Storm이 광역 공격을 준비하고 있습니다!!").color(TextColor.color(0xAA0000)).decorate(TextDecoration.BOLD)));
-            }
-        }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            for(Block block : BlockUtilMethods.getNearbyBlocks(damager.getLocation().getBlock(), radius)){
-                if(!((int) (Math.random() * 8) <= 2)) return;
-                LightningStrike strike = block.getWorld().strikeLightningEffect(block.getLocation());
-                for(Entity entity : strike.getNearbyEntities(0.5, 0.5, 0.5)){
-                    if(!(entity instanceof Monster) && entity instanceof LivingEntity && entity != damager){
-                        ((LivingEntity) entity).damage(Integer.MAX_VALUE, damager);
-                    }
-                }
-
-            }
-        }, ticks);
-
-    }
-
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){

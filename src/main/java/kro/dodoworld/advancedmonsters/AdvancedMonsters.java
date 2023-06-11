@@ -14,7 +14,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
 import kro.dodoworld.advancedmonsters.modifier.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
-import kro.dodoworld.advancedmonsters.util.AdvancedMonstersUtilMethods;
+import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,6 +48,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         TeleporterModifier.run(this);
         LaserModifier.run(this);
         StormyModifier.run(this);
+        RevitalizeModifier.run(this);
         logger.info("Loading modifier runnable classes took " + (System.currentTimeMillis() - modifierMs) + "ms.");
         logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();
@@ -71,6 +72,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
         getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
         getServer().getPluginManager().registerEvents(new AbilityUnlock(), this);
+        getServer().getPluginManager().registerEvents(new SludgeGore(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
@@ -102,11 +104,10 @@ public final class AdvancedMonsters extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             return false;
         }
-        logger.info("NMS version : " + AdvancedMonstersUtilMethods.getNMSVersion());
-        if(!AdvancedMonstersUtilMethods.getNMSVersion().equals("v1_19_R1")){
+        logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
+        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R1")){
             logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
             logger.warning("Bugs may crawl up in this version.");
-            return true;
         }
         if(beta){
             logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
@@ -168,6 +169,9 @@ public final class AdvancedMonsters extends JavaPlugin {
         LightingModifierConfig.init();
         LightingModifierConfig.saveConfig();
         LightingModifierConfig.reloadConfig();
+        RevitalizeModifierConfig.init();
+        RevitalizeModifierConfig.saveConfig();
+        RevitalizeModifierConfig.reloadConfig();
     }
 
     private void removeEntities(){

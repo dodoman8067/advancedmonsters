@@ -6,6 +6,7 @@ import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
 import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Sbe;
+import kro.dodoworld.advancedmonsters.entity.miniboss.SludgeGore;
 import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
 import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
@@ -15,12 +16,16 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Stray;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
@@ -30,7 +35,7 @@ public class MiniBossSpawn implements Listener {
     @EventHandler
     public void onSpawn(EntitySpawnEvent event){
         if(event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if(!(event.getEntity() instanceof Monster entity)) return;
+        Entity entity = event.getEntity();
         final ThreadLocalRandom rnd = ThreadLocalRandom.current();
         if((rnd.nextInt(0, 51) == 1)){
 
@@ -65,6 +70,10 @@ public class MiniBossSpawn implements Listener {
                 if(bossType == 1){
                     EarthQuaker.createEarthQuaker(event.getLocation());
                 }
+            }
+            if(entity.getType().equals(EntityType.SLIME)){
+                event.setCancelled(true);
+                SludgeGore.createSludgeGore(event.getLocation());
             }
         }
     }

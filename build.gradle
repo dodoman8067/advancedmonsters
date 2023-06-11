@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'io.github.patrick.remapper' version '1.4.0'
+    id "io.papermc.paperweight.userdev" version "1.5.5"
 }
 
 group = 'kro.dodoworld'
-version = 'beta-0.5'
+version = 'beta-0.5.1'
 
 repositories {
     mavenCentral()
@@ -34,6 +34,7 @@ dependencies {
     compileOnly 'com.mojang:brigadier:1.0.18'
     implementation 'commons-lang:commons-lang:2.6'
     implementation 'org.jetbrains:annotations:24.0.0'
+    paperweight.paperDevBundle("1.19.2-R0.1-SNAPSHOT")
 }
 
 def targetJavaVersion = 17
@@ -46,9 +47,14 @@ java {
     }
 }
 
-remap {
-    version.set("1.19.2")
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'kro.dodoworld.advancedmonsters.util.Main'
+        )
+    }
 }
+
 
 tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
