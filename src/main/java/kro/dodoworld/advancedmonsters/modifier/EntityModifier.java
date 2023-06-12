@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
@@ -7,6 +8,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.RevitalizeModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
+import kro.dodoworld.advancedmonsters.modifier.ai.AnimalAttackTargetGoal;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
@@ -18,6 +20,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,7 +44,7 @@ public class EntityModifier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event) {
         if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM) return;
+        if (event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
         if (!(event.getEntity() instanceof Monster monster)) return;
         if (monster.getScoreboardTags().contains("adm_miniboss")) return;
         if (random.nextDouble(0, 101) <= 20) return;
@@ -52,6 +55,16 @@ public class EntityModifier implements Listener {
             return;
         }
         applyAbility(ability, monster);
+    }
+
+    @EventHandler
+    public void onAnimalSpawn(CreatureSpawnEvent event){
+        if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        if (event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
+        if (!(event.getEntity() instanceof Animals animal)) return;
+        if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(event.getEntity().getWorld()) >= 50.0){
+            Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
+        }
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {
