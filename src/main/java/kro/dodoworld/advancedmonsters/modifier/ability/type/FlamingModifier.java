@@ -2,7 +2,6 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.FlamingModifierConfig;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Creeper;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Skeleton;
@@ -10,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 
