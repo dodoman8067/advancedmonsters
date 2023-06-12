@@ -22,7 +22,7 @@ import java.util.EnumSet;
 
 public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
-    private final GoalKey<Animals> goalKey = GoalKey.of(Animals.class, new NamespacedKey(plugin, "animals_attack"));
+    private final GoalKey<Animals> goalKey = GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack"));
     private final Animals animal;
 
     public AnimalAttackTargetGoal(Animals animal){
