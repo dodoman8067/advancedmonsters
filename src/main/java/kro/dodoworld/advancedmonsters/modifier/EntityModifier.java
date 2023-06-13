@@ -1,6 +1,5 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
-import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
@@ -62,9 +61,7 @@ public class EntityModifier implements Listener {
         if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if (event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
         if (!(event.getEntity() instanceof Animals animal)) return;
-        if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(event.getEntity().getWorld()) >= 50.0){
-            Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
-        }
+        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {
