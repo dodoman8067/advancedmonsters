@@ -7,5 +7,6 @@ public class Main {
         Thread.sleep(10000);
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
         System.out.print("Hello, world!");
+        System.exit(0);
     }
 }
