@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -54,30 +55,43 @@ public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
     @Override
     public void tick() {
         Goal.super.tick();
-        if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(animal.getWorld()) >= 50.0){
-            if(animal.getTarget() != null){
-                if(animal.getTarget() instanceof Player){
-                    if(((Player) animal.getTarget()).getGameMode().equals(GameMode.CREATIVE) || ((Player) animal.getTarget()).getGameMode().equals(GameMode.SPECTATOR)) {
-                        animal.setTarget(null);
-                        return;
-                    }
+        if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(animal.getWorld()) <= 50.0) return;
+        if(animal.getTarget() != null){
+            damage(animal);
+        }else{
+            findTarget(animal);
+        }
+    }
+
+    private boolean canTarget(LivingEntity entity, Animals animal){
+        if(entity instanceof Animals) return false;
+        if(entity instanceof Player player){
+            if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) return false;
+            if(animal.isBreedItem(player.getInventory().getItemInMainHand()) || animal.isBreedItem(player.getInventory().getItemInOffHand())) return false;
+        }else{
+            return entity instanceof Creature;
+        }
+        return true;
+    }
+
+    private void findTarget(Animals animal){
+        for(Entity e : animal.getNearbyEntities(12, 12, 12)){
+            if(e instanceof Player player){
+                if(canTarget(player, animal)){
+                    animal.setTarget(player);
                 }
-                animal.getPathfinder().moveTo(animal.getTarget());
-                if(animal.hasLineOfSight(animal.getTarget())){
-                    if(animal.getNearbyEntities(0.2, 0.2, 0.2).contains(animal.getTarget())){
-                        if(!animal.isDead()){
-                            animal.getTarget().damage(2.0, animal);
-                        }
-                    }
-                }
-            }else{
-                for(Entity e : animal.getNearbyEntities(12, 12, 12)){
-                    if(e instanceof Player player){
-                        if(player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)){
-                            animal.setTarget(player);
-                        }
-                    }
-                }
+            }
+        }
+    }
+
+    private void damage(Animals animal){
+        if(animal.getTarget() == null) return;
+        if(!canTarget(animal.getTarget(), animal)) return;
+        if(animal.hasLineOfSight(animal.getTarget())){
+            animal.getPathfinder().moveTo(animal.getTarget());
+            if(animal.getNearbyEntities(0.2, 0.2, 0.2).contains(animal.getTarget())){
+                if(animal.isDead()) return;
+                animal.getTarget().damage(2.0, animal);
             }
         }
     }
