@@ -12,6 +12,7 @@ import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -68,6 +69,9 @@ public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
         if(entity instanceof Player player){
             if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) return false;
             if(animal.isBreedItem(player.getInventory().getItemInMainHand()) || animal.isBreedItem(player.getInventory().getItemInOffHand())) return false;
+            if(animal instanceof Tameable){
+                return !((Tameable) animal).isTamed();
+            }
         }else{
             return entity instanceof Creature;
         }
