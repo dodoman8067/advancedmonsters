@@ -65,6 +65,10 @@ public class Storm implements Listener {
             @Override
             public void run() {
                 if(storm.isDead()){
+                    if(storm.getKiller() == null){
+                        cancel();
+                        return;
+                    }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.STORMY)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
                         Bukkit.getServer().getPluginManager().callEvent(event);

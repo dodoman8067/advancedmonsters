@@ -50,6 +50,10 @@ public class Bombie implements Listener {
             @Override
             public void run() {
                 if(bombie.isDead()){
+                    if(bombie.getKiller() == null){
+                        cancel();
+                        return;
+                    }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.BOOMER)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOOMER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
