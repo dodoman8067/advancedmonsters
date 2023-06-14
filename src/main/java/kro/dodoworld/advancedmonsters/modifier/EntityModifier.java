@@ -1,5 +1,7 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
@@ -49,17 +51,14 @@ public class EntityModifier implements Listener {
         if (random.nextDouble(0, 101) <= 20) return;
         FileConfiguration config = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
         MonsterAbility ability = getRandomAbility(config);
-        if(ability == null){
-            Bukkit.getLogger().warning("[AdvancedMonsters] Plugin tried to add null ability to monster!");
-            return;
-        }
+        if(ability == null) return;
         applyAbility(ability, monster);
     }
 
     @EventHandler
-    public void onAnimalSpawn(CreatureSpawnEvent event){
+    public void onAnimalSpawn(EntityAddToWorldEvent event){
+        if(!AdvancedMonsters.getPlugin(AdvancedMonsters.class).isEnabled()) return;
         if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if (event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
         if (!(event.getEntity() instanceof Animals animal)) return;
         Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
     }

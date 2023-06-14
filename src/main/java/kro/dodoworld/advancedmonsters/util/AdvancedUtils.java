@@ -162,6 +162,7 @@ public class AdvancedUtils {
                 .replaceAll("\\{strong_damage_multiply_amount}", String.valueOf(StrongModifierConfig.getStrongModifierConfig().getDouble("strong_damage_multiply_amount")))
 
                 .replaceAll("\\{tank_ignore_damage_chance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_ignore_damage_chance")))
+                .replaceAll("\\{tank_bonus_defence_amount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getInt("tank_bonus_defence_amount")))
                 .replaceAll("\\{tank_send_damage_nullify_message}", String.valueOf(TankModifierConfig.getTankModifierConfig().getBoolean("tank_send_damage_nullify_message")))
                 .replaceAll("\\{tank_ignore_damage_chance}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_bouns_defence_amount")))
                 .replaceAll("\\{tank_speed_multiply_amount}", String.valueOf(TankModifierConfig.getTankModifierConfig().getDouble("tank_speed_multiply_amount")))
