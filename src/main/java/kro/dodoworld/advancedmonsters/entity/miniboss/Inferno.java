@@ -44,6 +44,10 @@ public class Inferno implements Listener {
             @Override
             public void run() {
                 if(blaze.isDead()){
+                    if(blaze.getKiller() == null){
+                        cancel();
+                        return;
+                    }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.FLAMING)){
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.FLAMING);
                         Bukkit.getServer().getPluginManager().callEvent(event);

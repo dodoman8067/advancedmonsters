@@ -4,36 +4,14 @@ plugins {
 }
 
 group = 'kro.dodoworld'
-version = 'beta-0.5.1'
+version = 'beta-0.5.2'
 
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
-    }
-    maven {
-        name = 'papermc-repo'
-        url = 'https://repo.papermc.io/repository/maven-public/'
-    }
-    maven {
-        name = 'commons-lang-repo'
-        url = 'https://mvnrepository.com/artifact/commons-lang/commons-lang'
-    }
-    maven {
-        name = 'mojang-repo'
-        url = 'https://libraries.minecraft.net/'
-    }
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
-    compileOnly 'io.papermc.paper:paper-server:1.19.2-R0.1-SNAPSHOT:mojang-mapped'
-    compileOnly 'com.mojang:authlib:3.11.49'
-    compileOnly 'com.mojang:brigadier:1.0.18'
-    implementation 'commons-lang:commons-lang:2.6'
-    implementation 'org.jetbrains:annotations:24.0.0'
     paperweight.paperDevBundle("1.19.2-R0.1-SNAPSHOT")
 }
 

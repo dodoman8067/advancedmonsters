@@ -5,7 +5,6 @@
 ## 빌드
 
 플러그인을 완성하기 전까지는 파일이 제공되지 않을 것이지만
-Maven 로컬 저장소에 paper-server 1.19.2 모장 매핑을 빌드해 publish 하셨다면
 이 저장소를 복사해 
 
     ./gradlew reobfJar

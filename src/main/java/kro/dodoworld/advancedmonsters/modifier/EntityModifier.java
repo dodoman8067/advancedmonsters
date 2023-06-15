@@ -1,5 +1,7 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.SpeedyModifierConfig;
@@ -7,6 +9,7 @@ import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.config.modifier.TankModifierConfig;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.RevitalizeModifier;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.TeleporterModifier;
+import kro.dodoworld.advancedmonsters.modifier.ai.AnimalAttackTargetGoal;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
@@ -18,6 +21,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,17 +45,22 @@ public class EntityModifier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event) {
         if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
-        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM) return;
+        if (event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
         if (!(event.getEntity() instanceof Monster monster)) return;
         if (monster.getScoreboardTags().contains("adm_miniboss")) return;
         if (random.nextDouble(0, 101) <= 20) return;
         FileConfiguration config = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
         MonsterAbility ability = getRandomAbility(config);
-        if(ability == null){
-            Bukkit.getLogger().warning("[AdvancedMonsters] Plugin tried to add null ability to monster!");
-            return;
-        }
+        if(ability == null) return;
         applyAbility(ability, monster);
+    }
+
+    @EventHandler
+    public void onAnimalSpawn(EntityAddToWorldEvent event){
+        if(!AdvancedMonsters.getPlugin(AdvancedMonsters.class).isEnabled()) return;
+        if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        if (!(event.getEntity() instanceof Animals animal)) return;
+        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {
