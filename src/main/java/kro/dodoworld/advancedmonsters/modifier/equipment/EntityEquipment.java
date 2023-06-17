@@ -4,6 +4,7 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.modifier.equipment.armor.EntityArmor;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,9 @@ public class EntityEquipment implements Listener {
             entity.getEquipment().setChestplate(EntityArmor.getRandomArmor(world, EquipmentSlot.CHEST));
             entity.getEquipment().setLeggings(EntityArmor.getRandomArmor(world, EquipmentSlot.LEGS));
             entity.getEquipment().setBoots(EntityArmor.getRandomArmor(world, EquipmentSlot.FEET));
+            if(entity instanceof Creeper){
+                ((Creeper) entity).setPowered(true);
+            }
         }
     }
     
