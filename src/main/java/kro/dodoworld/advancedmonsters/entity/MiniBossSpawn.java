@@ -1,14 +1,6 @@
 package kro.dodoworld.advancedmonsters.entity;
 
-import kro.dodoworld.advancedmonsters.entity.miniboss.Bombie;
-import kro.dodoworld.advancedmonsters.entity.miniboss.DiamondZombie;
-import kro.dodoworld.advancedmonsters.entity.miniboss.EarthQuaker;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Inferno;
-import kro.dodoworld.advancedmonsters.entity.miniboss.LeapingSpider;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Sbe;
-import kro.dodoworld.advancedmonsters.entity.miniboss.SludgeGore;
-import kro.dodoworld.advancedmonsters.entity.miniboss.Storm;
-import kro.dodoworld.advancedmonsters.entity.miniboss.VoidGloom;
+import kro.dodoworld.advancedmonsters.entity.miniboss.*;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -16,16 +8,12 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Stray;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
