@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
+public class AnimalAttackTargetGoal implements Goal<Animals>{
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
     private final GoalKey<Animals> goalKey = GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack"));
     private final Animals animal;
@@ -44,13 +44,11 @@ public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
     @Override
     public void start() {
         Goal.super.start();
-        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @Override
     public void stop() {
         Goal.super.stop();
-        HandlerList.unregisterAll(this);
     }
 
     @Override
@@ -94,20 +92,11 @@ public class AnimalAttackTargetGoal implements Goal<Animals>, Listener {
         if(animal.hasLineOfSight(animal.getTarget())){
             animal.getPathfinder().moveTo(animal.getTarget());
             if(animal.getNearbyEntities(0.2, 0.2, 0.2).contains(animal.getTarget())){
-                if(animal.isDead()) return;
+                if(animal.isDead()) {
+                    stop();
+                    return;
+                }
                 animal.getTarget().damage(2.0, animal);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event){
-        if(!(event.getDamager() instanceof Animals)) return;
-        if(!(event.getEntity() instanceof Animals)) return;
-        ((Animals) event.getEntity()).setTarget((LivingEntity) event.getDamager());
-        for(Entity e : event.getEntity().getNearbyEntities(16, 16, 16)){
-            if(e instanceof Animals animals && e != event.getEntity()){
-                animals.setTarget(((Animals) event.getEntity()).getTarget());
             }
         }
     }

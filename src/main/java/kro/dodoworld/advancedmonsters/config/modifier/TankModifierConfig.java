@@ -28,11 +28,11 @@ public class TankModifierConfig {
         tankModifierConfig = YamlConfiguration.loadConfiguration(file);
         tankModifierConfig.addDefault("tank_ignore_damage_chance", 35.0);
         tankModifierConfig.addDefault("tank_send_damage_nullify_message", true);
-        tankModifierConfig.addDefault("tank_bouns_defence_amount", 15.0);
+        tankModifierConfig.addDefault("tank_bonus_defence_amount", 15);
         tankModifierConfig.addDefault("tank_speed_multiply_amount", 0.4);
         List<String> commandDescription = new ArrayList<>();
         commandDescription.add(ChatColor.YELLOW + "{tank_ignore_damage_chance}% 확률로 대미지를 무시한다.");
-        commandDescription.add(ChatColor.YELLOW + "{tank_bouns_defence_amount}의 추가 방어력을 갖지만, 속도는 {tank_speed_multiply_amount}배가 된다.");
+        commandDescription.add(ChatColor.YELLOW + "{tank_bonus_defence_amount}의 추가 방어력을 갖지만, 속도는 {tank_speed_multiply_amount}배가 된다.");
         tankModifierConfig.addDefault("command_description", commandDescription);
         tankModifierConfig.options().copyDefaults(true);
         saveConfig();
