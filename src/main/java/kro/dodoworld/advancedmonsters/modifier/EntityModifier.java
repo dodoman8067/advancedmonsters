@@ -13,6 +13,8 @@ import kro.dodoworld.advancedmonsters.modifier.ai.AnimalAttackTargetGoal;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.MonsterAbility;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +24,10 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.Flying;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Parrot;
+import org.bukkit.entity.Phantom;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -60,7 +65,21 @@ public class EntityModifier implements Listener {
         if(!AdvancedMonsters.getPlugin(AdvancedMonsters.class).isEnabled()) return;
         if (event.getEntity().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if (!(event.getEntity() instanceof Animals animal)) return;
-        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal));
+        if(random.nextDouble(0, 101) <= 2){
+            animal.setAdult();
+            animal.addScoreboardTag("adm_animal_deadly");
+            animal.setCustomNameVisible(true);
+            animal.customName(Component.text("Deadly", NamedTextColor.DARK_RED, TextDecoration.BOLD).append(Component.text(" " + toMobName(animal.getType().name()))));
+            animal.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(animal.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * 3);
+            animal.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(animal.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * 5);
+            animal.setHealth(animal.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * 10);
+            if(animal.getPathfinder().canFloat()){
+                animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).setBaseValue(animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).getBaseValue() * 2);
+            }
+            Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true));
+        }else{
+            Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
+        }
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {
@@ -125,10 +144,10 @@ public class EntityModifier implements Listener {
     private void addIconAndName(Monster monster, MonsterAbility ability){
         monster.addScoreboardTag("adm_modifier_" + ability.toString().toLowerCase());
         monster.setCustomNameVisible(true);
-        monster.customName(AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability + " ").append(Component.text(toMobName(monster.getType().name())))));
+        monster.customName(AdvancedUtils.getAbilitySymbolWithColor(ability).append(Component.text(ability + " ").append(Component.text(toMobName(monster.getType().name()), NamedTextColor.DARK_GRAY))));
     }
 
     private String toMobName(String typeName){
-        return ChatColor.GRAY + WordUtils.capitalize(typeName.toLowerCase().replace("_", " "));
+        return WordUtils.capitalize(typeName.toLowerCase().replace("_", " "));
     }
 }

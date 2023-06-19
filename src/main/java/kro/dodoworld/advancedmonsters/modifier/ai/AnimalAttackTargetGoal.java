@@ -21,10 +21,15 @@ public class AnimalAttackTargetGoal implements Goal<Animals>{
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
     private final GoalKey<Animals> goalKey = GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack"));
     private final Animals animal;
+    private final double damage;
+    private final boolean shouldAttackWhileHoldingItem;
 
-    public AnimalAttackTargetGoal(Animals animal){
+    public AnimalAttackTargetGoal(Animals animal, double damage, boolean shouldAttackWhileHoldingItem){
         this.animal = animal;
+        this.damage = damage;
+        this.shouldAttackWhileHoldingItem = shouldAttackWhileHoldingItem;
     }
+
 
     @Override
     public boolean shouldActivate() {
@@ -61,7 +66,9 @@ public class AnimalAttackTargetGoal implements Goal<Animals>{
         if(entity instanceof Animals) return false;
         if(entity instanceof Player player){
             if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) return false;
-            if(animal.isBreedItem(player.getInventory().getItemInMainHand()) || animal.isBreedItem(player.getInventory().getItemInOffHand())) return false;
+            if(!shouldAttackWhileHoldingItem){
+                if(animal.isBreedItem(player.getInventory().getItemInMainHand()) || animal.isBreedItem(player.getInventory().getItemInOffHand())) return false;
+            }
             if(animal instanceof Tameable){
                 return !((Tameable) animal).isTamed();
             }
@@ -91,7 +98,7 @@ public class AnimalAttackTargetGoal implements Goal<Animals>{
                     stop();
                     return;
                 }
-                animal.getTarget().damage(2.0, animal);
+                animal.getTarget().damage(damage, animal);
             }
         }
     }
