@@ -28,6 +28,8 @@ public class EntityEquipment implements Listener {
             if(entity instanceof Creeper){
                 ((Creeper) entity).setPowered(true);
             }
+            entity.getPathfinder().setCanOpenDoors(true);
+            entity.getPathfinder().setCanPassDoors(true);
         }
     }
     
