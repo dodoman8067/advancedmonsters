@@ -64,7 +64,7 @@ public class EntityArmor {
         if(level >= 39.8 && level <= 49.7){
             int chance = (int) (Math.random() * 100);
 
-            if(chance <= 1){
+            if(chance <= 10){
                 item = getDiamondArmor(slot);
             }else{
                 item = getIronArmor(slot);
@@ -83,7 +83,7 @@ public class EntityArmor {
         if(level >= 65.4 && level <= 80.0){
             int chance = (int) (Math.random() * 100);
 
-            if(chance <= 2){
+            if(chance <= 20){
                 item = getNetheriteArmor(slot);
             }else{
                 item = getDiamondArmor(slot);
@@ -246,7 +246,7 @@ public class EntityArmor {
     private static void addRandomLevelEnchant(Enchantment enchantment, ItemStack stack, int max){
         ItemMeta meta = stack.getItemMeta();
         Random random = new Random();
-        int level = random.nextInt(0, max);
+        int level = random.nextInt(0, max + 1);
         if(level != 0){
             meta.addEnchant(enchantment, level, true);
             stack.setItemMeta(meta);
