@@ -68,7 +68,7 @@ public class EntityModifier implements Listener {
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         for(Entity e : event.getChunk().getEntities()){
             if (!(e instanceof Animals animal)) continue;
-            if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack"))))
+            if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) continue;
             if(random.nextDouble(0, 101) <= 2){
                 animal.addScoreboardTag("adm_animal_deadly");
                 animal.setCustomNameVisible(true);
