@@ -63,7 +63,7 @@ public class EntityModifier implements Listener {
 
     @EventHandler
     public void onAnimalSpawn(ChunkLoadEvent event){
-        if(event.isNewChunk()) return;
+        if(!event.isNewChunk()) return;
         if(!plugin.isEnabled()) return;
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         for(Entity e : event.getChunk().getEntities()){
