@@ -28,6 +28,7 @@ public class WorldMonsterLevelIncreaseEvent extends WorldEvent implements Cancel
     }
 
     /**
+     * Returns world instance
      * @return Increased world
      */
     @NotNull
@@ -37,6 +38,7 @@ public class WorldMonsterLevelIncreaseEvent extends WorldEvent implements Cancel
     }
 
     /**
+     * Returns increased amount
      * @return Increased amount
      */
     public double getAmount() {

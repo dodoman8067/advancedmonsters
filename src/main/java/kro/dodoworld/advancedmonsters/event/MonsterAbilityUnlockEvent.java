@@ -38,7 +38,7 @@ public class MonsterAbilityUnlockEvent extends Event implements Cancellable {
     }
 
     /**
-     * Gets the ability
+     * Returns the ability
      * @return Unlocked ability
      */
     public MonsterAbility getAbility() {
