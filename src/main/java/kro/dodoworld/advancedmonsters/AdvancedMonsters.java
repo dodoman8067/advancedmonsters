@@ -102,12 +102,12 @@ public final class AdvancedMonsters extends JavaPlugin {
         if(!isPaperServer()){
             logger.severe("Plugin requires Paper or fork of Paper server.");
             logger.severe("Disabling plugin...");
-            getPluginLoader().disablePlugin(this);
+            getServer().getPluginManager().disablePlugin(this);
             return false;
         }
         logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
-        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R1")){
-            logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
+        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R3")){
+            logger.warning("This plugin is designed to support v1_19_R3 (1.19.4)");
             logger.warning("Bugs may crawl up in this version.");
         }
         if(beta){
