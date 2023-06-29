@@ -11,7 +11,8 @@ import kro.dodoworld.advancedmonsters.modifier.EntityModifier;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
-import kro.dodoworld.advancedmonsters.modifier.equipment.EntityEquipment;
+import kro.dodoworld.advancedmonsters.modifier.entity.equipment.EntityEquipment;
+import kro.dodoworld.advancedmonsters.modifier.entity.raid.RaidModifier;
 import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
@@ -73,6 +74,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
         getServer().getPluginManager().registerEvents(new AbilityUnlock(), this);
         getServer().getPluginManager().registerEvents(new SludgeGore(), this);
+        getServer().getPluginManager().registerEvents(new DeadlyAnimal(), this);
+        getServer().getPluginManager().registerEvents(new RaidModifier(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
@@ -101,12 +104,12 @@ public final class AdvancedMonsters extends JavaPlugin {
         if(!isPaperServer()){
             logger.severe("Plugin requires Paper or fork of Paper server.");
             logger.severe("Disabling plugin...");
-            getPluginLoader().disablePlugin(this);
+            getServer().getPluginManager().disablePlugin(this);
             return false;
         }
         logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
-        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R1")){
-            logger.warning("This plugin is designed to support v1_19_R1 (1.19.1 ~ 1.19.2)");
+        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R3")){
+            logger.warning("This plugin is designed to support v1_19_R3 (1.19.4)");
             logger.warning("Bugs may crawl up in this version.");
         }
         if(beta){

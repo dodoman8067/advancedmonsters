@@ -3,7 +3,7 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.Skulls;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
 import net.kyori.adventure.text.Component;

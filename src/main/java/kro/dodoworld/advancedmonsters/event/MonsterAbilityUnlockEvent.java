@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.event;
 
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -38,7 +38,7 @@ public class MonsterAbilityUnlockEvent extends Event implements Cancellable {
     }
 
     /**
-     * Gets the ability
+     * Returns the ability
      * @return Unlocked ability
      */
     public MonsterAbility getAbility() {

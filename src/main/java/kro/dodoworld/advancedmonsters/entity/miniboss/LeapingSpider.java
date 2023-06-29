@@ -3,11 +3,12 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
@@ -36,8 +37,7 @@ public class LeapingSpider implements Listener {
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
         spider.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Leaping Spider").color(TextColor.color(212, 197, 38))));
         spider.setCustomNameVisible(true);
-        spider.addScoreboardTag("adm_remove_when_reload");
-            new BukkitRunnable(){
+        new BukkitRunnable(){
             @Override
             public void run() {
                 if(spider.isDead()){
@@ -57,8 +57,8 @@ public class LeapingSpider implements Listener {
                 }
                 if(spider.getTarget() == null){
                     for(Entity entity : spider.getNearbyEntities(25,25,20)){
-                        if(entity instanceof Player){
-                            Player player = (Player) entity;
+                        if(entity instanceof Player player){
+                            if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) continue;
                             spider.setTarget(player);
                         }
                     }

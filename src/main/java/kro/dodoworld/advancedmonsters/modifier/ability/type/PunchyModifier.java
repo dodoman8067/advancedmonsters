@@ -3,7 +3,7 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.PunchyModifierConfig;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

@@ -3,7 +3,6 @@ package kro.dodoworld.advancedmonsters.modifier.ability.type;
 import kro.dodoworld.advancedmonsters.config.modifier.LightingModifierConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
