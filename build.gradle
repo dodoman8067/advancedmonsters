@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'kro.dodoworld'
-version = 'beta-0.5.3'
+version = 'beta-0.5.4-dev'
 
 repositories {
     mavenCentral()
