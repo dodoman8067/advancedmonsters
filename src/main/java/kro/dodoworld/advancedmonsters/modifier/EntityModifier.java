@@ -62,7 +62,7 @@ public class EntityModifier implements Listener {
     }
 
     @EventHandler
-    public void onAnimalSpawn(ChunkLoadEvent event){
+    public void onNaturelAnimalSpawn(ChunkLoadEvent event){
         if(!event.isNewChunk()) return;
         if(!plugin.isEnabled()) return;
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
@@ -84,6 +84,15 @@ public class EntityModifier implements Listener {
                 Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
             }
         }
+    }
+
+    @EventHandler
+    public void onAnimalSpawn(CreatureSpawnEvent event){
+        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
+        if(event.getLocation().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        if(!(event.getEntity() instanceof Animals animal)) return;
+        if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) return;
+        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {

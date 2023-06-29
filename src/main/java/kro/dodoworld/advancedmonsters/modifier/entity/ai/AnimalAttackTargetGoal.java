@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-public class AnimalAttackTargetGoal implements Goal<Animals>{
+public class AnimalAttackTargetGoal implements Goal<Animals> {
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
     private final GoalKey<Animals> goalKey = GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack"));
     private final Animals animal;
