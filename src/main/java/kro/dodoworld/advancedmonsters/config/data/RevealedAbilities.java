@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.config.data;
 
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

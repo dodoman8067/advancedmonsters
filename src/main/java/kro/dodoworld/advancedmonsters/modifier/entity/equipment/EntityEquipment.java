@@ -1,8 +1,8 @@
-package kro.dodoworld.advancedmonsters.modifier.equipment;
+package kro.dodoworld.advancedmonsters.modifier.entity.equipment;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
-import kro.dodoworld.advancedmonsters.modifier.equipment.armor.EntityArmor;
-import kro.dodoworld.advancedmonsters.modifier.equipment.weapon.EntitySword;
+import kro.dodoworld.advancedmonsters.modifier.entity.equipment.armor.EntityArmor;
+import kro.dodoworld.advancedmonsters.modifier.entity.equipment.weapon.EntitySword;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.entity.AbstractSkeleton;

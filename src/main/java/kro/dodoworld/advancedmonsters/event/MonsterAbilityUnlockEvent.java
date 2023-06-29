@@ -1,6 +1,6 @@
 package kro.dodoworld.advancedmonsters.event;
 
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

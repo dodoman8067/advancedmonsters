@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.util;
+package kro.dodoworld.advancedmonsters.modifier.ability;
 
 public enum MonsterAbility {
     HEALTHY,

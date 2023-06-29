@@ -1,7 +1,7 @@
 package kro.dodoworld.advancedmonsters.command;
 
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
-import kro.dodoworld.advancedmonsters.util.MonsterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;

@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifier.ai;
+package kro.dodoworld.advancedmonsters.modifier.entity.ai;
 
 import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
