@@ -189,7 +189,6 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
         logger.info("Plugin successfully disabled.");
         removeEntities();
     }
