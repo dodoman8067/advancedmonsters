@@ -25,6 +25,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,8 +36,10 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class EntityModifier implements Listener {
 
@@ -66,6 +69,9 @@ public class EntityModifier implements Listener {
         if(!event.isNewChunk()) return;
         if(!plugin.isEnabled()) return;
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        Set<EntityType> targets = new HashSet<>();
+        targets.add(EntityType.PLAYER);
+        targets.add(EntityType.IRON_GOLEM);
         for(Entity e : event.getChunk().getEntities()){
             if (!(e instanceof Animals animal)) continue;
             if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) continue;
@@ -79,9 +85,9 @@ public class EntityModifier implements Listener {
                 if(animal.getAttribute(Attribute.GENERIC_FLYING_SPEED) != null){
                     animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).setBaseValue(animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).getBaseValue() * 2);
                 }
-                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true));
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
             }else{
-                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
             }
         }
     }
@@ -92,7 +98,10 @@ public class EntityModifier implements Listener {
         if(event.getLocation().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if(!(event.getEntity() instanceof Animals animal)) return;
         if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) return;
-        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
+        Set<EntityType> targets = new HashSet<>();
+        targets.add(EntityType.PLAYER);
+        targets.add(EntityType.IRON_GOLEM);
+        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {

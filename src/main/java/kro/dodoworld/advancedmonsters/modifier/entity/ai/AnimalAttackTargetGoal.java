@@ -9,6 +9,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public class AnimalAttackTargetGoal implements Goal<Animals> {
     private final Plugin plugin = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
@@ -23,11 +25,13 @@ public class AnimalAttackTargetGoal implements Goal<Animals> {
     private final Animals animal;
     private final double damage;
     private final boolean shouldAttackWhileHoldingItem;
+    private Set<EntityType> targets;
 
-    public AnimalAttackTargetGoal(Animals animal, double damage, boolean shouldAttackWhileHoldingItem){
+    public AnimalAttackTargetGoal(Animals animal, double damage, boolean shouldAttackWhileHoldingItem, Set<EntityType> targets){
         this.animal = animal;
         this.damage = damage;
         this.shouldAttackWhileHoldingItem = shouldAttackWhileHoldingItem;
+        this.targets = targets;
     }
 
 
@@ -56,6 +60,9 @@ public class AnimalAttackTargetGoal implements Goal<Animals> {
         Goal.super.tick();
         if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(animal.getWorld()) <= 50.0) return;
         if(animal.getTarget() != null){
+            if(animal.getTarget().isDead()){
+                animal.setTarget(null);
+            }
             damage(animal);
         }else{
             findTarget(animal);
@@ -66,24 +73,25 @@ public class AnimalAttackTargetGoal implements Goal<Animals> {
         if(entity instanceof Animals) return false;
         if(entity instanceof Player player){
             if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) return false;
+            if(player.isDead()) return false;
             if(!shouldAttackWhileHoldingItem){
                 if(animal.isBreedItem(player.getInventory().getItemInMainHand()) || animal.isBreedItem(player.getInventory().getItemInOffHand())) return false;
             }
             if(animal instanceof Tameable){
-                return !((Tameable) animal).isTamed();
+                return !((Tameable) animal).isTamed() && !entity.isDead();
             }
         }else{
-            return entity instanceof Creature;
+            return entity instanceof Creature && !entity.isDead();
         }
         return true;
     }
 
     private void findTarget(Animals animal){
         for(Entity e : animal.getNearbyEntities(12, 12, 12)){
-            if(e instanceof Player player){
-                if(canTarget(player, animal)){
-                    animal.setTarget(player);
-                }
+            if(!(e instanceof LivingEntity entity)) continue;
+            if(!targets.contains(entity.getType())) continue;
+            if(canTarget(entity, animal)){
+                animal.setTarget(entity);
             }
         }
     }
