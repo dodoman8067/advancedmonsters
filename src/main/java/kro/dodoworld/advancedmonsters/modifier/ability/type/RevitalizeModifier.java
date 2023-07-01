@@ -89,9 +89,17 @@ public class RevitalizeModifier {
 
     private static void applyEffects(Monster creature, PotionEffectType effect, int maxAmplifier, int maxTicks){
         if (maxAmplifier > 0) {
-            creature.addPotionEffect(new PotionEffect(effect, rnd.nextInt(maxTicks - 20) + 20, rnd.nextInt(maxAmplifier) + 1, false, true, true));
+            int ticks = maxTicks - 20;
+            if(ticks <= 20){
+                ticks = 20;
+            }
+            creature.addPotionEffect(new PotionEffect(effect, rnd.nextInt(1, ticks) + 20, rnd.nextInt(maxAmplifier) + 1, false, true, true));
         } else {
-            creature.addPotionEffect(new PotionEffect(effect, rnd.nextInt(maxTicks - 20) + 20, 0, false, true, true));
+            int ticks = maxTicks - 20;
+            if(ticks <= 20){
+                ticks = 20;
+            }
+            creature.addPotionEffect(new PotionEffect(effect, rnd.nextInt(1, ticks) + 20, 0, false, true, true));
         }
     }
 }
