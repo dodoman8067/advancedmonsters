@@ -14,14 +14,21 @@ import org.bukkit.entity.LivingEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Utility methods related to ability system.
+ */
 public class AdvancedUtils {
 
-
+    /**
+     * Returns entity's set of ability.
+     * @param entity entity to check abilities
+     * @return set of MonsterAbility enum, null when entity doesn't have abilities
+     */
     public static Set<MonsterAbility> getAbilities(LivingEntity entity){
-        Set<MonsterAbility> returnValue;
-
-        returnValue = new HashSet<>();
+        Set<MonsterAbility> returnValue = new HashSet<>();
+        //Iterates through entity's scoreboard tags
         for (String tag : entity.getScoreboardTags()) {
+            //Adds MonsterAbility enum from string
             switch (tag) {
                 case "adm_modifier_healthy" -> returnValue.add(MonsterAbility.HEALTHY);
                 case "adm_modifier_strong" -> returnValue.add(MonsterAbility.STRONG);
@@ -40,14 +47,27 @@ public class AdvancedUtils {
                 case "adm_modifier_revitalize" -> returnValue.add(MonsterAbility.REVITALIZE);
             }
         }
-        return returnValue;
+        if(!returnValue.isEmpty()){
+            return returnValue;
+        }else{
+            return null;
+        }
     }
 
+    /**
+     * Returns NMS version this server is running.
+     * @return NMS version
+     */
     public static String getNMSVersion(){
         String v = Bukkit.getServer().getClass().getPackage().getName();
         return v.substring(v.lastIndexOf('.') + 1);
     }
 
+    /**
+     * Returns ability symbol.
+     * @param monsterAbility ability to return its symbol
+     * @return string of ability symbol
+     */
     public static String getAbilitySymbol(MonsterAbility monsterAbility){
         String returnValue = null;
             switch (monsterAbility) {
@@ -70,7 +90,11 @@ public class AdvancedUtils {
         return returnValue;
     }
 
-
+    /**
+     * Returns ability symbol with color.
+     * @param monsterAbility ability to return its symbol
+     * @return component of ability symbol with color
+     */
     public static Component getAbilitySymbolWithColor(MonsterAbility monsterAbility){
         Component returnValue = null;
         switch (monsterAbility) {
@@ -93,8 +117,15 @@ public class AdvancedUtils {
         return returnValue;
     }
 
+    /**
+     * Checks entity is miniboss.
+     * @param entity entity to check
+     * @return true if entity is miniboss, otherwise false
+     */
     public static boolean isMiniboss(Entity entity){
+        //Iterates through entity's scoreboard tags
         for(String s : entity.getScoreboardTags()){
+            //Returns true when entity has scoreboard tag that starts with "adm_miniboss"
             if(s.startsWith("adm_miniboss")){
                 return true;
             }
@@ -102,27 +133,52 @@ public class AdvancedUtils {
         return false;
     }
 
+    /**
+     * Checks ability is unlocked.
+     * @param monsterAbility ability to check
+     * @return true when unlocked, otherwise false
+     */
     public static boolean isUnlocked(MonsterAbility monsterAbility){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
         return configuration.getBoolean(monsterAbility.toString().toLowerCase());
     }
 
+    /**
+     * Changes abilities unlock state.
+     * @param monsterAbility ability to change
+     * @param value new state of ability's unlock state
+     */
     public static void setUnlocked(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
+        //Sets the value
         configuration.set(monsterAbility.toString().toLowerCase(), value);
+        //Reveals ability when value is true
         if(value) setRevealed(monsterAbility, true);
+        //Saves config
         UnlockedEntityAbilities.saveConfig();
         UnlockedEntityAbilities.reloadConfig();
     }
 
+    /**
+     * Checks ability is revealed.
+     * @param monsterAbility ability to check
+     * @return true when revealed, otherwise false
+     */
     public static boolean isRevealed(MonsterAbility monsterAbility){
         FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
         return configuration.getBoolean(monsterAbility.toString().toLowerCase());
     }
 
+    /**
+     * Changes abilities reveal state.
+     * @param monsterAbility ability to change
+     * @param value new state of ability's reveal state
+     */
     public static void setRevealed(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
+        //Sets the value
         configuration.set(monsterAbility.toString().toLowerCase(), value);
+        //Saves config
         RevealedAbilities.saveConfig();
         RevealedAbilities.reloadConfig();
     }
@@ -188,8 +244,14 @@ public class AdvancedUtils {
         return returnValue;
     }
 
-
-
+    /**
+     * Check entity has ability.
+     * @deprecated Use {@link AdvancedUtils#getAbilities(LivingEntity)} for similar effects.
+     * @param entity entity to check
+     * @param ability ability to check if
+     * @return true when entity has ability, otherwise false
+     */
+    @Deprecated
     public static boolean hasAbility(LivingEntity entity, MonsterAbility ability){
         boolean value = false;
         for(MonsterAbility ability1 : getAbilities(entity)){
@@ -200,7 +262,11 @@ public class AdvancedUtils {
         return value;
     }
 
-
+    /**
+     * Returns ability config instance.
+     * @param ability ability to get instance from it
+     * @return ability {@link FileConfiguration} config instance
+     */
     public static FileConfiguration getAbilityConfig(MonsterAbility ability){
         FileConfiguration returnValue;
         switch (ability){
