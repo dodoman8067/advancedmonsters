@@ -1,6 +1,9 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
 import kro.dodoworld.advancedmonsters.config.modifier.BoomerModifierConfig;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
@@ -26,11 +29,16 @@ public class BoomerModifier implements Listener {
         if(event.getEntity().getShooter() == null) return;
         if(event.getEntity().getShooter() instanceof Monster && ((Monster) event.getEntity().getShooter()).getScoreboardTags().contains("adm_modifier_boomer")) {
             if(event.getHitEntity() != null){
-                event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), 4f, false, true, (Monster) event.getEntity().getShooter());
+                if(event.getHitBlock() == null) return;
+                createExplosion(event.getHitBlock().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
             }else{
                 if(event.getHitBlock() == null) return;
-                event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 4f, false, true, (Monster) event.getEntity().getShooter());
+                createExplosion(event.getHitEntity().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
             }
         }
+    }
+
+    private void createExplosion(Location loc, boolean fire, Monster shooter){
+        loc.getWorld().createExplosion(loc, 4f, fire, false, shooter);
     }
 }
