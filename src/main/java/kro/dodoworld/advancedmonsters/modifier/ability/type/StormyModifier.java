@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.type;
 
+import com.destroystokyo.paper.event.entity.EntityZapEvent;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.modifier.StormyModifierConfig;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
@@ -11,6 +12,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Villager;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -50,4 +53,14 @@ public class StormyModifier implements Listener {
         }.runTaskTimer(plugin, 0L, cooldown);
     }
 
+    /**
+     * Prevents villager converting to witch.
+     */
+    @EventHandler
+    public void onConvert(EntityZapEvent event){
+        if(!(event.getReplacementEntity() instanceof Villager)) return;
+        if(event.getBolt().getCausingEntity() == null) return;
+        if(!event.getBolt().getCausingEntity().getScoreboardTags().contains("adm_modifier_stormy")) return;
+        event.setCancelled(true);
+    }
 }
