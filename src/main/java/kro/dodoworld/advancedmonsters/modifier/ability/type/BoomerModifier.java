@@ -29,11 +29,10 @@ public class BoomerModifier implements Listener {
         if(event.getEntity().getShooter() == null) return;
         if(event.getEntity().getShooter() instanceof Monster && ((Monster) event.getEntity().getShooter()).getScoreboardTags().contains("adm_modifier_boomer")) {
             if(event.getHitEntity() != null){
-                if(event.getHitBlock() == null) return;
-                createExplosion(event.getHitBlock().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
+                createExplosion(event.getHitEntity().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
             }else{
                 if(event.getHitBlock() == null) return;
-                createExplosion(event.getHitEntity().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
+                createExplosion(event.getHitBlock().getLocation(), event.getEntity().getFireTicks() >= 1, ((Monster) event.getEntity().getShooter()));
             }
         }
     }
