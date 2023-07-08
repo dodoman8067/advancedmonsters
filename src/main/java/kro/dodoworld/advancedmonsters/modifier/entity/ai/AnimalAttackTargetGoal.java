@@ -25,7 +25,7 @@ public class AnimalAttackTargetGoal implements Goal<Animals> {
     private final Animals animal;
     private final double damage;
     private final boolean shouldAttackWhileHoldingItem;
-    private Set<EntityType> targets;
+    private final Set<EntityType> targets;
 
     public AnimalAttackTargetGoal(Animals animal, double damage, boolean shouldAttackWhileHoldingItem, Set<EntityType> targets){
         this.animal = animal;
@@ -58,7 +58,9 @@ public class AnimalAttackTargetGoal implements Goal<Animals> {
     @Override
     public void tick() {
         Goal.super.tick();
-        if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(animal.getWorld()) <= 50.0) return;
+        if(!animal.getScoreboardTags().contains("adm_animal_deadly")){
+            if(AdvancedMonsters.getMonsterLevel().getMonsterEquipmentLevel(animal.getWorld()) <= 50.0) return;
+        }
         if(animal.getTarget() != null){
             if(animal.getTarget().isDead()){
                 animal.setTarget(null);
