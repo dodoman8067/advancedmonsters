@@ -61,6 +61,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MiniBossSpawn(), this);
         getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
         getServer().getPluginManager().registerEvents(new TankModifier(), this);
+        getServer().getPluginManager().registerEvents(new StormyModifier(), this);
         getServer().getPluginManager().registerEvents(new StrongModifier(), this);
         getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
