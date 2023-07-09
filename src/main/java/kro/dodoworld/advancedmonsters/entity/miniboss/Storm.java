@@ -45,6 +45,7 @@ public class Storm implements Listener {
         storm.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(12);
         storm.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(15);
         storm.customName(getName());
+        storm.setPersistent(true);
         storm.getEquipment().setHelmet(new ItemStack(Skulls.getSkull("https://textures.minecraft.net/texture/b914cf5106aaa82409fdd9213fbdb1479b4d65aecc5d5e22b1f25e5744c4c4f7")));
         storm.getEquipment().setHelmetDropChance(0f);
         storm.getEquipment().setChestplate(getBlueArmor(Material.LEATHER_CHESTPLATE));
@@ -68,8 +69,9 @@ public class Storm implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.STORMY)){
-                        if(storm.getKiller().isDead()){ cancel(); return; }
+                        if(storm.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.STORMY);
+                        if(storm.getKiller().getHealth() <= 0){ cancel(); return; }
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

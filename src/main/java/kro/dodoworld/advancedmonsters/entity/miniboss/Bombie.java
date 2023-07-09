@@ -42,6 +42,7 @@ public class Bombie implements Listener {
         bombie.getEquipment().setLeggingsDropChance(0f);
         bombie.getEquipment().setBoots(getRedArmor(Material.LEATHER_BOOTS));
         bombie.getEquipment().setBootsDropChance(0f);
+        bombie.setPersistent(true);
         bombie.getEquipment().setItemInMainHand(new ItemStack(Material.BLAZE_ROD));
         bombie.getEquipment().setItemInMainHandDropChance(0f);
         bombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(bombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.5);
@@ -55,8 +56,9 @@ public class Bombie implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.BOMBER)){
-                        if(bombie.isDead()){ cancel(); return; }
+                        if(bombie.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOMBER);
+                        if(bombie.getKiller().getHealth() <= 0) return;
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

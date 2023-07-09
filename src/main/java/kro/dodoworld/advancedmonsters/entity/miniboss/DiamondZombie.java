@@ -45,6 +45,7 @@ public class DiamondZombie implements Listener {
         meta3.setUnbreakable(true);
         meta3.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
         stack3.setItemMeta(meta3);
+        zombie.setPersistent(true);
         zombie.getEquipment().setHelmet(new ItemStack(stack));
         zombie.getEquipment().setHelmetDropChance(0f);
         zombie.getEquipment().setChestplate(new ItemStack(stack1));
@@ -66,15 +67,18 @@ public class DiamondZombie implements Listener {
         if(!(event.getEntity().getKiller() instanceof Player)) return;
         if(!(event.getEntity() instanceof Zombie)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
-        if(event.getEntity().getKiller().isDead()) return;
         if(!AdvancedUtils.isUnlocked(MonsterAbility.SPEEDY)){
+            if(event.getEntity().isValid()) return;
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.SPEEDY);
+            if(event.getEntity().getKiller().getHealth() <= 0) return;
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
             if(monsterAbilityUnlockEvent.isCancelled()) return;
             AdvancedUtils.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
         }
         if(!AdvancedUtils.isUnlocked(MonsterAbility.STRONG)){
+            if(event.getEntity().isValid()) return;
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.STRONG);
+            if(event.getEntity().getKiller().getHealth() <= 0) return;
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
             if(monsterAbilityUnlockEvent.isCancelled()) return;
             AdvancedUtils.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);
