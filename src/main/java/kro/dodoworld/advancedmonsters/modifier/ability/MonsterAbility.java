@@ -8,7 +8,7 @@ public enum MonsterAbility {
     TELEPORTER,
     INVISIBLE,
     PUNCHY,
-    BOOMER,
+    BOMBER,
     FLAMING,
     LASER,
     STORMY,
@@ -31,7 +31,7 @@ public enum MonsterAbility {
             case TELEPORTER -> value = "Teleporter";
             case INVISIBLE -> value = "Invisible";
             case PUNCHY -> value = "Punchy";
-            case BOOMER -> value = "Boomer";
+            case BOMBER -> value = "Boomer";
             case FLAMING -> value = "Flaming";
             case LASER -> value = "Laser";
             case STORMY -> value = "Stormy";

@@ -37,7 +37,7 @@ public class AdvancedUtils {
                 case "adm_modifier_teleporter" -> returnValue.add(MonsterAbility.TELEPORTER);
                 case "adm_modifier_invisible" -> returnValue.add(MonsterAbility.INVISIBLE);
                 case "adm_modifier_punchy" -> returnValue.add(MonsterAbility.PUNCHY);
-                case "adm_modifier_boomer" -> returnValue.add(MonsterAbility.BOOMER);
+                case "adm_modifier_bomber" -> returnValue.add(MonsterAbility.BOMBER);
                 case "adm_modifier_flaming" -> returnValue.add(MonsterAbility.FLAMING);
                 case "adm_modifier_laser" -> returnValue.add(MonsterAbility.LASER);
                 case "adm_modifier_venomous" -> returnValue.add(MonsterAbility.VENOMOUS);
@@ -78,7 +78,7 @@ public class AdvancedUtils {
                 case TELEPORTER -> returnValue = "☯";
                 case INVISIBLE -> returnValue = "▫";
                 case PUNCHY -> returnValue = "⇧";
-                case BOOMER -> returnValue = "■";
+                case BOMBER -> returnValue = "■";
                 case FLAMING -> returnValue = "\uD83D\uDD25";
                 case LASER -> returnValue = "◎";
                 case VENOMOUS -> returnValue = "☣";
@@ -105,7 +105,7 @@ public class AdvancedUtils {
             case TELEPORTER -> returnValue = Component.text("☯", TextColor.color(0x00AAAA));
             case INVISIBLE -> returnValue = Component.text("▫", TextColor.color(0x555555));
             case PUNCHY -> returnValue = Component.text("⇧", TextColor.color(0x55FF55));
-            case BOOMER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
+            case BOMBER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
             case FLAMING -> returnValue = Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00));
             case LASER -> returnValue = Component.text("◎", TextColor.color(250, 74, 20));
             case VENOMOUS -> returnValue = Component.text("☣", TextColor.color(199, 204, 53));
@@ -185,8 +185,8 @@ public class AdvancedUtils {
 
     public static String replace(String value){
         String returnValue;
-        returnValue = value.replaceAll("\\{boomer_tnt_drop_chance}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getDouble("boomer_tnt_drop_chance")))
-                .replaceAll("\\{boomer_tnt_fuse_ticks}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getInt("boomer_tnt_fuse_ticks")))
+        returnValue = value.replaceAll("\\{bomber_tnt_drop_chance}", String.valueOf(BomberModifierConfig.getBomberModifierConfig().getDouble("bomber_tnt_drop_chance")))
+                .replaceAll("\\{bomber_tnt_fuse_ticks}", String.valueOf(BomberModifierConfig.getBomberModifierConfig().getInt("bomber_tnt_fuse_ticks")))
 
                 .replaceAll("\\{flaming_fire_effect_chance}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("flaming_fire_effect_chance")))
                 .replaceAll("\\{flaming_fire_effect_ticks}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getInt("flaming_fire_effect_ticks")))
@@ -277,7 +277,7 @@ public class AdvancedUtils {
             case TELEPORTER -> returnValue = TeleportModifierConfig.getTeleporterModifierConfig();
             case INVISIBLE -> returnValue = InvisibleModifierConfig.getInvisibleModifierConfig();
             case PUNCHY -> returnValue = PunchyModifierConfig.getPunchyModifierConfig();
-            case BOOMER -> returnValue = BoomerModifierConfig.getBoomerModifierConfig();
+            case BOMBER -> returnValue = BomberModifierConfig.getBomberModifierConfig();
             case FLAMING -> returnValue = FlamingModifierConfig.getFlamingModifierConfig();
             case LASER -> returnValue = LaserModifierConfig.getLaserModifierConfig();
             case VENOMOUS -> returnValue = VenomousModifierConfig.getVenomousModifierConfig();

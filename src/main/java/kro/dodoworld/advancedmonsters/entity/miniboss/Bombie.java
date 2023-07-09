@@ -54,9 +54,9 @@ public class Bombie implements Listener {
                         cancel();
                         return;
                     }
-                    if(!AdvancedUtils.isUnlocked(MonsterAbility.BOOMER)){
+                    if(!AdvancedUtils.isUnlocked(MonsterAbility.BOMBER)){
                         if(bombie.isDead()){ cancel(); return; }
-                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOOMER);
+                        MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.BOMBER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

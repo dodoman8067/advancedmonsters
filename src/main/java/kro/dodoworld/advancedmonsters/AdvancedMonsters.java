@@ -64,7 +64,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TankModifier(), this);
         getServer().getPluginManager().registerEvents(new StormyModifier(), this);
         getServer().getPluginManager().registerEvents(new StrongModifier(), this);
-        getServer().getPluginManager().registerEvents(new BoomerModifier(), this);
+        getServer().getPluginManager().registerEvents(new BomberModifier(), this);
         getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
         getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
         getServer().getPluginManager().registerEvents(new LightingModifier(), this);
@@ -167,9 +167,9 @@ public final class AdvancedMonsters extends JavaPlugin {
         InvisibleModifierConfig.init();
         InvisibleModifierConfig.saveConfig();
         InvisibleModifierConfig.reloadConfig();
-        BoomerModifierConfig.init();
-        BoomerModifierConfig.saveConfig();
-        BoomerModifierConfig.reloadConfig();
+        BomberModifierConfig.init();
+        BomberModifierConfig.saveConfig();
+        BomberModifierConfig.reloadConfig();
         FlamingModifierConfig.init();
         FlamingModifierConfig.saveConfig();
         FlamingModifierConfig.reloadConfig();

@@ -1,9 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
 import com.destroystokyo.paper.entity.ai.GoalKey;
-import com.destroystokyo.paper.entity.ai.GoalType;
-import com.destroystokyo.paper.entity.ai.MobGoalHelper;
-import com.destroystokyo.paper.entity.ai.VanillaGoal;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
@@ -29,7 +26,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Fox;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,7 +45,7 @@ import java.util.Set;
 public class EntityModifier implements Listener {
 
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
-            MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
+            MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOMBER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
             MonsterAbility.FROZEN, MonsterAbility.LIGHTING, MonsterAbility.REVITALIZE
     );
@@ -153,7 +149,7 @@ public class EntityModifier implements Listener {
                 maxHealthAttribute.setBaseValue(maxHealthAttribute.getBaseValue() * healthMultiplier);
                 monster.setHealth(maxHealthAttribute.getBaseValue());
             }
-            case STRONG, FLAMING, BOOMER, PUNCHY, LASER, VENOMOUS, FROZEN, LIGHTING -> {
+            case STRONG, FLAMING, BOMBER, PUNCHY, LASER, VENOMOUS, FROZEN, LIGHTING -> {
                 addIconAndName(monster, ability);
             }
             case TANK -> {
