@@ -130,12 +130,12 @@ public final class AdvancedMonsters extends JavaPlugin {
         }
         logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
         if(!AdvancedUtils.getNMSVersion().equals("v1_19_R3")){
-            //Logs warning when server NMS version is NOT v1_19_R3
+            //Logs warning when server's NMS version is NOT v1_19_R3
             logger.warning("This plugin is designed to support v1_19_R3 (1.19.4)");
             logger.warning("Bugs may crawl up in this version.");
         }
         if(beta){
-            //Logs warning when user is running beta version of this plugin
+            //Logs warning when user is running a beta version of this plugin
             logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
             logger.warning("I suggest run stable version if you are NOT developer.");
         }

@@ -39,7 +39,7 @@ public class VillagerInfection implements Listener {
         if(!(event.getEntity() instanceof Villager villager)) return;
         if(!event.getEntity().getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) return;
         if(event.getEntity().getPersistentDataContainer().get(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER) == 0) return;
-        for(Entity entity : villager.getNearbyEntities(1.5, 0, 1.5)){
+        for(Entity entity : villager.getNearbyEntities(0.5, 0, 0.5)){
             if(!(entity instanceof Villager)) continue;
             if(!entity.getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) continue;
             if(entity.getPersistentDataContainer().get(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER) != 0) continue;
