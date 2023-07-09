@@ -58,6 +58,7 @@ public class SludgeGore implements Listener {
         if(event.getEntity().getKiller() == null) return;
         if(!(event.getEntity() instanceof Slime)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
+        if(event.getEntity().getKiller().isDead()) return;
         if(!AdvancedUtils.isUnlocked(MonsterAbility.PUNCHY)){
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.PUNCHY);
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);

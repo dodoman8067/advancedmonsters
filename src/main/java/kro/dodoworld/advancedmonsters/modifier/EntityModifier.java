@@ -1,6 +1,9 @@
 package kro.dodoworld.advancedmonsters.modifier;
 
 import com.destroystokyo.paper.entity.ai.GoalKey;
+import com.destroystokyo.paper.entity.ai.GoalType;
+import com.destroystokyo.paper.entity.ai.MobGoalHelper;
+import com.destroystokyo.paper.entity.ai.VanillaGoal;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
 import kro.dodoworld.advancedmonsters.config.modifier.HealthyModifierConfig;
@@ -26,11 +29,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fox;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -66,7 +71,6 @@ public class EntityModifier implements Listener {
 
     @EventHandler
     public void onNaturelAnimalSpawn(ChunkLoadEvent event){
-        if(!event.isNewChunk()) return;
         if(!plugin.isEnabled()) return;
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         Set<EntityType> targets = new HashSet<>();
@@ -75,6 +79,9 @@ public class EntityModifier implements Listener {
         for(Entity e : event.getChunk().getEntities()){
             if (!(e instanceof Animals animal)) continue;
             if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) continue;
+            if(animal.getScoreboardTags().contains("adm_animal_deadly")){
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
+            }
             if(random.nextDouble(0, 101) <= 2){
                 animal.addScoreboardTag("adm_animal_deadly");
                 animal.setCustomNameVisible(true);
@@ -102,6 +109,27 @@ public class EntityModifier implements Listener {
         targets.add(EntityType.PLAYER);
         targets.add(EntityType.IRON_GOLEM);
         Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
+    }
+
+    @EventHandler
+    public void onVillagerNaturelSpawn(ChunkLoadEvent event){
+        if(!event.isNewChunk()) return;
+        if(!plugin.isEnabled()) return;
+        for(Entity e : event.getChunk().getEntities()){
+            if(!e.getType().equals(EntityType.VILLAGER)) continue;
+            if(e.getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) continue;
+            e.getPersistentDataContainer().set(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER, 0);
+        }
+    }
+
+    @EventHandler
+    public void onVillagerSpawn(CreatureSpawnEvent event){
+        //TODO : Add configuration to add infect tag when summoned by player
+        if(!plugin.isEnabled()) return;
+        Entity e = event.getEntity();
+        if(!e.getType().equals(EntityType.VILLAGER)) return;
+        if(e.getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) return;
+        e.getPersistentDataContainer().set(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER, 0);
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {

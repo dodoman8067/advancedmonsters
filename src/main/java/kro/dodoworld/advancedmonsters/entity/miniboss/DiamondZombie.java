@@ -66,6 +66,7 @@ public class DiamondZombie implements Listener {
         if(!(event.getEntity().getKiller() instanceof Player)) return;
         if(!(event.getEntity() instanceof Zombie)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_diamond_zombie")) return;
+        if(event.getEntity().getKiller().isDead()) return;
         if(!AdvancedUtils.isUnlocked(MonsterAbility.SPEEDY)){
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.SPEEDY);
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);

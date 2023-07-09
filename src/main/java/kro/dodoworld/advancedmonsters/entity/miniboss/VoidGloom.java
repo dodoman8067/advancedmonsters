@@ -47,6 +47,7 @@ public class VoidGloom implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.TELEPORTER)){
+                        if(enderman.isDead()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TELEPORTER);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {

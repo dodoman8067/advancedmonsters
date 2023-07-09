@@ -64,6 +64,7 @@ public class EarthQuaker implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.TANK)){
+                        if(earthQuaker.getKiller().isDead()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TANK);
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {

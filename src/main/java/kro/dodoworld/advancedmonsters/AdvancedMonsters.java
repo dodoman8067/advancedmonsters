@@ -13,6 +13,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
 import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
 import kro.dodoworld.advancedmonsters.modifier.entity.equipment.EntityEquipment;
 import kro.dodoworld.advancedmonsters.modifier.entity.raid.RaidModifier;
+import kro.dodoworld.advancedmonsters.modifier.infect.VillagerInfection;
 import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
 import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
@@ -81,6 +82,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SludgeGore(), this);
         getServer().getPluginManager().registerEvents(new DeadlyAnimal(), this);
         getServer().getPluginManager().registerEvents(new RaidModifier(), this);
+        getServer().getPluginManager().registerEvents(new VillagerInfection(), this);
         logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
         logger.info("Loading commands...");
         long commandMs = System.currentTimeMillis();
