@@ -77,8 +77,10 @@ public class EntityModifier implements Listener {
             if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) continue;
             if(animal.getScoreboardTags().contains("adm_animal_deadly")){
                 Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
+                continue;
             }
-            if(random.nextDouble(0, 101) <= 2){
+            if(random.nextDouble(0, 101) <= 1){
+                if(animal.getScoreboardTags().contains("adm_animal_not_deadly")) continue;
                 animal.addScoreboardTag("adm_animal_deadly");
                 animal.setCustomNameVisible(true);
                 animal.customName(Component.text("☠Deadly", NamedTextColor.DARK_RED, TextDecoration.BOLD).append(Component.text(" " + toMobName(animal.getType().name()), NamedTextColor.WHITE)));
@@ -90,6 +92,7 @@ public class EntityModifier implements Listener {
                 }
                 Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
             }else{
+                animal.addScoreboardTag("adm_animal_not_deadly");
                 Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
             }
         }
@@ -104,6 +107,7 @@ public class EntityModifier implements Listener {
         Set<EntityType> targets = new HashSet<>();
         targets.add(EntityType.PLAYER);
         targets.add(EntityType.IRON_GOLEM);
+        animal.addScoreboardTag("adm_animal_not_deadly");
         Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
     }
 
