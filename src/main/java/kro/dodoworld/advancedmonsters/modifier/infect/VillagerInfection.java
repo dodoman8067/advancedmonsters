@@ -55,7 +55,7 @@ public class VillagerInfection implements Listener {
         if(event.getDamager() instanceof Zombie || event.getDamager() instanceof PigZombie
                 || event.getDamager() instanceof ZombieVillager || event.getDamager() instanceof Drowned || event.getDamager() instanceof Husk) return;
         if(villager.getHealth() >= event.getFinalDamage())  return;
-        if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) return;
+        if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID) || event.getCause().equals(EntityDamageEvent.DamageCause.SUICIDE)) return;
         if(!event.getEntity().getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) return;
         if(event.getEntity().getPersistentDataContainer().get(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER) == 0) return;
         villager.zombify();
