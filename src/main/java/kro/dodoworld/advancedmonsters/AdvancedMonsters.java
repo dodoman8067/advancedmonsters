@@ -58,8 +58,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Loading listeners...");
         long eventMs = System.currentTimeMillis();
         //Registers listeners
-        getServer().getPluginManager().registerEvents(new Storm(), this);
         getServer().getPluginManager().registerEvents(new MiniBossSpawn(), this);
+        getServer().getPluginManager().registerEvents(new Storm(), this);
         getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
         getServer().getPluginManager().registerEvents(new TankModifier(), this);
         getServer().getPluginManager().registerEvents(new StormyModifier(), this);
@@ -69,8 +69,8 @@ public final class AdvancedMonsters extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
         getServer().getPluginManager().registerEvents(new LightingModifier(), this);
         getServer().getPluginManager().registerEvents(new EntityModifier(), this);
-        getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
+        getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
         getServer().getPluginManager().registerEvents(new DiamondZombie(), this);
         getServer().getPluginManager().registerEvents(new Inferno(), this);
         getServer().getPluginManager().registerEvents(new Bombie(), this);
