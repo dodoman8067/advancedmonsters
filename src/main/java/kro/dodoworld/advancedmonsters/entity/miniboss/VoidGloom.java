@@ -24,6 +24,7 @@ public class VoidGloom implements Listener {
         Enderman enderman = loc.getWorld().spawn(loc, Enderman.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         enderman.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200);
         enderman.setHealth(200);
+        enderman.setPersistent(true);
         enderman.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(25);
         enderman.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(10);
         enderman.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(15);
@@ -47,7 +48,9 @@ public class VoidGloom implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.TELEPORTER)){
+                        if(enderman.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TELEPORTER);
+                        if(enderman.getKiller().getHealth() <= 0){ cancel(); return; }
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

@@ -2,9 +2,9 @@ package kro.dodoworld.advancedmonsters.entity.miniboss;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.MonsterAbilityUnlockEvent;
+import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import kro.dodoworld.advancedmonsters.util.BlockUtilMethods;
-import kro.dodoworld.advancedmonsters.modifier.ability.MonsterAbility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -34,6 +34,7 @@ public class Inferno implements Listener {
         blaze.addScoreboardTag("adm_miniboss_inferno");
         blaze.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(300);
         blaze.setHealth(300);
+        blaze.setPersistent(true);
         blaze.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(20);
         blaze.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(9);
         blaze.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(7);
@@ -49,7 +50,9 @@ public class Inferno implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.FLAMING)){
+                        if(blaze.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.FLAMING);
+                        if(blaze.getKiller().getHealth() <= 0){ cancel(); return; }
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

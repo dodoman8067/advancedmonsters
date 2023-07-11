@@ -26,6 +26,7 @@ public class SludgeGore implements Listener {
         slime.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(10);
         slime.getAttribute(Attribute.GENERIC_ATTACK_KNOCKBACK).setBaseValue(5);
         slime.setHealth(250);
+        slime.setPersistent(true);
         slime.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("SludgeGore").color(TextColor.color(67, 191, 79))));
         slime.addScoreboardTag("adm_remove_when_reload");
         slime.addScoreboardTag("adm_miniboss_sludgegore");
@@ -59,7 +60,9 @@ public class SludgeGore implements Listener {
         if(!(event.getEntity() instanceof Slime)) return;
         if(!event.getEntity().getScoreboardTags().contains("adm_miniboss_sludgegore")) return;
         if(!AdvancedUtils.isUnlocked(MonsterAbility.PUNCHY)){
+            if(event.getEntity().isValid()) return;
             MonsterAbilityUnlockEvent monsterAbilityUnlockEvent = new MonsterAbilityUnlockEvent(MonsterAbility.PUNCHY);
+            if(event.getEntity().getKiller().getHealth() <= 0) return;
             Bukkit.getServer().getPluginManager().callEvent(monsterAbilityUnlockEvent);
             if(monsterAbilityUnlockEvent.isCancelled()) return;
             AdvancedUtils.setUnlocked(monsterAbilityUnlockEvent.getAbility(), true);

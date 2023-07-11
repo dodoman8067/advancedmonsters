@@ -25,7 +25,13 @@ public class MonsterLevel {
     }
 
     public void decrease(World world, double amount){
-        MonsterEquipmentLevel.getMonsterEquipmentLevel().set(world.getName(), MonsterEquipmentLevel.getMonsterEquipmentLevel().getDouble(world.getName()) - amount);
+        double amount1 = 0;
+        if(amount <= 0){
+            amount1 = 0;
+        }else{
+            amount1 = amount;
+        }
+        MonsterEquipmentLevel.getMonsterEquipmentLevel().set(world.getName(), amount1);
         MonsterEquipmentLevel.saveConfig();
         MonsterEquipmentLevel.reloadConfig();
     }

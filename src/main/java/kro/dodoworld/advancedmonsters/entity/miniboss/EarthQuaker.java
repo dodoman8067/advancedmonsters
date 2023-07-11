@@ -53,6 +53,7 @@ public class EarthQuaker implements Listener {
         earthQuaker.setCustomNameVisible(true);
         earthQuaker.customName(getName());
         earthQuaker.setHealth(320);
+        earthQuaker.setPersistent(true);
         new BukkitRunnable(){
             int i = 0;
 
@@ -64,7 +65,9 @@ public class EarthQuaker implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.TANK)){
+                        if(earthQuaker.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.TANK);
+                        if(earthQuaker.getKiller().getHealth() <= 0){ cancel(); return; }
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

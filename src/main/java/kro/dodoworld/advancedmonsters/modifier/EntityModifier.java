@@ -25,23 +25,27 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class EntityModifier implements Listener {
 
     private final EnumSet<MonsterAbility> possibleAbilities = EnumSet.of(
-            MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOOMER, MonsterAbility.FLAMING, MonsterAbility.LASER,
+            MonsterAbility.HEALTHY, MonsterAbility.INVISIBLE, MonsterAbility.BOMBER, MonsterAbility.FLAMING, MonsterAbility.LASER,
             MonsterAbility.PUNCHY, MonsterAbility.SPEEDY, MonsterAbility.STORMY, MonsterAbility.STRONG, MonsterAbility.TELEPORTER, MonsterAbility.TANK, MonsterAbility.VENOMOUS,
             MonsterAbility.FROZEN, MonsterAbility.LIGHTING, MonsterAbility.REVITALIZE
     );
@@ -63,13 +67,20 @@ public class EntityModifier implements Listener {
 
     @EventHandler
     public void onNaturelAnimalSpawn(ChunkLoadEvent event){
-        if(!event.isNewChunk()) return;
         if(!plugin.isEnabled()) return;
         if (event.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
+        Set<EntityType> targets = new HashSet<>();
+        targets.add(EntityType.PLAYER);
+        targets.add(EntityType.IRON_GOLEM);
         for(Entity e : event.getChunk().getEntities()){
             if (!(e instanceof Animals animal)) continue;
             if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) continue;
-            if(random.nextDouble(0, 101) <= 2){
+            if(animal.getScoreboardTags().contains("adm_animal_deadly")){
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
+                continue;
+            }
+            if(random.nextDouble(0, 101) <= 1){
+                if(animal.getScoreboardTags().contains("adm_animal_not_deadly")) continue;
                 animal.addScoreboardTag("adm_animal_deadly");
                 animal.setCustomNameVisible(true);
                 animal.customName(Component.text("☠Deadly", NamedTextColor.DARK_RED, TextDecoration.BOLD).append(Component.text(" " + toMobName(animal.getType().name()), NamedTextColor.WHITE)));
@@ -79,9 +90,10 @@ public class EntityModifier implements Listener {
                 if(animal.getAttribute(Attribute.GENERIC_FLYING_SPEED) != null){
                     animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).setBaseValue(animal.getAttribute(Attribute.GENERIC_FLYING_SPEED).getBaseValue() * 2);
                 }
-                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true));
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, random.nextDouble(10, 30), true, targets));
             }else{
-                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
+                animal.addScoreboardTag("adm_animal_not_deadly");
+                Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
             }
         }
     }
@@ -92,7 +104,32 @@ public class EntityModifier implements Listener {
         if(event.getLocation().getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) return;
         if(!(event.getEntity() instanceof Animals animal)) return;
         if(Bukkit.getMobGoals().hasGoal(animal, GoalKey.of(Animals.class, new NamespacedKey(plugin, "animal_attack")))) return;
-        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false));
+        Set<EntityType> targets = new HashSet<>();
+        targets.add(EntityType.PLAYER);
+        targets.add(EntityType.IRON_GOLEM);
+        animal.addScoreboardTag("adm_animal_not_deadly");
+        Bukkit.getMobGoals().addGoal(animal, 2, new AnimalAttackTargetGoal(animal, 2.0, false, targets));
+    }
+
+    @EventHandler
+    public void onVillagerNaturelSpawn(ChunkLoadEvent event){
+        if(!event.isNewChunk()) return;
+        if(!plugin.isEnabled()) return;
+        for(Entity e : event.getChunk().getEntities()){
+            if(!e.getType().equals(EntityType.VILLAGER)) continue;
+            if(e.getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) continue;
+            e.getPersistentDataContainer().set(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER, 0);
+        }
+    }
+
+    @EventHandler
+    public void onVillagerSpawn(CreatureSpawnEvent event){
+        //TODO : Add configuration to add infect tag when summoned by player
+        if(!plugin.isEnabled()) return;
+        Entity e = event.getEntity();
+        if(!e.getType().equals(EntityType.VILLAGER)) return;
+        if(e.getPersistentDataContainer().has(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER)) return;
+        e.getPersistentDataContainer().set(new NamespacedKey(plugin, "is_infected"), PersistentDataType.INTEGER, 0);
     }
 
     private MonsterAbility getRandomAbility(FileConfiguration config) {
@@ -116,7 +153,7 @@ public class EntityModifier implements Listener {
                 maxHealthAttribute.setBaseValue(maxHealthAttribute.getBaseValue() * healthMultiplier);
                 monster.setHealth(maxHealthAttribute.getBaseValue());
             }
-            case STRONG, FLAMING, BOOMER, PUNCHY, LASER, VENOMOUS, FROZEN, LIGHTING -> {
+            case STRONG, FLAMING, BOMBER, PUNCHY, LASER, VENOMOUS, FROZEN, LIGHTING -> {
                 addIconAndName(monster, ability);
             }
             case TANK -> {

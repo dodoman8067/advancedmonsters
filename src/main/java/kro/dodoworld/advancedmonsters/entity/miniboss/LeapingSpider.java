@@ -33,6 +33,7 @@ public class LeapingSpider implements Listener {
         CaveSpider spider = loc.getWorld().spawn(loc, CaveSpider.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(80);
         spider.setHealth(80);
+        spider.setPersistent(true);
         spider.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.22);
         spider.addScoreboardTag("adm_miniboss_leaping_spider");
         spider.customName(Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(Component.text("Leaping Spider").color(TextColor.color(212, 197, 38))));
@@ -46,7 +47,9 @@ public class LeapingSpider implements Listener {
                         return;
                     }
                     if(!AdvancedUtils.isUnlocked(MonsterAbility.VENOMOUS)){
+                        if(spider.isValid()){ cancel(); return; }
                         MonsterAbilityUnlockEvent event = new MonsterAbilityUnlockEvent(MonsterAbility.VENOMOUS);
+                        if(spider.getKiller().getHealth() <= 0){ cancel(); return; }
                         Bukkit.getServer().getPluginManager().callEvent(event);
                         if(!event.isCancelled()) {
                             AdvancedUtils.setUnlocked(event.getAbility(), true);

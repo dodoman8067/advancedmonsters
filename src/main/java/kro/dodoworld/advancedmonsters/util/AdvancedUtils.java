@@ -14,14 +14,21 @@ import org.bukkit.entity.LivingEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Utility methods related to ability system.
+ */
 public class AdvancedUtils {
 
-
+    /**
+     * Returns entity's set of ability.
+     * @param entity entity to check abilities
+     * @return set of MonsterAbility enum, null when entity doesn't have abilities
+     */
     public static Set<MonsterAbility> getAbilities(LivingEntity entity){
-        Set<MonsterAbility> returnValue;
-
-        returnValue = new HashSet<>();
+        Set<MonsterAbility> returnValue = new HashSet<>();
+        //Iterates through entity's scoreboard tags
         for (String tag : entity.getScoreboardTags()) {
+            //Adds MonsterAbility enum from string
             switch (tag) {
                 case "adm_modifier_healthy" -> returnValue.add(MonsterAbility.HEALTHY);
                 case "adm_modifier_strong" -> returnValue.add(MonsterAbility.STRONG);
@@ -30,7 +37,7 @@ public class AdvancedUtils {
                 case "adm_modifier_teleporter" -> returnValue.add(MonsterAbility.TELEPORTER);
                 case "adm_modifier_invisible" -> returnValue.add(MonsterAbility.INVISIBLE);
                 case "adm_modifier_punchy" -> returnValue.add(MonsterAbility.PUNCHY);
-                case "adm_modifier_boomer" -> returnValue.add(MonsterAbility.BOOMER);
+                case "adm_modifier_bomber" -> returnValue.add(MonsterAbility.BOMBER);
                 case "adm_modifier_flaming" -> returnValue.add(MonsterAbility.FLAMING);
                 case "adm_modifier_laser" -> returnValue.add(MonsterAbility.LASER);
                 case "adm_modifier_venomous" -> returnValue.add(MonsterAbility.VENOMOUS);
@@ -40,14 +47,27 @@ public class AdvancedUtils {
                 case "adm_modifier_revitalize" -> returnValue.add(MonsterAbility.REVITALIZE);
             }
         }
-        return returnValue;
+        if(!returnValue.isEmpty()){
+            return returnValue;
+        }else{
+            return null;
+        }
     }
 
+    /**
+     * Returns NMS version this server is running.
+     * @return NMS version
+     */
     public static String getNMSVersion(){
         String v = Bukkit.getServer().getClass().getPackage().getName();
         return v.substring(v.lastIndexOf('.') + 1);
     }
 
+    /**
+     * Returns ability symbol.
+     * @param monsterAbility ability to return its symbol
+     * @return string of ability symbol
+     */
     public static String getAbilitySymbol(MonsterAbility monsterAbility){
         String returnValue = null;
             switch (monsterAbility) {
@@ -58,7 +78,7 @@ public class AdvancedUtils {
                 case TELEPORTER -> returnValue = "☯";
                 case INVISIBLE -> returnValue = "▫";
                 case PUNCHY -> returnValue = "⇧";
-                case BOOMER -> returnValue = "■";
+                case BOMBER -> returnValue = "■";
                 case FLAMING -> returnValue = "\uD83D\uDD25";
                 case LASER -> returnValue = "◎";
                 case VENOMOUS -> returnValue = "☣";
@@ -70,7 +90,11 @@ public class AdvancedUtils {
         return returnValue;
     }
 
-
+    /**
+     * Returns ability symbol with color.
+     * @param monsterAbility ability to return its symbol
+     * @return component of ability symbol with color
+     */
     public static Component getAbilitySymbolWithColor(MonsterAbility monsterAbility){
         Component returnValue = null;
         switch (monsterAbility) {
@@ -81,7 +105,7 @@ public class AdvancedUtils {
             case TELEPORTER -> returnValue = Component.text("☯", TextColor.color(0x00AAAA));
             case INVISIBLE -> returnValue = Component.text("▫", TextColor.color(0x555555));
             case PUNCHY -> returnValue = Component.text("⇧", TextColor.color(0x55FF55));
-            case BOOMER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
+            case BOMBER -> returnValue = Component.text("■", TextColor.color(0xFF5555));
             case FLAMING -> returnValue = Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00));
             case LASER -> returnValue = Component.text("◎", TextColor.color(250, 74, 20));
             case VENOMOUS -> returnValue = Component.text("☣", TextColor.color(199, 204, 53));
@@ -93,8 +117,15 @@ public class AdvancedUtils {
         return returnValue;
     }
 
+    /**
+     * Checks entity is miniboss.
+     * @param entity entity to check
+     * @return true if entity is miniboss, otherwise false
+     */
     public static boolean isMiniboss(Entity entity){
+        //Iterates through entity's scoreboard tags
         for(String s : entity.getScoreboardTags()){
+            //Returns true when entity has scoreboard tag that starts with "adm_miniboss"
             if(s.startsWith("adm_miniboss")){
                 return true;
             }
@@ -102,35 +133,60 @@ public class AdvancedUtils {
         return false;
     }
 
+    /**
+     * Checks ability is unlocked.
+     * @param monsterAbility ability to check
+     * @return true when unlocked, otherwise false
+     */
     public static boolean isUnlocked(MonsterAbility monsterAbility){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
         return configuration.getBoolean(monsterAbility.toString().toLowerCase());
     }
 
+    /**
+     * Changes abilities unlock state.
+     * @param monsterAbility ability to change
+     * @param value new state of ability's unlock state
+     */
     public static void setUnlocked(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = UnlockedEntityAbilities.getUnlockedEntityAbilityConfig();
+        //Sets the value
         configuration.set(monsterAbility.toString().toLowerCase(), value);
+        //Reveals ability when value is true
         if(value) setRevealed(monsterAbility, true);
+        //Saves config
         UnlockedEntityAbilities.saveConfig();
         UnlockedEntityAbilities.reloadConfig();
     }
 
+    /**
+     * Checks ability is revealed.
+     * @param monsterAbility ability to check
+     * @return true when revealed, otherwise false
+     */
     public static boolean isRevealed(MonsterAbility monsterAbility){
         FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
         return configuration.getBoolean(monsterAbility.toString().toLowerCase());
     }
 
+    /**
+     * Changes abilities reveal state.
+     * @param monsterAbility ability to change
+     * @param value new state of ability's reveal state
+     */
     public static void setRevealed(MonsterAbility monsterAbility, boolean value){
         FileConfiguration configuration = RevealedAbilities.getRevealedAbilityConfig();
+        //Sets the value
         configuration.set(monsterAbility.toString().toLowerCase(), value);
+        //Saves config
         RevealedAbilities.saveConfig();
         RevealedAbilities.reloadConfig();
     }
 
     public static String replace(String value){
         String returnValue;
-        returnValue = value.replaceAll("\\{boomer_tnt_drop_chance}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getDouble("boomer_tnt_drop_chance")))
-                .replaceAll("\\{boomer_tnt_fuse_ticks}", String.valueOf(BoomerModifierConfig.getBoomerModifierConfig().getInt("boomer_tnt_fuse_ticks")))
+        returnValue = value.replaceAll("\\{bomber_tnt_drop_chance}", String.valueOf(BomberModifierConfig.getBomberModifierConfig().getDouble("bomber_tnt_drop_chance")))
+                .replaceAll("\\{bomber_tnt_fuse_ticks}", String.valueOf(BomberModifierConfig.getBomberModifierConfig().getInt("bomber_tnt_fuse_ticks")))
 
                 .replaceAll("\\{flaming_fire_effect_chance}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getDouble("flaming_fire_effect_chance")))
                 .replaceAll("\\{flaming_fire_effect_ticks}", String.valueOf(FlamingModifierConfig.getFlamingModifierConfig().getInt("flaming_fire_effect_ticks")))
@@ -188,8 +244,14 @@ public class AdvancedUtils {
         return returnValue;
     }
 
-
-
+    /**
+     * Check entity has ability.
+     * @deprecated Use {@link AdvancedUtils#getAbilities(LivingEntity)} for similar effects.
+     * @param entity entity to check
+     * @param ability ability to check if
+     * @return true when entity has ability, otherwise false
+     */
+    @Deprecated
     public static boolean hasAbility(LivingEntity entity, MonsterAbility ability){
         boolean value = false;
         for(MonsterAbility ability1 : getAbilities(entity)){
@@ -200,7 +262,11 @@ public class AdvancedUtils {
         return value;
     }
 
-
+    /**
+     * Returns ability config instance.
+     * @param ability ability to get instance from it
+     * @return ability {@link FileConfiguration} config instance
+     */
     public static FileConfiguration getAbilityConfig(MonsterAbility ability){
         FileConfiguration returnValue;
         switch (ability){
@@ -211,7 +277,7 @@ public class AdvancedUtils {
             case TELEPORTER -> returnValue = TeleportModifierConfig.getTeleporterModifierConfig();
             case INVISIBLE -> returnValue = InvisibleModifierConfig.getInvisibleModifierConfig();
             case PUNCHY -> returnValue = PunchyModifierConfig.getPunchyModifierConfig();
-            case BOOMER -> returnValue = BoomerModifierConfig.getBoomerModifierConfig();
+            case BOMBER -> returnValue = BomberModifierConfig.getBomberModifierConfig();
             case FLAMING -> returnValue = FlamingModifierConfig.getFlamingModifierConfig();
             case LASER -> returnValue = LaserModifierConfig.getLaserModifierConfig();
             case VENOMOUS -> returnValue = VenomousModifierConfig.getVenomousModifierConfig();
