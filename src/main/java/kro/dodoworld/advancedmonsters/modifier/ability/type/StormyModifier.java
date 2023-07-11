@@ -39,7 +39,7 @@ public class StormyModifier implements Listener {
                         if(monster.isDead()) cancel();
                         if(monster.getTarget() != null){
                             if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())){
-                                monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation());
+                                monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation()).addScoreboardTag("adm_stormy_lighting");
                                 monster.getTarget().damage(lightingDamage, monster);
                                 monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ticks, amplifier));
                                 if(config.getBoolean("stormy_show_lighting_damage_message")) monster.getTarget().sendMessage(
@@ -58,9 +58,7 @@ public class StormyModifier implements Listener {
      */
     @EventHandler
     public void onConvert(EntityZapEvent event){
-        if(!(event.getReplacementEntity() instanceof Villager)) return;
-        if(event.getBolt().getCausingEntity() == null) return;
-        if(!event.getBolt().getCausingEntity().getScoreboardTags().contains("adm_modifier_stormy")) return;
+        if(!event.getBolt().getScoreboardTags().contains("adm_stormy_lighting")) return;
         event.setCancelled(true);
     }
 }
