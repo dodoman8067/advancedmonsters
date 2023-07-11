@@ -32,7 +32,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     private final Logger logger = getLogger();
     private static MonsterLevel monsterLevel;
-    private final boolean beta = true;
+    private final boolean beta = false;
 
     @Override
     public void onEnable() {
