@@ -4,7 +4,6 @@ import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
