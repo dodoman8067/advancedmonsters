@@ -17,6 +17,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if(!checkServerEnvironment()) return;
         logger.info("Plugin successfully started.");
     }
 
