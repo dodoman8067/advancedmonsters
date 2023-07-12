@@ -1,22 +1,5 @@
 package kro.dodoworld.advancedmonsters;
 
-import kro.dodoworld.advancedmonsters.command.*;
-import kro.dodoworld.advancedmonsters.command.tab.*;
-import kro.dodoworld.advancedmonsters.config.data.MonsterEquipmentLevel;
-import kro.dodoworld.advancedmonsters.config.data.RevealedAbilities;
-import kro.dodoworld.advancedmonsters.config.modifier.*;
-import kro.dodoworld.advancedmonsters.entity.MiniBossSpawn;
-import kro.dodoworld.advancedmonsters.entity.miniboss.*;
-import kro.dodoworld.advancedmonsters.modifier.EntityModifier;
-import kro.dodoworld.advancedmonsters.config.data.UnlockedEntityAbilities;
-import kro.dodoworld.advancedmonsters.modifier.ability.AbilityUnlock;
-import kro.dodoworld.advancedmonsters.modifier.ability.type.*;
-import kro.dodoworld.advancedmonsters.modifier.entity.equipment.EntityEquipment;
-import kro.dodoworld.advancedmonsters.modifier.entity.raid.RaidModifier;
-import kro.dodoworld.advancedmonsters.modifier.infect.VillagerInfection;
-import kro.dodoworld.advancedmonsters.modifier.level.MonsterLevel;
-import kro.dodoworld.advancedmonsters.modifier.level.increase.MonsterLevelIncrease;
-import kro.dodoworld.advancedmonsters.util.AdvancedUtils;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -95,13 +78,6 @@ public final class AdvancedMonsters extends JavaPlugin {
         logger.info("Plugin successfully enabled.");
     }
 
-    /**
-     * Returns MonsterLevel instance.
-     * @return the instance
-     */
-    public static MonsterLevel getMonsterLevel() {
-        return monsterLevel;
-    }
 
     /**
      * Checks this server is running Paper or fork of Paper.
@@ -128,81 +104,12 @@ public final class AdvancedMonsters extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
-        logger.info("NMS version : " + AdvancedUtils.getNMSVersion());
-        if(!AdvancedUtils.getNMSVersion().equals("v1_19_R3")){
-            //Logs warning when server's NMS version is NOT v1_19_R3
-            logger.warning("This plugin is designed to support v1_19_R3 (1.19.4)");
-            logger.warning("Bugs may crawl up in this version.");
-        }
         if(beta){
             //Logs warning when user is running a beta version of this plugin
             logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
             logger.warning("I suggest run stable version if you are NOT developer.");
         }
         return true;
-    }
-
-    /**
-     * Initializes configs.
-     */
-    private void initConfigs(){
-        //Creates folders to create config files there
-        File file = new File(getDataFolder() + "/ability_configs/");
-        if(!file.exists()) file.mkdir();
-        File dataDir = new File(getDataFolder() + "/world_data/");
-        if(!dataDir.exists()) dataDir.mkdir();
-        //Initializes configs
-        UnlockedEntityAbilities.init();
-        UnlockedEntityAbilities.saveConfig();
-        UnlockedEntityAbilities.reloadConfig();
-        RevealedAbilities.init();
-        RevealedAbilities.saveConfig();
-        RevealedAbilities.reloadConfig();
-        HealthyModifierConfig.init();
-        HealthyModifierConfig.saveConfig();
-        HealthyModifierConfig.reloadConfig();
-        StrongModifierConfig.init();
-        StrongModifierConfig.saveConfig();
-        StrongModifierConfig.reloadConfig();
-        InvisibleModifierConfig.init();
-        InvisibleModifierConfig.saveConfig();
-        InvisibleModifierConfig.reloadConfig();
-        BomberModifierConfig.init();
-        BomberModifierConfig.saveConfig();
-        BomberModifierConfig.reloadConfig();
-        FlamingModifierConfig.init();
-        FlamingModifierConfig.saveConfig();
-        FlamingModifierConfig.reloadConfig();
-        LaserModifierConfig.init();
-        LaserModifierConfig.saveConfig();
-        LaserModifierConfig.reloadConfig();
-        PunchyModifierConfig.init();
-        PunchyModifierConfig.saveConfig();
-        PunchyModifierConfig.reloadConfig();
-        SpeedyModifierConfig.init();
-        SpeedyModifierConfig.saveConfig();
-        SpeedyModifierConfig.reloadConfig();
-        StormyModifierConfig.init();
-        StormyModifierConfig.saveConfig();
-        StormyModifierConfig.reloadConfig();
-        TankModifierConfig.init();
-        TankModifierConfig.saveConfig();
-        TankModifierConfig.reloadConfig();
-        TeleportModifierConfig.init();
-        TeleportModifierConfig.saveConfig();
-        TeleportModifierConfig.reloadConfig();
-        VenomousModifierConfig.init();
-        VenomousModifierConfig.saveConfig();
-        VenomousModifierConfig.reloadConfig();
-        FrozenModifierConfig.init();
-        FrozenModifierConfig.saveConfig();
-        FrozenModifierConfig.reloadConfig();
-        LightingModifierConfig.init();
-        LightingModifierConfig.saveConfig();
-        LightingModifierConfig.reloadConfig();
-        RevitalizeModifierConfig.init();
-        RevitalizeModifierConfig.saveConfig();
-        RevitalizeModifierConfig.reloadConfig();
     }
 
     /**
