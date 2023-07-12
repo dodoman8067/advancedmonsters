@@ -14,68 +14,10 @@ public final class AdvancedMonsters extends JavaPlugin {
      */
 
     private final Logger logger = getLogger();
-    private static MonsterLevel monsterLevel;
-    private final boolean beta = true;
 
     @Override
     public void onEnable() {
-        if(!checkServerEnvironment()) return;
-        logger.info("Loading configs...");
-        long configMs = System.currentTimeMillis();
-        //Initializes monster level system
-        MonsterEquipmentLevel.init();
-        MonsterEquipmentLevel.saveConfig();
-        MonsterEquipmentLevel.reloadConfig();
-        monsterLevel = new MonsterLevel();
-        //Initializes ability config system
-        initConfigs();
-        logger.info("Loading configs took " + (System.currentTimeMillis() - configMs) + "ms.");
-        logger.info("Loading modifier runnable classes...");
-        //Starts ability modifier BukkitRunnable
-        long modifierMs = System.currentTimeMillis();
-        TeleporterModifier.run(this);
-        LaserModifier.run(this);
-        StormyModifier.run(this);
-        RevitalizeModifier.run(this);
-        logger.info("Loading modifier runnable classes took " + (System.currentTimeMillis() - modifierMs) + "ms.");
-        logger.info("Loading listeners...");
-        long eventMs = System.currentTimeMillis();
-        //Registers listeners
-        getServer().getPluginManager().registerEvents(new MiniBossSpawn(), this);
-        getServer().getPluginManager().registerEvents(new Storm(), this);
-        getServer().getPluginManager().registerEvents(new PunchyModifier(this), this);
-        getServer().getPluginManager().registerEvents(new TankModifier(), this);
-        getServer().getPluginManager().registerEvents(new StormyModifier(), this);
-        getServer().getPluginManager().registerEvents(new StrongModifier(), this);
-        getServer().getPluginManager().registerEvents(new BomberModifier(), this);
-        getServer().getPluginManager().registerEvents(new FlamingModifier(), this);
-        getServer().getPluginManager().registerEvents(new FrozenModifier(), this);
-        getServer().getPluginManager().registerEvents(new LightingModifier(), this);
-        getServer().getPluginManager().registerEvents(new EntityModifier(), this);
-        getServer().getPluginManager().registerEvents(new VenomousModifier(), this);
-        getServer().getPluginManager().registerEvents(new LeapingSpider(), this);
-        getServer().getPluginManager().registerEvents(new DiamondZombie(), this);
-        getServer().getPluginManager().registerEvents(new Inferno(), this);
-        getServer().getPluginManager().registerEvents(new Bombie(), this);
-        getServer().getPluginManager().registerEvents(new EarthQuaker(), this);
-        getServer().getPluginManager().registerEvents(new VoidGloom(), this);
-        getServer().getPluginManager().registerEvents(new EntityEquipment(), this);
-        getServer().getPluginManager().registerEvents(new MonsterLevelIncrease(), this);
-        getServer().getPluginManager().registerEvents(new AbilityUnlock(), this);
-        getServer().getPluginManager().registerEvents(new SludgeGore(), this);
-        getServer().getPluginManager().registerEvents(new DeadlyAnimal(), this);
-        getServer().getPluginManager().registerEvents(new RaidModifier(), this);
-        getServer().getPluginManager().registerEvents(new VillagerInfection(), this);
-        logger.info("Loading listeners took " + (System.currentTimeMillis() - eventMs) + "ms.");
-        logger.info("Loading commands...");
-        long commandMs = System.currentTimeMillis();
-        //Loads command executors and tab completer
-        getCommand("ability").setExecutor(new AbilityCommand());
-        getCommand("ability").setTabCompleter(new AbilityTabCompleter());
-        getCommand("admminiboss").setExecutor(new MiniBossSpawnCommand());
-        getCommand("admminiboss").setTabCompleter(new MiniBossSpawnTabCompleter());
-        logger.info("Loading commands took " + (System.currentTimeMillis() - commandMs) + "ms.");
-        logger.info("Plugin successfully enabled.");
+        logger.info("Plugin successfully started.");
     }
 
 
@@ -103,11 +45,6 @@ public final class AdvancedMonsters extends JavaPlugin {
             //Disables plugin
             getServer().getPluginManager().disablePlugin(this);
             return false;
-        }
-        if(beta){
-            //Logs warning when user is running a beta version of this plugin
-            logger.warning("You are running beta version of this plugin. (Plugin that has -dev on the end)");
-            logger.warning("I suggest run stable version if you are NOT developer.");
         }
         return true;
     }
