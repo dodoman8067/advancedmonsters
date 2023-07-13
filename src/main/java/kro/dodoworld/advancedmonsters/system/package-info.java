@@ -1,4 +1,4 @@
 /**
- * Plugin's system package/
+ * Plugin's system package.
  */
 package kro.dodoworld.advancedmonsters.system;

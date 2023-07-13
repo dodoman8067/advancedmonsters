@@ -1,7 +1,10 @@
-package kro.dodoworld.advancedmonsters.core;
+package kro.dodoworld.advancedmonsters.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Utility class for random.
+ */
 public class RandomNumberGenerator {
 
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
