@@ -1,9 +1,14 @@
 package kro.dodoworld.advancedmonsters;
 
+import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
+import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public final class AdvancedMonsters extends JavaPlugin {
@@ -13,10 +18,21 @@ public final class AdvancedMonsters extends JavaPlugin {
      */
 
     private final Logger logger = getLogger();
-
+    private final Random random = new Random();
+    private final File file = new File(getDataFolder(), "a.yml");
     @Override
     public void onEnable() {
         if(!checkServerEnvironment()) return;
+        FileConfiguration configuration = new ConfigBuilder(file)
+                .addOption("hello", 1)
+                .addOption("world", false)
+                .build();
+        configuration.set("hello", random.nextInt(0, 100));
+        configuration.set("world", random.nextBoolean());
+        ConfigUtils.saveAndReloadConfig(configuration, file);
+        logger.info(configuration.getInt("hello") + " ");
+        logger.info(configuration.getBoolean("world") + " ");
+
         logger.info("Plugin successfully started.");
     }
 
@@ -36,7 +52,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     /**
      * Checks server environment.
-     * @return true if server environment is good enough to enable this plugin, otherwise false
+     * @return true, if server environment is good enough to enable this plugin, otherwise false
      */
     private boolean checkServerEnvironment(){
         if(!isPaperServer()){
