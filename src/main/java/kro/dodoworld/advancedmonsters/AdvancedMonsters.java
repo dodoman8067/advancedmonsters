@@ -1,17 +1,21 @@
 package kro.dodoworld.advancedmonsters;
 
 import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
+import kro.dodoworld.advancedmonsters.core.registry.Registry;
+import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public final class AdvancedMonsters extends JavaPlugin {
+public final class AdvancedMonsters extends JavaPlugin implements Listener {
 
     /**
      * TODO: Add Necromancer boss
@@ -23,6 +27,11 @@ public final class AdvancedMonsters extends JavaPlugin {
     @Override
     public void onEnable() {
         if(!checkServerEnvironment()) return;
+        try{
+            Registry.init(this);
+        }catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         FileConfiguration configuration = new ConfigBuilder(file)
                 .addOption("hello", 1)
                 .addOption("world", false)
@@ -32,7 +41,7 @@ public final class AdvancedMonsters extends JavaPlugin {
         ConfigUtils.saveAndReloadConfig(configuration, file);
         logger.info(configuration.getInt("hello") + " ");
         logger.info(configuration.getBoolean("world") + " ");
-
+        getServer().getPluginManager().registerEvents(this, this);
         logger.info("Plugin successfully started.");
     }
 
@@ -82,5 +91,10 @@ public final class AdvancedMonsters extends JavaPlugin {
     public void onDisable() {
         logger.info("Plugin successfully disabled.");
         removeEntities();
+    }
+
+    @EventHandler
+    public void onRegister(RegistryInitializeEvent event){
+        logger.info("Registry event called.");
     }
 }
