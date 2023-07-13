@@ -36,7 +36,7 @@ public class RegistryInitializeEvent extends Event {
 
     /**
      * Returns HandlerList instance.
-     * @return
+     * @return instance
      */
     public static HandlerList getHandlerList(){
         return HANDLERS;
