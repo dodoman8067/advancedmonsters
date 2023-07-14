@@ -47,8 +47,8 @@ public final class Registry implements Listener {
      */
     public void registerAbility(Ability ability){
         if(ability.isRegistered()) throw new IllegalArgumentException("You cannot register an ability with id that already exists");
+        if(ability.init().equals(RegisterResult.FAIL)) throw new IllegalStateException("Registration failed");
         REGISTERED_ABILITIES.add(ability);
-        ability.init();
         if(ability.getRunnable() != null) ability.getRunnable().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
     }
 

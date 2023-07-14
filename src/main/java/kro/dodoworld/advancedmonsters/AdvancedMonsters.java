@@ -3,7 +3,13 @@ package kro.dodoworld.advancedmonsters;
 import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
+import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
+import kro.dodoworld.advancedmonsters.modifier.apply.ModifierApplier;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
@@ -12,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -23,25 +30,17 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
 
     private final Logger logger = getLogger();
     private final Random random = new Random();
-    private final File file = new File(getDataFolder(), "a.yml");
     @Override
     public void onEnable() {
         if(!checkServerEnvironment()) return;
+        initFiles();
         try{
             Registry.init(this);
         }catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        FileConfiguration configuration = new ConfigBuilder(file)
-                .addOption("hello", 1)
-                .addOption("world", false)
-                .build();
-        configuration.set("hello", random.nextInt(0, 100));
-        configuration.set("world", random.nextBoolean());
-        ConfigUtils.saveAndReloadConfig(configuration, file);
-        logger.info(configuration.getInt("hello") + " ");
-        logger.info(configuration.getBoolean("world") + " ");
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new ModifierApplier(), this);
         logger.info("Plugin successfully started.");
     }
 
@@ -95,6 +94,20 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onRegister(RegistryInitializeEvent event){
-        logger.info("Registry event called.");
+        File healthyFile = new File(getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
+        FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", new ArrayList<>().add("체력이 {healthy_health_multiply_amount}배가 된다.")).build();
+        ConfigUtils.saveAndReloadConfig(healthyConfig, healthyFile);
+        event.getRegistry().registerAbility(new HealthyAbility(
+                new NamespacedKey(this, "healthy"),
+                Component.text("❤", NamedTextColor.RED),
+                Component.text("Healthy", NamedTextColor.RED),
+                healthyConfig,
+                null,
+                null));
+    }
+
+    private void initFiles(){
+        File abilityConfigFolder = new File(getDataFolder() + "/ability_configs/");
+        abilityConfigFolder.mkdir();
     }
 }

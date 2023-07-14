@@ -18,7 +18,10 @@ public class ModifierApplier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event){
         if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
-
+        if(!(event.getEntity() instanceof Monster monster)) return;
+        if((Math.random() * 100) <= 50){
+            applyAbility(monster, getRandomAbility());
+        }
     }
 
     private void applyAbility(Monster monster, Ability ability){

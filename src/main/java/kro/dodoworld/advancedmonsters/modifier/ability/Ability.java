@@ -1,6 +1,7 @@
 package kro.dodoworld.advancedmonsters.modifier.ability;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
+import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -55,7 +56,7 @@ public abstract class Ability {
     /**
      * Called when registered.
      */
-    public abstract void init();
+    public abstract RegisterResult init();
 
     /**
      * Called when monster spawned with this ability.
