@@ -103,7 +103,8 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
                 Component.text("Healthy", NamedTextColor.RED),
                 healthyConfig,
                 null,
-                null));
+                null
+        ));
     }
 
     private void initFiles(){
