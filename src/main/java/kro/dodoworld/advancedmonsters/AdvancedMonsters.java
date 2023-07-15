@@ -5,9 +5,10 @@ import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
-import kro.dodoworld.advancedmonsters.modifier.apply.ModifierApplier;
+import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -19,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -95,7 +97,9 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
     @EventHandler
     public void onRegister(RegistryInitializeEvent event){
         File healthyFile = new File(getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
-        FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", new ArrayList<>().add("체력이 {healthy_health_multiply_amount}배가 된다.")).build();
+        List<String> healthyDescription = new ArrayList<>();
+        healthyDescription.add("체력이 {healthy_health_multiply_amount}배가 된다.");
+        FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", healthyDescription).build();
         ConfigUtils.saveAndReloadConfig(healthyConfig, healthyFile);
         event.getRegistry().registerAbility(new HealthyAbility(
                 new NamespacedKey(this, "healthy"),
@@ -105,6 +109,9 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
                 null,
                 null
         ));
+        for(Ability a : Registry.getRegisteredAbilities()){
+            logger.info(((TextComponent) a.getName()).content() + " : " + a.getId().asString());
+        }
     }
 
     private void initFiles(){

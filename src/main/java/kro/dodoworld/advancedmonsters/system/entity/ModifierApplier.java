@@ -1,4 +1,4 @@
-package kro.dodoworld.advancedmonsters.modifier.apply;
+package kro.dodoworld.advancedmonsters.system.entity;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;

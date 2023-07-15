@@ -113,7 +113,7 @@ public abstract class Ability {
      * @return {@link BukkitRunnable} instance, null if the ability didn't have a scheduler initialized.
      */
     @Nullable
-    public BukkitRunnable getRunnable() {
+    public final BukkitRunnable getRunnable() {
         return runnable;
     }
 
