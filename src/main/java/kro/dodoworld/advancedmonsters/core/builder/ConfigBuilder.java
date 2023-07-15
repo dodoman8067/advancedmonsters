@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.core.builder;
 
+import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -27,12 +28,7 @@ public class ConfigBuilder {
 
     public FileConfiguration build(){
         this.config.options().copyDefaults(true);
-        try{
-            this.config.save(file);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        this.config = YamlConfiguration.loadConfiguration(file);
+        ConfigUtils.saveAndReloadConfig(this.config, this.file);
         return this.config;
     }
 }
