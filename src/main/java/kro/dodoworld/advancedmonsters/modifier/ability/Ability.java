@@ -128,6 +128,6 @@ public abstract class Ability {
     }
 
     private Component toMobName(Monster monster){
-        return Component.text(WordUtils.capitalize(monster.getType().name().toUpperCase()), this.getDisplayColor());
+        return Component.text(WordUtils.capitalize(monster.getType().name().toLowerCase()), this.getDisplayColor());
     }
 }

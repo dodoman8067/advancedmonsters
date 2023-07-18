@@ -1,14 +1,11 @@
 package kro.dodoworld.advancedmonsters.system.entity;
 
-import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Collections;

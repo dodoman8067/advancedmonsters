@@ -35,7 +35,7 @@ public final class Registry implements Listener {
      * @throws IllegalAccessException if already initialized or other plugin is trying to call this method
      */
     public static void init(Plugin plugin) throws IllegalAccessException {
-        if(!(plugin instanceof AdvancedMonsters)) throw new IllegalAccessException("This plugin cannot initialize this class");
+        if(!(plugin instanceof AdvancedMonsters)) throw new IllegalAccessException("Other plugin tried to call this method");
         if(isInitialized) throw new IllegalAccessException("Registry has been already initialized");
         isInitialized = true;
         Bukkit.getServer().getPluginManager().registerEvents(INSTANCE, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
