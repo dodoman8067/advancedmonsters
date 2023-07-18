@@ -22,7 +22,7 @@ public class ModifierApplier implements Listener {
     }
 
     private void applyAbility(Monster monster, Ability ability){
-        if(!ability.isRegistered()) throw new IllegalArgumentException("You cannot apply unregistered ability to monster. id : " + ability.getId().asString());
+        if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to monster. id : " + ability.getId().asString()));
         ability.onSpawn(monster);
     }
 

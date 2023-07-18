@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters;
 import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
+import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
@@ -19,12 +20,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public final class AdvancedMonsters extends JavaPlugin implements Listener {
+public final class AdvancedMonsters extends JavaPlugin {
 
     /**
      * TODO: Add Necromancer boss
@@ -41,7 +40,7 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
         }catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new Abilities(), this);
         getServer().getPluginManager().registerEvents(new ModifierApplier(), this);
         logger.info("Plugin successfully started.");
     }
@@ -92,26 +91,6 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
     public void onDisable() {
         logger.info("Plugin successfully disabled.");
         removeEntities();
-    }
-
-    @EventHandler
-    public void onRegister(RegistryInitializeEvent event){
-        File healthyFile = new File(getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
-        List<String> healthyDescription = new ArrayList<>();
-        healthyDescription.add("체력이 {healthy_health_multiply_amount}배가 된다.");
-        FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", healthyDescription).build();
-        ConfigUtils.saveAndReloadConfig(healthyConfig, healthyFile);
-        event.getRegistry().registerAbility(new HealthyAbility(
-                new NamespacedKey(this, "healthy"),
-                Component.text("❤", NamedTextColor.RED),
-                Component.text("Healthy", NamedTextColor.RED),
-                healthyConfig,
-                null,
-                null
-        ));
-        for(Ability a : Registry.getRegisteredAbilities()){
-            logger.info(((TextComponent) a.getName()).content() + " : " + a.getId().asString());
-        }
     }
 
     private void initFiles(){
