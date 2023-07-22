@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -21,19 +22,24 @@ import java.util.List;
 public class Abilities implements Listener {
 
     private static Ability healthy = null;
+    private static Ability strong = null;
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRegister(RegistryInitializeEvent event){
-        healthy = registerHealthy(event.getRegistry());
+        Registry registry = event.getRegistry();
+        healthy = registerHealthy();
+        registry.registerAbility(healthy);
+        strong = registerStrong();
+        registry.registerAbility(strong);
     }
 
-    private Ability registerHealthy(Registry registry){
-        File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters:healthy_modifier_config.yml");
+    private Ability registerHealthy(){
+        File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
         List<String> healthyDescription = new ArrayList<>();
         healthyDescription.add("체력이 %healthy_health_multiply_amount%배가 된다.");
         FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", healthyDescription).build();
         ConfigUtils.saveAndReloadConfig(healthyConfig, healthyFile);
-        HealthyAbility ability = new HealthyAbility(
+        return new HealthyAbility(
                 new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "healthy"),
                 Component.text("❤", NamedTextColor.RED),
                 Component.text("Healthy", NamedTextColor.RED),
@@ -41,11 +47,36 @@ public class Abilities implements Listener {
                 null,
                 null
         );
-        registry.registerAbility(ability);
-        return ability;
+    }
+
+    private Ability registerStrong(){
+        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/strong_modifier_config.yml");
+
+        List<String> strongDescription = new ArrayList<>();
+        strongDescription.add("%strong_damage_multiply_chance%% 확률로 대미지가 %strong_damage_multiply_amount%배가 된다.");
+        FileConfiguration strongConfig = new ConfigBuilder(file)
+                .addOption("strong_damage_multiply_chance", 100.0)
+                .addOption("strong_damage_multiply_amount", 2.75)
+                .addOption("command_description", strongDescription)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(strongConfig, file);
+
+        return new StrongAbility(
+                new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "strong"),
+                Component.text("\ud83d\udde1", NamedTextColor.DARK_RED),
+                Component.text("Strong", NamedTextColor.DARK_RED),
+                strongConfig,
+                null,
+                null
+        );
     }
 
     public static Ability getHealthy() {
         return healthy;
+    }
+
+    public static Ability getStrong() {
+        return strong;
     }
 }
