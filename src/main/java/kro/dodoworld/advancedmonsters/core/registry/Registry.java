@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters.core.registry;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

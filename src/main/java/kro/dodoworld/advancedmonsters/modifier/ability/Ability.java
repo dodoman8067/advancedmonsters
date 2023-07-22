@@ -103,7 +103,8 @@ public abstract class Ability {
      */
     public boolean isRegistered(){
         for(Ability a : Registry.getRegisteredAbilities()){
-            return a.getId().asString().equals(this.id.asString());
+            if(!a.getId().asString().equals(this.id.asString())) continue;
+            return true;
         }
         return false;
     }
