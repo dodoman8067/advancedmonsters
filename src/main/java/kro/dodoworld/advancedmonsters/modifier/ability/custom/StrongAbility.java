@@ -38,7 +38,6 @@ public class StrongAbility extends Ability implements Listener {
             if(!AbilityUtils.hasAbility(monster, Abilities.getStrong())) return;
             if((Math.random() * 100) <= getConfig().getDouble("strong_damage_multiply_chance")){
                 event.setDamage(event.getFinalDamage() * getConfig().getDouble("strong_damage_multiply_amount"));
-                Bukkit.getLogger().info("a");
             }
         }
         if(event.getDamager() instanceof Projectile projectile){
