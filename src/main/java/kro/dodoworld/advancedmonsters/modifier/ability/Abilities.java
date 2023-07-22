@@ -27,13 +27,13 @@ public class Abilities implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRegister(RegistryInitializeEvent event){
         Registry registry = event.getRegistry();
-        healthy = registerHealthy();
+        healthy = createHealthy();
         registry.registerAbility(healthy);
-        strong = registerStrong();
+        strong = createStrong();
         registry.registerAbility(strong);
     }
 
-    private Ability registerHealthy(){
+    private Ability createHealthy(){
         File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
         List<String> healthyDescription = new ArrayList<>();
         healthyDescription.add("체력이 %healthy_health_multiply_amount%배가 된다.");
@@ -49,7 +49,7 @@ public class Abilities implements Listener {
         );
     }
 
-    private Ability registerStrong(){
+    private Ability createStrong(){
         File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/strong_modifier_config.yml");
 
         List<String> strongDescription = new ArrayList<>();
