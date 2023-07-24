@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
@@ -23,6 +24,7 @@ public class Abilities implements Listener {
 
     private static Ability healthy = null;
     private static Ability strong = null;
+    private static Ability speedy = null;
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRegister(RegistryInitializeEvent event){
@@ -31,6 +33,8 @@ public class Abilities implements Listener {
         registry.registerAbility(healthy);
         strong = createStrong();
         registry.registerAbility(strong);
+        speedy = createSpeedy();
+        registry.registerAbility(speedy);
     }
 
     private Ability createHealthy(){
@@ -72,11 +76,39 @@ public class Abilities implements Listener {
         );
     }
 
+    private Ability createSpeedy(){
+        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/speedy_modifier_config.yml");
+
+        List<String> speedyDescription = new ArrayList<>();
+        speedyDescription.add("속도가 %speedy_speed_multiply_amount%배가 되지만,");
+        speedyDescription.add("체력은 %speedy_health_multiply_amount%배가 된다.");
+        FileConfiguration speedyConfig = new ConfigBuilder(file)
+                .addOption("speedy_speed_multiply_amount", 2.0)
+                .addOption("speedy_health_multiply_amount", 0.5)
+                .addOption("command_description", speedyDescription)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(speedyConfig, file);
+
+        return new SpeedyAbility(
+                new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "speedy"),
+                Component.text("✴", NamedTextColor.WHITE),
+                Component.text("Speedy", NamedTextColor.WHITE),
+                speedyConfig,
+                null,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
 
     public static Ability getStrong() {
         return strong;
+    }
+
+    public static Ability getSpeedy() {
+        return speedy;
     }
 }

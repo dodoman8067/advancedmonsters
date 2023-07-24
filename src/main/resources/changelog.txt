@@ -3,3 +3,7 @@ beta-0.5.4
 - Fix many bugs
 - Add villager infection system
 - Document kro.dodoworld.advancedmonsters.util package
+
+beta-0.6
+
+- Rewrite the entire code
