@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters.modifier.ability;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
+import kro.dodoworld.advancedmonsters.core.registry.Registrable;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Monster ability class.
  */
-public abstract class Ability {
+public abstract class Ability implements Registrable {
     private final NamespacedKey id;
     private final Component symbol;
     private final Component name;
@@ -49,6 +50,7 @@ public abstract class Ability {
      * @return ability's id
      */
     @NotNull
+    @Override
     public NamespacedKey getId() {
         return id;
     }
@@ -56,6 +58,7 @@ public abstract class Ability {
     /**
      * Called when registered.
      */
+    @Override
     public abstract RegisterResult init();
 
     /**
@@ -101,9 +104,10 @@ public abstract class Ability {
      * Checks this ability is registered.
      * @return true if ability is registered, otherwise false.
      */
+    @Override
     public boolean isRegistered(){
-        for(Ability a : Registry.getRegisteredAbilities()){
-            if(!a.getId().asString().equals(this.id.asString())) continue;
+        for(Registrable r : Registry.getRegisteredObjects()){
+            if(!r.getId().asString().equals(this.id.asString())) continue;
             return true;
         }
         return false;

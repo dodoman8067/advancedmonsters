@@ -30,11 +30,11 @@ public class Abilities implements Listener {
     public void onRegister(RegistryInitializeEvent event){
         Registry registry = event.getRegistry();
         healthy = createHealthy();
-        registry.registerAbility(healthy);
+        registry.register(healthy);
         strong = createStrong();
-        registry.registerAbility(strong);
+        registry.register(strong);
         speedy = createSpeedy();
-        registry.registerAbility(speedy);
+        registry.register(speedy);
     }
 
     private Ability createHealthy(){

@@ -3,7 +3,6 @@ package kro.dodoworld.advancedmonsters.core.registry;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,12 +21,12 @@ public final class Registry implements Listener {
     private Registry(){
     }
 
-    private static final Set<Ability> REGISTERED_ABILITIES = new HashSet<>();
+    private static final Set<Registrable> REGISTERED_OBJECTS = new HashSet<>();
     private static final Registry INSTANCE = new Registry();
     private static boolean isInitialized = false;
 
-    public static Set<Ability> getRegisteredAbilities() {
-        return Collections.unmodifiableSet(REGISTERED_ABILITIES);
+    public static Set<Registrable> getRegisteredObjects() {
+        return Collections.unmodifiableSet(REGISTERED_OBJECTS);
     }
 
     /**
@@ -44,13 +43,15 @@ public final class Registry implements Listener {
 
     /**
      * Registers the ability.
-     * @param ability the ability
+     * @param registrable the registrable object
      */
-    public void registerAbility(Ability ability){
-        if(ability.isRegistered()) throw new IllegalArgumentException("You cannot register an ability with id that already exists");
-        if(ability.init().equals(RegisterResult.FAIL)) throw new IllegalStateException("Registration failed");
-        REGISTERED_ABILITIES.add(ability);
-        if(ability.getRunnable() != null) ability.getRunnable().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+    public void register(Registrable registrable){
+        if(registrable.isRegistered()) throw new IllegalArgumentException("You cannot register an object with id that already exists");
+        if(registrable.init().equals(RegisterResult.FAIL)) throw new IllegalStateException("Registration failed");
+        REGISTERED_OBJECTS.add(registrable);
+        if(registrable instanceof Ability ability){
+            if(ability.getRunnable() != null) ability.getRunnable().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+        }
     }
 
     @EventHandler
