@@ -4,6 +4,7 @@ import kro.dodoworld.advancedmonsters.core.registry.Registrable;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -18,8 +19,9 @@ public class ModifierApplier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event){
         if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
-        if(!(event.getEntity() instanceof Monster monster)) return;
+        if(event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) return;
         if((Math.random() * 100) <= 50){
+            if(!(event.getEntity() instanceof Monster monster)) return;
             applyAbility(monster, getRandomAbility());
         }
     }
