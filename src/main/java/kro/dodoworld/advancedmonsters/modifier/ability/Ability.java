@@ -24,7 +24,7 @@ public abstract class Ability implements Registrable {
     private final Component symbol;
     private final Component name;
     protected final FileConfiguration abilityConfig;
-    private final BukkitRunnable runnable;
+    private final BukkitRunnable abilityTask;
     private final TextColor displayColor;
 
     /**
@@ -38,7 +38,7 @@ public abstract class Ability implements Registrable {
      */
     public Ability(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable BukkitRunnable runnable, @Nullable TextColor displayColor) {
         this.id = id;
-        this.runnable = runnable;
+        this.abilityTask = runnable;
         this.symbol = symbol;
         this.name = name;
         this.abilityConfig = abilityConfig;
@@ -118,8 +118,8 @@ public abstract class Ability implements Registrable {
      * @return {@link BukkitRunnable} instance, null if the ability didn't have a scheduler initialized.
      */
     @Nullable
-    public final BukkitRunnable getRunnable() {
-        return runnable;
+    public final BukkitRunnable getAbilityTask() {
+        return abilityTask;
     }
 
     /**
