@@ -30,7 +30,7 @@ public class SpeedyAbility extends Ability {
     }
 
     @Override
-    public RegisterResult init() {
+    public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         return RegisterResult.SUCCESS;
     }

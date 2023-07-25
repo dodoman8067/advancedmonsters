@@ -50,7 +50,7 @@ public final class Registry implements Listener {
         if(registrable.init().equals(RegisterResult.FAIL)) throw new IllegalStateException("Registration failed");
         REGISTERED_OBJECTS.add(registrable);
         if(registrable instanceof Ability ability){
-            if(ability.getRunnable() != null) ability.getRunnable().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+            if(ability.getAbilityTask() != null) ability.getAbilityTask().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
         }
     }
 

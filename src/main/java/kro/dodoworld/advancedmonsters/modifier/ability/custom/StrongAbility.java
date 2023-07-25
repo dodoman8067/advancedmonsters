@@ -26,7 +26,7 @@ public class StrongAbility extends Ability implements Listener {
     }
 
     @Override
-    public RegisterResult init() {
+    public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getServer().getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
         return RegisterResult.SUCCESS;

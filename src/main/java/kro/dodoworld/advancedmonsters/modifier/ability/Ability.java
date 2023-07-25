@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.v1_19_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -45,21 +46,11 @@ public abstract class Ability implements Registrable {
         this.displayColor = displayColor;
     }
 
-    /**
-     * Returns ability's id.
-     * @return ability's id
-     */
-    @NotNull
+
     @Override
-    public NamespacedKey getId() {
+    public @NotNull NamespacedKey getId() {
         return id;
     }
-
-    /**
-     * Called when registered.
-     */
-    @Override
-    public abstract RegisterResult init();
 
     /**
      * Called when monster spawned with this ability.
@@ -71,6 +62,7 @@ public abstract class Ability implements Registrable {
         if(this.symbol != null){
             monster.customName(this.symbol.append(this.name).append(Component.text(" ").append(toMobName(monster))));
         }
+        monster.setRemoveWhenFarAway(true);
     }
 
     /**
@@ -100,17 +92,9 @@ public abstract class Ability implements Registrable {
         return name;
     }
 
-    /**
-     * Checks this ability is registered.
-     * @return true if ability is registered, otherwise false.
-     */
     @Override
     public boolean isRegistered(){
-        for(Registrable r : Registry.getRegisteredObjects()){
-            if(!r.getId().asString().equals(this.id.asString())) continue;
-            return true;
-        }
-        return false;
+        return Registry.getRegisteredObjects().contains(this);
     }
 
     /**
