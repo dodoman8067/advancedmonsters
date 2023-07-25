@@ -133,6 +133,6 @@ public abstract class Ability implements Registrable {
     }
 
     private Component toMobName(Monster monster){
-        return Component.text(WordUtils.capitalize(monster.getType().name().toLowerCase()), this.getDisplayColor());
+        return Component.text(WordUtils.capitalize(monster.getType().name().toLowerCase().replace('_', ' ')), this.getDisplayColor());
     }
 }
