@@ -26,6 +26,7 @@ public class SpeedyAbility extends Ability {
         double healthMultiplyAmount = getConfig().getDouble("speedy_health_multiply_amount", 0.5);
         monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedMultiplyAmount);
         monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * healthMultiplyAmount);
+        monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
     }
 
     @Override
