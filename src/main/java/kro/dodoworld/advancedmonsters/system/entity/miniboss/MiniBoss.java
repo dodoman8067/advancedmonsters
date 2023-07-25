@@ -11,7 +11,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Monster;
+import org.bukkit.entity.EntityType;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -27,22 +27,25 @@ public abstract class MiniBoss implements Registrable {
     private final Ability unlockAbility;
     private final BukkitRunnable entityTask;
     private final FileConfiguration config;
-    private final Class<? extends Mons>
+    private final EntityType requiredType;
 
     /**
      * Constructor for this class.
-     * @param id miniboss's id
-     * @param name miniboss's user-friendly name
-     * @param unlockAbility ability that is going to be unlocked when killed
-     * @param entityTask {@link BukkitRunnable} instance per entity
-     * @param config {@link FileConfiguration} instance
+     *
+     * @param id             miniboss's id
+     * @param name           miniboss's user-friendly name
+     * @param unlockAbility  ability that is going to be unlocked when killed
+     * @param entityTask     {@link BukkitRunnable} instance per entity
+     * @param config         {@link FileConfiguration} instance
+     * @param requiredType   entity type that world attempts to convert this entity into miniboss
      */
-    public MiniBoss(@NotNull NamespacedKey id, @NotNull Component name, @Nullable Ability unlockAbility, @Nullable BukkitRunnable entityTask, @Nullable FileConfiguration config){
+    public MiniBoss(@NotNull NamespacedKey id, @NotNull Component name, @Nullable Ability unlockAbility, @Nullable BukkitRunnable entityTask, @Nullable FileConfiguration config, @NotNull EntityType requiredType){
         this.id = id;
         this.name = Component.text("⚛MINIBOSS ").color(TextColor.color(219, 42, 216)).decorate(TextDecoration.BOLD).append(name);
         this.unlockAbility = unlockAbility;
         this.entityTask = entityTask;
         this.config = config;
+        this.requiredType = requiredType;
     }
 
     @Override
@@ -122,5 +125,14 @@ public abstract class MiniBoss implements Registrable {
     @Nullable
     public FileConfiguration getConfig() {
         return config;
+    }
+
+    /**
+     * Returns entity type that world attempts to convert this entity into miniboss.
+     * @return the entity
+     */
+    @NotNull
+    public EntityType getRequiredType() {
+        return requiredType;
     }
 }
