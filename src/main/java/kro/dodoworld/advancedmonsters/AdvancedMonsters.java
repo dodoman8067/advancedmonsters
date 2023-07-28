@@ -35,11 +35,7 @@ public final class AdvancedMonsters extends JavaPlugin {
     public void onEnable() {
         if(!checkServerEnvironment()) return;
         initFiles();
-        try{
-            Registry.init(this);
-        }catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        Registry.init(this);
         getServer().getPluginManager().registerEvents(new Abilities(), this);
         getServer().getPluginManager().registerEvents(new ModifierApplier(), this);
         logger.info("Plugin successfully started.");
