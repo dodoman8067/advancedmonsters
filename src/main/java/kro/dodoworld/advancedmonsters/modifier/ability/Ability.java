@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters.modifier.ability;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.Registrable;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
+import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -92,7 +93,12 @@ public abstract class Ability implements Registrable {
 
     @Override
     public boolean isRegistered(){
-        return Registry.getRegisteredObjects().contains(this);
+        for(Ability a : AbilityUtils.getRegisteredAbilities()){
+            if(!a.getId().asString().equals(this.id.asString())) continue;
+            if(a != this) continue;
+            return true;
+        }
+        return false;
     }
 
     /**

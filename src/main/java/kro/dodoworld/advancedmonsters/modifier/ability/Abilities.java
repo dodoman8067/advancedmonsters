@@ -25,6 +25,7 @@ public class Abilities implements Listener {
     private static Ability healthy = null;
     private static Ability strong = null;
     private static Ability speedy = null;
+    private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRegister(RegistryInitializeEvent event){
@@ -38,13 +39,16 @@ public class Abilities implements Listener {
     }
 
     private Ability createHealthy(){
-        File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/healthy_modifier_config.yml");
+        File healthyFile = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/healthy_modifier_config.yml");
+
         List<String> healthyDescription = new ArrayList<>();
         healthyDescription.add("체력이 %healthy_health_multiply_amount%배가 된다.");
         FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", healthyDescription).build();
+
         ConfigUtils.saveAndReloadConfig(healthyConfig, healthyFile);
+
         return new HealthyAbility(
-                new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "healthy"),
+                new NamespacedKey(PLUGIN_INSTANCE, "healthy"),
                 Component.text("❤", NamedTextColor.RED),
                 Component.text("Healthy", NamedTextColor.RED),
                 healthyConfig,
@@ -54,7 +58,7 @@ public class Abilities implements Listener {
     }
 
     private Ability createStrong(){
-        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/strong_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/strong_modifier_config.yml");
 
         List<String> strongDescription = new ArrayList<>();
         strongDescription.add("%strong_damage_multiply_chance%% 확률로 대미지가 %strong_damage_multiply_amount%배가 된다.");
@@ -67,7 +71,7 @@ public class Abilities implements Listener {
         ConfigUtils.saveAndReloadConfig(strongConfig, file);
 
         return new StrongAbility(
-                new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "strong"),
+                new NamespacedKey(PLUGIN_INSTANCE, "strong"),
                 Component.text("\ud83d\udde1", NamedTextColor.DARK_RED),
                 Component.text("Strong", NamedTextColor.DARK_RED),
                 strongConfig,
@@ -77,7 +81,7 @@ public class Abilities implements Listener {
     }
 
     private Ability createSpeedy(){
-        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/speedy_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/speedy_modifier_config.yml");
 
         List<String> speedyDescription = new ArrayList<>();
         speedyDescription.add("속도가 %speedy_speed_multiply_amount%배가 되지만,");
@@ -91,7 +95,7 @@ public class Abilities implements Listener {
         ConfigUtils.saveAndReloadConfig(speedyConfig, file);
 
         return new SpeedyAbility(
-                new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "speedy"),
+                new NamespacedKey(PLUGIN_INSTANCE, "speedy"),
                 Component.text("✴", NamedTextColor.WHITE),
                 Component.text("Speedy", NamedTextColor.WHITE),
                 speedyConfig,
