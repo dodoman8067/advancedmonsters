@@ -1,7 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier.ability;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
-import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.core.registry.Registrable;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import net.kyori.adventure.text.Component;
@@ -10,7 +9,6 @@ import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_19_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
