@@ -38,7 +38,7 @@ public class Abilities implements Listener {
     }
 
     private Ability createHealthy(){
-        File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/healthy_modifier_config.yml");
+        File healthyFile = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/healthy_modifier_config.yml");
         List<String> healthyDescription = new ArrayList<>();
         healthyDescription.add("체력이 %healthy_health_multiply_amount%배가 된다.");
         FileConfiguration healthyConfig = new ConfigBuilder(healthyFile).addOption("healthy_health_multiply_amount", 2).addOption("command_description", healthyDescription).build();
@@ -54,7 +54,7 @@ public class Abilities implements Listener {
     }
 
     private Ability createStrong(){
-        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/strong_modifier_config.yml");
+        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/strong_modifier_config.yml");
 
         List<String> strongDescription = new ArrayList<>();
         strongDescription.add("%strong_damage_multiply_chance%% 확률로 대미지가 %strong_damage_multiply_amount%배가 된다.");
@@ -77,7 +77,7 @@ public class Abilities implements Listener {
     }
 
     private Ability createSpeedy(){
-        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/speedy_modifier_config.yml");
+        File file = new File(AdvancedMonsters.getPlugin(AdvancedMonsters.class).getDataFolder() + "/ability_configs/advancedmonsters/speedy_modifier_config.yml");
 
         List<String> speedyDescription = new ArrayList<>();
         speedyDescription.add("속도가 %speedy_speed_multiply_amount%배가 되지만,");
