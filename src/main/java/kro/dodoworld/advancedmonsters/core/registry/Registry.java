@@ -31,18 +31,19 @@ public final class Registry implements Listener {
     }
 
     /**
-     * Do NOT call this.
+     * Initializes registry for this plugin.
+     * Do NOT call this unless you know what you're doing.
      * @param plugin plugin instance
      */
     public static void init(Plugin plugin){
-        if(!(plugin instanceof AdvancedMonsters)) throw new RuntimeException(new IllegalAccessException("Other plugin tried to call this method"));
-        if(isInitialized) throw new RuntimeException(new IllegalAccessException("Registry has been already initialized"));
+        if(!(plugin instanceof AdvancedMonsters)) throw new RuntimeException(new IllegalAccessException("Registry cannot be initialized on other plugins."));
+        if(isInitialized) throw new RuntimeException(new IllegalAccessException("Registry has been already initialized."));
         isInitialized = true;
         Bukkit.getServer().getPluginManager().registerEvents(INSTANCE, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
     }
 
     /**
-     * Registers the ability.
+     * Registers an object that implements {@link Registrable}.
      * @param registrable the registrable object
      */
     public void register(Registrable registrable){
