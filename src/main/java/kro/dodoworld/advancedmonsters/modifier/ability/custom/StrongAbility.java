@@ -28,21 +28,22 @@ public class StrongAbility extends Ability implements Listener {
     @Override
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
-        Bukkit.getServer().getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
+        Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
         return RegisterResult.SUCCESS;
     }
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
+        if(getConfig() == null) return;
         if(event.getDamager() instanceof Monster monster) {
-            if(!AbilityUtils.hasAbility(monster, Abilities.getStrong())) return;
+            if(!AbilityUtils.hasAbility(monster, this)) return;
             if((Math.random() * 100) <= getConfig().getDouble("strong_damage_multiply_chance")){
                 event.setDamage(event.getFinalDamage() * getConfig().getDouble("strong_damage_multiply_amount"));
             }
         }
         if(event.getDamager() instanceof Projectile projectile){
             if(!(projectile.getShooter() != null && projectile.getShooter() instanceof Monster monster)) return;
-            if(!AbilityUtils.hasAbility(monster, Abilities.getStrong())) return;
+            if(!AbilityUtils.hasAbility(monster, this)) return;
             if((Math.random() * 100) <= getConfig().getDouble("strong_damage_multiply_chance")){
                 event.setDamage(event.getFinalDamage() * getConfig().getDouble("strong_damage_multiply_amount"));
             }

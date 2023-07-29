@@ -23,7 +23,7 @@ public abstract class Ability implements Registrable {
     private final NamespacedKey id;
     private final Component symbol;
     private final Component name;
-    protected final FileConfiguration abilityConfig;
+    private final FileConfiguration abilityConfig;
     private final BukkitRunnable abilityTask;
     private final TextColor displayColor;
 

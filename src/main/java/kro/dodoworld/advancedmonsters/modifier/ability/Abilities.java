@@ -7,6 +7,7 @@ import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,6 +26,7 @@ public class Abilities implements Listener {
     private static Ability healthy = null;
     private static Ability strong = null;
     private static Ability speedy = null;
+    private static Ability tank = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -36,6 +38,8 @@ public class Abilities implements Listener {
         registry.register(strong);
         speedy = createSpeedy();
         registry.register(speedy);
+        tank = createTank();
+        registry.register(tank);
     }
 
     private Ability createHealthy(){
@@ -104,6 +108,32 @@ public class Abilities implements Listener {
         );
     }
 
+    private Ability createTank(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/tank_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("%tank_ignore_damage_chance%% 확률로 대미지를 무시한다.");
+        description.add("%tank_bonus_defence_amount%의 추가 방어력을 갖지만, 속도는 %tank_speed_multiply_amount%배가 된다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("tank_ignore_damage_chance", 35.0)
+                .addOption("tank_send_damage_nullify_message", true)
+                .addOption("tank_bonus_defence_amount", 15)
+                .addOption("tank_speed_multiply_amount", 0.4)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new TankAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "tank"),
+                Component.text("❇", NamedTextColor.DARK_GRAY),
+                Component.text("Tank", NamedTextColor.DARK_GRAY),
+                config,
+                null,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -114,5 +144,9 @@ public class Abilities implements Listener {
 
     public static Ability getSpeedy() {
         return speedy;
+    }
+
+    public static Ability getTank() {
+        return tank;
     }
 }
