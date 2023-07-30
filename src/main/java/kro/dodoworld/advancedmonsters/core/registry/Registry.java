@@ -59,11 +59,4 @@ public final class Registry implements Listener {
         if(!(event.getPlugin() instanceof AdvancedMonsters)) return;
         Bukkit.getServer().getPluginManager().callEvent(new RegistryInitializeEvent(INSTANCE));
     }
-
-    @EventHandler
-    private void onRegister(RegistryRegisterObjectEvent event){
-        if(!(event.getRegisteredObject() instanceof Ability ability)) return;
-        if(ability.getAbilityTask() == null) return;
-        ability.getAbilityTask().runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
-    }
 }

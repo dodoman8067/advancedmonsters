@@ -2,7 +2,6 @@ package kro.dodoworld.advancedmonsters.modifier.ability.custom;
 
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import kro.dodoworld.advancedmonsters.modifier.ability.AbilityRunnable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.NamespacedKey;
@@ -14,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class SpeedyAbility extends Ability {
 
-    public SpeedyAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
-        super(id, symbol, name, abilityConfig, runnable, displayColor);
+    public SpeedyAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable TextColor displayColor) {
+        super(id, symbol, name, abilityConfig, displayColor);
     }
 
     @Override

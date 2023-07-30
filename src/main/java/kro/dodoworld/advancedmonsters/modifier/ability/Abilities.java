@@ -56,7 +56,6 @@ public final class Abilities implements Listener {
                 Component.text("❤", NamedTextColor.RED),
                 Component.text("Healthy", NamedTextColor.RED),
                 healthyConfig,
-                null,
                 null
         );
     }
@@ -79,7 +78,6 @@ public final class Abilities implements Listener {
                 Component.text("\ud83d\udde1", NamedTextColor.DARK_RED),
                 Component.text("Strong", NamedTextColor.DARK_RED),
                 strongConfig,
-                null,
                 null
         );
     }
@@ -103,7 +101,6 @@ public final class Abilities implements Listener {
                 Component.text("✴", NamedTextColor.WHITE),
                 Component.text("Speedy", NamedTextColor.WHITE),
                 speedyConfig,
-                null,
                 null
         );
     }
@@ -129,7 +126,6 @@ public final class Abilities implements Listener {
                 Component.text("❇", NamedTextColor.DARK_GRAY),
                 Component.text("Tank", NamedTextColor.DARK_GRAY),
                 config,
-                null,
                 null
         );
     }

@@ -23,7 +23,6 @@ public abstract class Ability implements Registrable {
     private final Component symbol;
     private final Component name;
     private final FileConfiguration abilityConfig;
-    private final AbilityRunnable abilityTask;
     private final TextColor displayColor;
 
     /**
@@ -32,12 +31,10 @@ public abstract class Ability implements Registrable {
      * @param symbol        symbol for ability. if null, the symbol will not appear on the monster's name
      * @param name          ability's user-friendly name
      * @param abilityConfig configuration for the ability
-     * @param runnable      scheduler for the ability. starts when it's registered
      * @param displayColor color used on monster's name
      */
-    public Ability(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
+    public Ability(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig,  @Nullable TextColor displayColor) {
         this.id = id;
-        this.abilityTask = runnable;
         this.symbol = symbol;
         this.name = name;
         this.abilityConfig = abilityConfig;
@@ -98,15 +95,6 @@ public abstract class Ability implements Registrable {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Returns ability's scheduler.
-     * @return {@link AbilityRunnable} instance, null if the ability didn't have a scheduler initialized.
-     */
-    @Nullable
-    public final AbilityRunnable getAbilityTask() {
-        return abilityTask;
     }
 
     /**

@@ -3,7 +3,6 @@ package kro.dodoworld.advancedmonsters.modifier.ability.custom;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import kro.dodoworld.advancedmonsters.modifier.ability.AbilityRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,8 +24,8 @@ import java.util.UUID;
 
 public class TankAbility extends Ability implements Listener {
 
-    public TankAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
-        super(id, symbol, name, abilityConfig, runnable, displayColor);
+    public TankAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable TextColor displayColor) {
+        super(id, symbol, name, abilityConfig, displayColor);
     }
 
     @Override
