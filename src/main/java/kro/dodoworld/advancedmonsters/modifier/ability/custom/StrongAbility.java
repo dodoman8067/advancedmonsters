@@ -4,6 +4,7 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
+import kro.dodoworld.advancedmonsters.modifier.ability.AbilityRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -15,13 +16,12 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StrongAbility extends Ability implements Listener {
 
-    public StrongAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable BukkitRunnable runnable, @Nullable TextColor displayColor) {
+    public StrongAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
         super(id, symbol, name, abilityConfig, runnable, displayColor);
     }
 

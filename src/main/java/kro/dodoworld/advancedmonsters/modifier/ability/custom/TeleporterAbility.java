@@ -6,15 +6,20 @@ import kro.dodoworld.advancedmonsters.modifier.ability.AbilityRunnable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Monster;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class HealthyAbility extends Ability {
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-    public HealthyAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @NotNull FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
+public class TeleporterAbility extends Ability {
+
+    private static final Set<UUID> TELEPORTING_MONSTERS = new HashSet<>();
+
+    public TeleporterAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable AbilityRunnable runnable, @Nullable TextColor displayColor) {
         super(id, symbol, name, abilityConfig, runnable, displayColor);
     }
 
@@ -27,9 +32,11 @@ public class HealthyAbility extends Ability {
     @Override
     public void onSpawn(Monster monster){
         super.onSpawn(monster);
-        if(getConfig() == null) return;
-        int amount = getConfig().getInt("healthy_health_multiply_amount");
-        monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * amount);
-        monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        TELEPORTING_MONSTERS.add(monster.getUniqueId());
+    }
+
+    @NotNull
+    public static Set<UUID> getTeleportingMonsters() {
+        return TELEPORTING_MONSTERS;
     }
 }
