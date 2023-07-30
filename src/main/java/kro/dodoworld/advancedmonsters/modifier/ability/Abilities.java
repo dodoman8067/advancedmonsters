@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Abilities implements Listener {
+public final class Abilities implements Listener {
 
     private static Ability healthy = null;
     private static Ability strong = null;
