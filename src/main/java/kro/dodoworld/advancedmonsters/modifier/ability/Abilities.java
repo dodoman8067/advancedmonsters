@@ -4,10 +4,12 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.TeleporterAbility;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -27,6 +29,8 @@ public final class Abilities implements Listener {
     private static Ability strong = null;
     private static Ability speedy = null;
     private static Ability tank = null;
+    private static Ability teleporter = null;
+    private static Ability bomber = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -34,12 +38,21 @@ public final class Abilities implements Listener {
         Registry registry = event.getRegistry();
         healthy = createHealthy();
         registry.register(healthy);
+
         strong = createStrong();
         registry.register(strong);
+
         speedy = createSpeedy();
         registry.register(speedy);
+
         tank = createTank();
         registry.register(tank);
+
+        teleporter = createTeleporter();
+        registry.register(teleporter);
+
+        bomber = createBomber();
+        registry.register(bomber);
     }
 
     private Ability createHealthy(){
@@ -130,6 +143,50 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createTeleporter(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/teleporter_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("teleporter_teleport_range", 4.0)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new TeleporterAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "teleporter"),
+                Component.text("☯", NamedTextColor.DARK_AQUA),
+                Component.text("Teleporter", NamedTextColor.DARK_AQUA),
+                config,
+                null
+        );
+    }
+
+    private Ability createBomber(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/bomber_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("bomber_tnt_drop_chance", 100.0)
+                .addOption("bomber_projectile_explode_chance", 90.0)
+                .addOption("bomber_tnt_fuse_ticks", 70)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new BomberAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "bomber"),
+                Component.text("■", NamedTextColor.RED),
+                Component.text("Bomber", NamedTextColor.RED),
+                config,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -144,5 +201,9 @@ public final class Abilities implements Listener {
 
     public static Ability getTank() {
         return tank;
+    }
+
+    public static Ability getTeleporter() {
+        return teleporter;
     }
 }

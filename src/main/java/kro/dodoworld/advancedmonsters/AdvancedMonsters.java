@@ -1,22 +1,10 @@
 package kro.dodoworld.advancedmonsters;
 
-import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
-import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
-import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
-import kro.dodoworld.advancedmonsters.util.ConfigUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -33,7 +21,7 @@ public final class AdvancedMonsters extends JavaPlugin {
     private final Random random = new Random();
     @Override
     public void onEnable() {
-        if(!checkServerEnvironment()) return;
+        if(!checkServerEnvironment()) return; //checks server environment. ends code when false returned.
         initFiles();
         Registry.init(this);
         getServer().getPluginManager().registerEvents(new Abilities(), this);
