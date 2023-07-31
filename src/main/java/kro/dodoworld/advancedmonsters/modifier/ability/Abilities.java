@@ -206,4 +206,8 @@ public final class Abilities implements Listener {
     public static Ability getTeleporter() {
         return teleporter;
     }
+
+    public static Ability getBomber() {
+        return bomber;
+    }
 }
