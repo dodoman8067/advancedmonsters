@@ -30,6 +30,9 @@ public class TeleporterRunnable extends AbilityRunnable {
                 }else if(!AbilityUtils.hasAbility(monster, getAbility())){
                     TeleporterAbility.getTeleportingMonsters().remove(monster.getUniqueId());
                 }
+                if(AbilityUtils.hasAbility(monster, getAbility())){
+                    TeleporterAbility.getTeleportingMonsters().add(monster.getUniqueId());
+                }
             }
         }
     }
