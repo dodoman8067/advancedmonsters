@@ -15,6 +15,7 @@ public final class AdvancedMonsters extends JavaPlugin {
 
     /**
      * TODO: Add Necromancer boss
+     * TODO: Add Crazy Snowman miniboss
      */
 
     private final Logger logger = getLogger();
