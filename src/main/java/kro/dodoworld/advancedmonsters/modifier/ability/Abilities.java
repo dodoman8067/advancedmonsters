@@ -6,6 +6,7 @@ import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
@@ -13,6 +14,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.custom.TeleporterAbility;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -31,6 +33,7 @@ public final class Abilities implements Listener {
     private static Ability tank = null;
     private static Ability teleporter = null;
     private static Ability bomber = null;
+    private static Ability laser = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -53,6 +56,9 @@ public final class Abilities implements Listener {
 
         bomber = createBomber();
         registry.register(bomber);
+
+        laser = createLaser();
+        registry.register(laser);
     }
 
     private Ability createHealthy(){
@@ -187,6 +193,29 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createLaser(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/laser_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("적이 %laser_shoot_range% 블록 이내에 있다면,");
+        description.add("%laser_damage% 대미지를 주는 레이저를 쏜다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("laser_shoot_range", 50.0)
+                .addOption("laser_damage", 4.0)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new LaserAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "laser"),
+                Component.text("◎", TextColor.color(250, 74, 20)),
+                Component.text("Laser", TextColor.color(250, 74, 20)),
+                config,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -209,5 +238,9 @@ public final class Abilities implements Listener {
 
     public static Ability getBomber() {
         return bomber;
+    }
+
+    public static Ability getLaser() {
+        return laser;
     }
 }
