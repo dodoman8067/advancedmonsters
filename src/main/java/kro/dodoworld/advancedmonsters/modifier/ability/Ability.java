@@ -90,9 +90,12 @@ public abstract class Ability implements Registrable {
     @Override
     public boolean isRegistered(){
         for(Ability a : AbilityUtils.getRegisteredAbilities()){
-            if(!a.getId().asString().equals(this.id.asString())) continue;
-            if(a != this) continue;
-            return true;
+            if(a.getId().asString().equals(this.id.asString())) {
+                return true;
+            }
+            if(a == this){
+                return true;
+            }
         }
         return false;
     }
