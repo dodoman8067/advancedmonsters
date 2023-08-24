@@ -6,27 +6,27 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Called when an object is registered in the registry.
- * @see RegistryUnRegisterObjectEvent
+ * Called when an object is unregistered in the registry.
+ * @see RegistryRegisterObjectEvent
  */
-public class RegistryRegisterObjectEvent extends Event {
+public class RegistryUnRegisterObjectEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
     private final Registrable registeredObject;
 
     /**
      * Constructor for this class.
-     * @param registeredObject the registered object
+     * @param registeredObject the unregistered object
      */
-    public RegistryRegisterObjectEvent(@NotNull Registrable registeredObject){
+    public RegistryUnRegisterObjectEvent(@NotNull Registrable registeredObject){
         this.registeredObject = registeredObject;
     }
 
     /**
-     * Returns registered object.
+     * Returns unregistered object.
      * @return the {@link Registrable} interface
      */
     @NotNull
-    public Registrable getRegisteredObject() {
+    public Registrable getUnRegisteredObject() {
         return registeredObject;
     }
 
