@@ -5,6 +5,7 @@ import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.FlamingAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
@@ -34,6 +35,7 @@ public final class Abilities implements Listener {
     private static Ability teleporter = null;
     private static Ability bomber = null;
     private static Ability laser = null;
+    private static Ability flaming = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -59,6 +61,9 @@ public final class Abilities implements Listener {
 
         laser = createLaser();
         registry.register(laser);
+
+        flaming = createFlaming();
+        registry.register(flaming);
     }
 
     private Ability createHealthy(){
@@ -216,6 +221,29 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createFlaming(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/flaming_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 %flaming_fire_effect_chance%% 확률로 %flaming_fire_effect_ticks%틱 동안 불에 붙는다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("flaming_fire_effect_chance", 100.0)
+                .addOption("flaming_fire_effect_ticks", 200)
+                .addOption("flaming_set_fire_on_explode", true)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new FlamingAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "flaming"),
+                Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00)),
+                Component.text("Flaming", TextColor.color(0xFFAA00)),
+                config,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -242,5 +270,9 @@ public final class Abilities implements Listener {
 
     public static Ability getLaser() {
         return laser;
+    }
+
+    public static Ability getFlaming() {
+        return flaming;
     }
 }
