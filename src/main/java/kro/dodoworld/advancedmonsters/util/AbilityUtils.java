@@ -8,6 +8,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Monster;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,6 @@ public class AbilityUtils {
             if(!(r instanceof Ability a)) continue;
             abilitySet.add(a);
         }
-        return abilitySet;
+        return Collections.unmodifiableSet(abilitySet);
     }
 }
