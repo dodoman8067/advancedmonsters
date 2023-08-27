@@ -1,5 +1,6 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.custom;
 
+import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.modifier.ability.runnable.LaserRunnable;
@@ -32,7 +33,7 @@ public class LaserAbility extends Ability {
     @Override
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
-        new LaserRunnable(this, getConfig().getDouble("laser_damage"), getConfig().getDouble("laser_shoot_range"));
+        new LaserRunnable(this, getConfig().getDouble("laser_damage"), getConfig().getDouble("laser_shoot_range")).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
         return RegisterResult.SUCCESS;
     }
 
