@@ -5,6 +5,9 @@ import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryRegisterObjectEvent;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryUnRegisterObjectEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
@@ -14,7 +17,7 @@ import java.util.Set;
 /**
  * Class for handling the registry system
  */
-public final class Registry {
+public final class Registry implements Listener {
 
     private Registry(){
     }
@@ -36,7 +39,7 @@ public final class Registry {
         if(!(plugin instanceof AdvancedMonsters)) throw new RuntimeException(new IllegalAccessException("Registry cannot be initialized on other plugins."));
         if(isInitialized) throw new RuntimeException(new IllegalAccessException("Registry has been already initialized."));
         isInitialized = true;
-        Bukkit.getServer().getPluginManager().callEvent(new RegistryInitializeEvent(INSTANCE));
+        Bukkit.getPluginManager().registerEvents(INSTANCE, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
     }
 
     /**
@@ -63,5 +66,11 @@ public final class Registry {
         RegistryUnRegisterObjectEvent event = new RegistryUnRegisterObjectEvent(registrable);
         Bukkit.getPluginManager().callEvent(event);
         REGISTERED_OBJECTS.remove(registrable);
+    }
+
+    @EventHandler
+    private void onEnable(PluginEnableEvent event){
+        if(!(event.getPlugin() instanceof AdvancedMonsters)) return;
+        Bukkit.getServer().getPluginManager().callEvent(new RegistryInitializeEvent(INSTANCE));
     }
 }
