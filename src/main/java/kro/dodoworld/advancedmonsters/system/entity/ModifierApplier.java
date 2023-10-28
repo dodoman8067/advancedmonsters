@@ -1,10 +1,7 @@
 package kro.dodoworld.advancedmonsters.system.entity;
 
-import kro.dodoworld.advancedmonsters.core.registry.Registrable;
-import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
@@ -27,7 +24,7 @@ public class ModifierApplier implements Listener {
     }
 
     private void applyAbility(Monster monster, Ability ability){
-        if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to monster. id : " + ability.getId().asString()));
+        if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to a monster. id : " + ability.getId().asString()));
         ability.onSpawn(monster);
     }
 

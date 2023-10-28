@@ -72,10 +72,10 @@ public class FlamingAbility extends Ability implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event){
-        if(!(event.getEntity() instanceof Monster)) return;
+        if(!(event.getEntity() instanceof Monster monster)) return;
         if(!(event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK)
                 || event.getCause().equals(EntityDamageEvent.DamageCause.LAVA))) return;
-        if(!event.getEntity().getScoreboardTags().contains("adm_modifier_flaming")) return;
+        if(!AbilityUtils.hasAbility(monster, this)) return;
         event.setCancelled(true);
     }
 }

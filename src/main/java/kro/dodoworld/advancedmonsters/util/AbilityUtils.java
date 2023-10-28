@@ -4,12 +4,10 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.Registrable;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Monster;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 

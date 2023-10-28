@@ -8,6 +8,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.FlamingAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.PunchyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
@@ -36,6 +37,7 @@ public final class Abilities implements Listener {
     private static Ability bomber = null;
     private static Ability laser = null;
     private static Ability flaming = null;
+    private static Ability punchy = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -64,6 +66,9 @@ public final class Abilities implements Listener {
 
         flaming = createFlaming();
         registry.register(flaming);
+
+        punchy = createPunchy();
+        registry.register(punchy);
     }
 
     private Ability createHealthy(){
@@ -239,6 +244,28 @@ public final class Abilities implements Listener {
                 new NamespacedKey(PLUGIN_INSTANCE, "flaming"),
                 Component.text("\uD83D\uDD25", TextColor.color(0xFFAA00)),
                 Component.text("Flaming", TextColor.color(0xFFAA00)),
+                config,
+                null
+        );
+    }
+
+    private Ability createPunchy(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/punchy_modifier_config.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("적을 %punchy_punch_air_chance%% 확률로 하늘로 날린다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("punchy_punch_air_chance", 40.0)
+                .addOption("punchy_show_punch_air_message", true)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new PunchyAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "flaming"),
+                Component.text("⇧", TextColor.color(0x55FF55)),
+                Component.text("Punchy", TextColor.color(0x55FF55)),
                 config,
                 null
         );
