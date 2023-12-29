@@ -263,7 +263,7 @@ public final class Abilities implements Listener {
         ConfigUtils.saveAndReloadConfig(config, file);
 
         return new PunchyAbility(
-                new NamespacedKey(PLUGIN_INSTANCE, "flaming"),
+                new NamespacedKey(PLUGIN_INSTANCE, "punchy"),
                 Component.text("⇧", TextColor.color(0x55FF55)),
                 Component.text("Punchy", TextColor.color(0x55FF55)),
                 config,
@@ -301,5 +301,9 @@ public final class Abilities implements Listener {
 
     public static Ability getFlaming() {
         return flaming;
+    }
+
+    public static Ability getPunchy(){
+        return punchy;
     }
 }

@@ -25,6 +25,7 @@ public class ModifierApplier implements Listener {
 
     private void applyAbility(Monster monster, Ability ability){
         if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to a monster. id : " + ability.getId().asString()));
+        if(!ability.canSpawn(monster)) return;
         ability.onSpawn(monster);
     }
 

@@ -53,8 +53,8 @@ public class PunchyAbility extends Ability implements Listener {
                 LivingEntity player = (LivingEntity) event.getEntity();
                 Bukkit.getScheduler().scheduleSyncDelayedTask(AdvancedMonsters.getPlugin(AdvancedMonsters.class), () -> player.setVelocity(new Vector(0,2,0)), 1L);
                 if(player instanceof Player && getConfig().getBoolean("punchy_show_punch_air_message")){
-                    if(this.getSymbol() != null) event.getDamager().sendMessage(this.getSymbol().append(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED))));
-                    player.sendMessage(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED)));
+                    if(this.getSymbol() != null) player.sendMessage(this.getSymbol().append(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED))));
+                    else player.sendMessage(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED)));
                 }
             }
         }
@@ -66,8 +66,8 @@ public class PunchyAbility extends Ability implements Listener {
                 LivingEntity player = (LivingEntity) event.getEntity();
                 Bukkit.getScheduler().scheduleSyncDelayedTask(AdvancedMonsters.getPlugin(AdvancedMonsters.class), () -> player.setVelocity(new Vector(0, 2, 0)), 1L);
                 if(player instanceof Player && getConfig().getBoolean("punchy_show_punch_air_message")){
-                    if(this.getSymbol() != null) event.getDamager().sendMessage(this.getSymbol().append(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED))));
-                    player.sendMessage(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED)));
+                    if(this.getSymbol() != null) player.sendMessage(this.getSymbol().append(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED))));
+                    else player.sendMessage(this.getName().append(Component.text(" 능력으로 인해 하늘로 날려졌습니다!", NamedTextColor.RED)));
                 }
             }
         }
