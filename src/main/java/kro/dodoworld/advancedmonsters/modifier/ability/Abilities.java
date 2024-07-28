@@ -8,6 +8,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.FlamingAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.LightningAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.PunchyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
@@ -38,6 +39,8 @@ public final class Abilities implements Listener {
     private static Ability laser = null;
     private static Ability flaming = null;
     private static Ability punchy = null;
+    private static Ability frozen = null;
+    private static Ability lightning = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -69,10 +72,16 @@ public final class Abilities implements Listener {
 
         punchy = createPunchy();
         registry.register(punchy);
+
+        frozen = createFrozen();
+        registry.register(frozen);
+
+        lightning = createLightning();
+        registry.register(lightning);
     }
 
     private Ability createHealthy(){
-        File healthyFile = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/healthy_modifier_config.yml");
+        File healthyFile = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/healthy.yml");
 
         List<String> healthyDescription = new ArrayList<>();
         healthyDescription.add("체력이 %healthy_health_multiply_amount%배가 된다.");
@@ -90,7 +99,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createStrong(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/strong_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/strong.yml");
 
         List<String> strongDescription = new ArrayList<>();
         strongDescription.add("%strong_damage_multiply_chance%% 확률로 대미지가 %strong_damage_multiply_amount%배가 된다.");
@@ -112,7 +121,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createSpeedy(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/speedy_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/speedy.yml");
 
         List<String> speedyDescription = new ArrayList<>();
         speedyDescription.add("속도가 %speedy_speed_multiply_amount%배가 되지만,");
@@ -135,7 +144,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createTank(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/tank_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/tank.yml");
 
         List<String> description = new ArrayList<>();
         description.add("%tank_ignore_damage_chance%% 확률로 대미지를 무시한다.");
@@ -160,7 +169,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createTeleporter(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/teleporter_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/teleporter.yml");
 
         List<String> description = new ArrayList<>();
         description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
@@ -181,7 +190,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createBomber(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/bomber_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/bomber.yml");
 
         List<String> description = new ArrayList<>();
         description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
@@ -204,7 +213,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createLaser(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/laser_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/laser.yml");
 
         List<String> description = new ArrayList<>();
         description.add("적이 %laser_shoot_range% 블록 이내에 있다면,");
@@ -227,7 +236,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createFlaming(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/flaming_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/flaming.yml");
 
         List<String> description = new ArrayList<>();
         description.add("공격 시 %flaming_fire_effect_chance%% 확률로 %flaming_fire_effect_ticks%틱 동안 불에 붙는다.");
@@ -250,7 +259,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createPunchy(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/punchy_modifier_config.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/punchy.yml");
 
         List<String> description = new ArrayList<>();
         description.add("적을 %punchy_punch_air_chance%% 확률로 하늘로 날린다.");
@@ -266,6 +275,53 @@ public final class Abilities implements Listener {
                 new NamespacedKey(PLUGIN_INSTANCE, "punchy"),
                 Component.text("⇧", TextColor.color(0x55FF55)),
                 Component.text("Punchy", TextColor.color(0x55FF55)),
+                config,
+                null
+        );
+    }
+
+    private Ability createFrozen(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/frozen.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 %frozen_freeze_effect_chance%% 확률로 %frozen_freeze_effect_ticks%틱 동안 몸이 얼어버린다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("frozen_freeze_effect_chance", 100.0)
+                .addOption("frozen_freeze_effect_ticks", 200)
+                .addOption("frozen_can_spawn_on_nether", false)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new LightningAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "frozen"),
+                Component.text("❄", TextColor.color(165, 197, 217)),
+                Component.text("Frozen", TextColor.color(165, 197, 217)),
+                config,
+                null
+        );
+    }
+
+    private Ability createLightning(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/lightning.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 %lighting_strike_chance%% 확률로 최대 %lighting_max_lighting_strike_amount%번 만큼");
+        description.add("%lighting_damage_amount%대미지를 주는 번개를 생성한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("lighting_strike_chance", 100.0)
+                .addOption("lighting_max_lighting_strike_amount", 4)
+                .addOption("lighting_damage_amount", 5.0)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new LightningAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "lightning"),
+                Component.text("⚡", TextColor.color(251, 242, 198)),
+                Component.text("Lightning", TextColor.color(251, 242, 198)),
                 config,
                 null
         );
@@ -305,5 +361,13 @@ public final class Abilities implements Listener {
 
     public static Ability getPunchy(){
         return punchy;
+    }
+
+    public static Ability getFrozen() {
+        return frozen;
+    }
+
+    public static Ability getLightning() {
+        return lightning;
     }
 }
