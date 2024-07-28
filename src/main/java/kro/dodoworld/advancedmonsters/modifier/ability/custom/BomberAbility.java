@@ -11,9 +11,12 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Projectile;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +49,17 @@ public class BomberAbility extends Ability implements Listener {
             TNTPrimed tnt = monster.getLocation().getWorld().spawn(event.getEntity().getLocation(), TNTPrimed.class);
             tnt.setSource(monster);
             tnt.setFuseTicks(getConfig().getInt("bomber_tnt_fuse_ticks"));
+        }
+    }
+
+    // bombers are immune to explosions
+    @EventHandler
+    public void onExplosionDamage(EntityDamageEvent event){
+        if(getConfig() == null) return;
+        if(!(event.getCause().equals(EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) || event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION))) return;
+        if(!(event.getEntity() instanceof Monster monster)) return;
+        if(AbilityUtils.hasAbility(monster, this)){
+            event.setCancelled(true);
         }
     }
 
