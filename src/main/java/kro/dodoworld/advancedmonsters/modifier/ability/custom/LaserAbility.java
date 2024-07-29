@@ -33,7 +33,7 @@ public class LaserAbility extends Ability {
     @Override
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
-        new LaserRunnable(this, getConfig().getDouble("laser_damage"), getConfig().getDouble("laser_shoot_range")).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+        new LaserRunnable(this, getConfig().getDouble("laser_damage"), getConfig().getDouble("laser_shoot_range")).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 5L);
         return RegisterResult.SUCCESS;
     }
 

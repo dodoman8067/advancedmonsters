@@ -33,6 +33,7 @@ public class LaserRunnable extends AbilityRunnable {
                 if(LaserAbility.getLaserMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
                     if(monster.isDead()){
                         LaserAbility.getLaserMonsters().remove(monster.getUniqueId());
+                        continue;
                     }else if(monster.getTarget() != null && !(monster.getLocation().distance(monster.getTarget().getLocation()) > range) && monster.hasLineOfSight(monster.getTarget())){
                         spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
                         monster.getTarget().damage(damage, monster);
