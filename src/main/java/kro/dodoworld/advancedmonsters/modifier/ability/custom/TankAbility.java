@@ -23,6 +23,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class TankAbility extends Ability implements Listener {
@@ -73,19 +75,34 @@ public class TankAbility extends Ability implements Listener {
         if(getConfig() == null) return;
         if(!(event.getEntity() instanceof Monster monster)) return;
         if(AbilityUtils.hasAbility(monster, this)) return;
-        if((Math.random() * 100) <= getConfig().getDouble("tank_monster_damage_protect_chance")){
-            double range = getConfig().getDouble("tank_monster_damage_protect_range");
-            for(Entity e : monster.getNearbyEntities(range, 7, range)){
-                if(!(e instanceof Monster monster1)) continue;
-                if(AbilityUtils.hasAbility(monster1, this)){
-                    double amount = event.getFinalDamage() * getConfig().getDouble("tank_monster_damage_protect_amount");
-                    if(amount <= 0) event.setCancelled(true);
-                    else{
-                        event.setDamage(event.getFinalDamage() - amount);
-                        monster1.damage(amount, monster1);
-                    }
-                    return;
+        List<Monster> tanks = new ArrayList<>();
+
+        double range = getConfig().getDouble("tank_monster_damage_protect_range");
+        for(Entity e : monster.getNearbyEntities(range, 7, range)){
+            if(!(e instanceof Monster monster1)) continue;
+            if(AbilityUtils.hasAbility(monster1, this)){
+                if((Math.random() * 100) <= getConfig().getDouble("tank_monster_damage_protect_chance")){
+                    tanks.add(monster1);
                 }
+                /*
+                double amount = event.getFinalDamage() * getConfig().getDouble("tank_monster_damage_protect_amount");
+                if(amount <= 0) event.setCancelled(true);
+                else{
+                    event.setDamage(event.getFinalDamage() - amount);
+                    monster1.damage(amount, monster1);
+                }
+                return;
+                */
+            }
+        }
+
+        double amount = event.getFinalDamage() * getConfig().getDouble("tank_monster_damage_protect_amount");
+        if(amount <= 0) event.setCancelled(true);
+        else{
+            double tankDmgAmount = amount / tanks.size();
+            event.setDamage(event.getFinalDamage() - amount);
+            for(Monster m : tanks){
+                m.damage(tankDmgAmount);
             }
         }
     }
