@@ -40,6 +40,7 @@ public class LightningAbility extends Ability implements Listener {
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
         return RegisterResult.SUCCESS;
     }
+
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
         if(getConfig() == null) return;

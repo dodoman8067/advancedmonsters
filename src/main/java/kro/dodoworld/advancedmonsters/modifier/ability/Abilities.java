@@ -11,6 +11,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.LightningAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.PunchyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.StormyAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.TeleporterAbility;
@@ -41,6 +42,7 @@ public final class Abilities implements Listener {
     private static Ability punchy = null;
     private static Ability frozen = null;
     private static Ability lightning = null;
+    private static Ability stormy = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -78,6 +80,9 @@ public final class Abilities implements Listener {
 
         lightning = createLightning();
         registry.register(lightning);
+
+        stormy = createStormy();
+        registry.register(stormy);
     }
 
     private Ability createHealthy(){
@@ -152,8 +157,11 @@ public final class Abilities implements Listener {
         FileConfiguration config = new ConfigBuilder(file)
                 .addOption("tank_ignore_damage_chance", 35.0)
                 .addOption("tank_send_damage_nullify_message", true)
-                .addOption("tank_bonus_defence_amount", 15)
+                .addOption("tank_bonus_defence_amount", 25)
                 .addOption("tank_speed_multiply_amount", 0.4)
+                .addOption("tank_monster_damage_protect_range", 25.0)
+                .addOption("tank_monster_damage_protect_chance", 100.0)
+                .addOption("tank_monster_damage_protect_amount", 0.9)
                 .addOption("command_description", description)
                 .build();
 
@@ -327,6 +335,34 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createStormy(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/stormy.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("적이 %stormy_lighting_range%블록 이내에 있다면,");
+        description.add("%stormy_lighting_cooldown%틱 마다 번개 소환 + %stormy_lighting_damage%만큼의 대미지를 준다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("stormy_lighting_range", 40.0)
+                .addOption("stormy_lighting_damage", 7.0)
+                .addOption("stormy_show_lighting_damage_message", true)
+                .addOption("stormy_slow_effect_ticks", 30)
+                .addOption("stormy_slow_effect_amplifier", 3)
+                .addOption("stormy_lighting_cooldown", 60)
+                .addOption("stormy_only_spawn_when_storming", false)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new StormyAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "stormy"),
+                Component.text("\uD83C\uDF27", TextColor.color(22, 184, 162)),
+                Component.text("Stormy", TextColor.color(22, 184, 162)),
+                config,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -369,5 +405,9 @@ public final class Abilities implements Listener {
 
     public static Ability getLightning() {
         return lightning;
+    }
+
+    public static Ability getStormy() {
+        return stormy;
     }
 }
