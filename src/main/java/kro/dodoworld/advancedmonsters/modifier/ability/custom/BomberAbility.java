@@ -35,11 +35,6 @@ public class BomberAbility extends Ability implements Listener {
         return RegisterResult.SUCCESS;
     }
 
-    @Override
-    public void onSpawn(Monster monster){
-        super.onSpawn(monster);
-    }
-
     @EventHandler
     public void onKill(EntityDeathEvent event){
         if(getConfig() == null) return;

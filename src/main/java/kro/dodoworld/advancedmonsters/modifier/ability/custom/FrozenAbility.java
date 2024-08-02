@@ -65,6 +65,7 @@ public class FrozenAbility extends Ability implements Listener {
     @Override
     public boolean canSpawn(Monster monster){
         if(getConfig() == null) return false;
+        if(monster.getLocation().getBlock().getTemperature() >= 2.0) return false;
         if(monster.getWorld().getName().endsWith("_nether")){
             return getConfig().getBoolean("frozen_can_spawn_on_nether");
         }else{
