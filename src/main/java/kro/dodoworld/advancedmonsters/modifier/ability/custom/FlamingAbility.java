@@ -29,11 +29,6 @@ public class FlamingAbility extends Ability implements Listener {
     }
 
     @Override
-    public void onSpawn(Monster monster){
-        super.onSpawn(monster);
-    }
-
-    @Override
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
@@ -78,5 +73,10 @@ public class FlamingAbility extends Ability implements Listener {
                 || event.getCause().equals(EntityDamageEvent.DamageCause.LAVA))) return;
         if(!AbilityUtils.hasAbility(monster, this)) return;
         event.setCancelled(true);
+    }
+
+    @Override
+    public boolean canSpawn(Monster monster){
+        return !(monster.getLocation().getBlock().getTemperature() <= 0.05);
     }
 }
