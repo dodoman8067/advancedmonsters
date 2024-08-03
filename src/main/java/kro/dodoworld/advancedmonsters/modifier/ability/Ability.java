@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Boss;
 import org.bukkit.entity.Monster;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -52,6 +53,7 @@ public abstract class Ability implements Registrable {
      * @param monster the monster spawned with this ability
      */
     public void onSpawn(Monster monster){
+        if(monster instanceof Boss) return;
         monster.getPersistentDataContainer().set(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.STRING, this.id.asString());
         monster.setCustomNameVisible(true);
         if(this.symbol != null){
