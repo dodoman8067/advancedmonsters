@@ -34,6 +34,28 @@ public class ModifierApplier implements Listener {
         event.getAbility().onSpawn(event.getMonster());
     }
 
+    /*
+        private Ability getRandomAbility(Monster monster) {
+        List<Ability> abilities = AbilityUtils.getRegisteredAbilities().stream()
+                .filter(ability -> ability.canSpawn(monster))
+                .collect(Collectors.toList());
+
+        if (abilities.isEmpty()) return null;
+
+        int totalWeight = abilities.stream().mapToInt(Ability::getSpawnWeight).sum();
+        int randomWeight = new Random().nextInt(totalWeight);
+
+        for (Ability ability : abilities) {
+            randomWeight -= ability.getSpawnWeight();
+            if (randomWeight < 0) {
+                return ability;
+            }
+        }
+
+        return null; // Should not reach here
+    }
+     */
+
     private Ability getRandomAbility(){
         List<Ability> abilitySet = new ArrayList<>(AbilityUtils.getRegisteredAbilities());
         Collections.shuffle(abilitySet);
