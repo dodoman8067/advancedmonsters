@@ -77,6 +77,15 @@ public class StormyAbility extends Ability implements Listener {
         }
     }
 
+    @Override
+    public boolean canSpawn(Monster monster){
+        if(getConfig() == null) return false;
+        if(getConfig().getBoolean("stormy_only_spawn_when_storming")){
+            if(!monster.getWorld().hasStorm() || (monster.getLocation().getBlock().getTemperature() >= 2.0)) return false;
+        }
+        return true;
+    }
+
     public static Set<UUID> getStormingMonsters() {
         return STORMING_MONSTERS;
     }
