@@ -1,7 +1,9 @@
 package kro.dodoworld.advancedmonsters.system.entity;
 
+import kro.dodoworld.advancedmonsters.event.ability.AbilityApplyEvent;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
@@ -25,8 +27,11 @@ public class ModifierApplier implements Listener {
 
     private void applyAbility(Monster monster, Ability ability){
         if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to a monster. id : " + ability.getId().asString()));
-        if(!ability.canSpawn(monster)) return;
-        ability.onSpawn(monster);
+        AbilityApplyEvent event = new AbilityApplyEvent(ability, monster);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if(event.isCancelled()) return;
+        if(!event.getAbility().canSpawn(event.getMonster())) return;
+        event.getAbility().onSpawn(event.getMonster());
     }
 
     private Ability getRandomAbility(){
