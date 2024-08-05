@@ -4,17 +4,7 @@ import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.builder.ConfigBuilder;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.event.registry.RegistryInitializeEvent;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.BomberAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.FlamingAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.HealthyAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.LightningAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.PunchyAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.SpeedyAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.StormyAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.StrongAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.TankAbility;
-import kro.dodoworld.advancedmonsters.modifier.ability.custom.TeleporterAbility;
+import kro.dodoworld.advancedmonsters.modifier.ability.custom.*;
 import kro.dodoworld.advancedmonsters.util.ConfigUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -43,6 +33,7 @@ public final class Abilities implements Listener {
     private static Ability frozen = null;
     private static Ability lightning = null;
     private static Ability stormy = null;
+    private static Ability venomous = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -83,6 +74,9 @@ public final class Abilities implements Listener {
 
         stormy = createStormy();
         registry.register(stormy);
+
+        venomous = createVenomous();
+        registry.register(venomous);
     }
 
     private Ability createHealthy(){
@@ -363,6 +357,31 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createVenomous(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/venomous.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 %venomous_apply_effect_chance%% 확률로 독에 걸린다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("venomous_apply_effect_chance", 100.0)
+                .addOption("venomous_poison_effect_ticks", 200)
+                .addOption("venomous_poison_effect_amplifier", 3)
+                .addOption("venomous_weakness_effect_ticks", 240)
+                .addOption("venomous_weakness_effect_amplifier", 2)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new VenomousAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "venomous"),
+                Component.text("☣", TextColor.color(199, 204, 53)),
+                Component.text("Venomous", TextColor.color(199, 204, 53)),
+                config,
+                null
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -409,5 +428,9 @@ public final class Abilities implements Listener {
 
     public static Ability getStormy() {
         return stormy;
+    }
+
+    public static Ability getVenomous() {
+        return venomous;
     }
 }
