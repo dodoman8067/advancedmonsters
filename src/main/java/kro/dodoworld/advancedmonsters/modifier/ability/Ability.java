@@ -25,6 +25,7 @@ public abstract class Ability implements Registrable {
     private final Component name;
     private final FileConfiguration abilityConfig;
     private final TextColor displayColor;
+    private final int spawnWeight;
 
     /**
      * Constructor for this class.
@@ -35,11 +36,25 @@ public abstract class Ability implements Registrable {
      * @param displayColor color used on monster's name
      */
     public Ability(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig,  @Nullable TextColor displayColor) {
+        this(id, symbol, name, abilityConfig, displayColor, 20);
+    }
+
+    /**
+     * Constructor for this class.
+     * @param id            id for ability
+     * @param symbol        symbol for ability. if null, the symbol will not appear on the monster's name
+     * @param name          ability's user-friendly name
+     * @param abilityConfig configuration for the ability
+     * @param displayColor color used on monster's name
+     * @param spawnWeight ability's spawn weight; higher weight increases the chance of being picked
+     */
+    public Ability(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig,  @Nullable TextColor displayColor, int spawnWeight) {
         this.id = id;
         this.symbol = symbol;
         this.name = name;
         this.abilityConfig = abilityConfig;
         this.displayColor = displayColor;
+        this.spawnWeight = spawnWeight;
     }
 
 
@@ -87,6 +102,10 @@ public abstract class Ability implements Registrable {
     @NotNull
     public final Component getName() {
         return name;
+    }
+
+    public final int getSpawnWeight() {
+        return spawnWeight;
     }
 
     @Override

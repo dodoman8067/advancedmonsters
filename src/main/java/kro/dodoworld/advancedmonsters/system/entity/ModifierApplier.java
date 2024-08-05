@@ -13,6 +13,8 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ModifierApplier implements Listener {
     @EventHandler
@@ -34,27 +36,26 @@ public class ModifierApplier implements Listener {
         event.getAbility().onSpawn(event.getMonster());
     }
 
-    /*
-        private Ability getRandomAbility(Monster monster) {
+
+    private Ability getRandomAbility(Monster monster){
         List<Ability> abilities = AbilityUtils.getRegisteredAbilities().stream()
                 .filter(ability -> ability.canSpawn(monster))
-                .collect(Collectors.toList());
+                .toList();
 
-        if (abilities.isEmpty()) return null;
+        if(abilities.isEmpty()) return null;
 
         int totalWeight = abilities.stream().mapToInt(Ability::getSpawnWeight).sum();
         int randomWeight = new Random().nextInt(totalWeight);
 
-        for (Ability ability : abilities) {
+        for(Ability ability : abilities){
             randomWeight -= ability.getSpawnWeight();
-            if (randomWeight < 0) {
+            if(randomWeight < 0){
                 return ability;
             }
         }
 
         return null; // Should not reach here
     }
-     */
 
     private Ability getRandomAbility(){
         List<Ability> abilitySet = new ArrayList<>(AbilityUtils.getRegisteredAbilities());
