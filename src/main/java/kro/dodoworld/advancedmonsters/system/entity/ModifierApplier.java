@@ -22,7 +22,9 @@ public class ModifierApplier implements Listener {
         if(!event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) return;
         if((Math.random() * 100) <= 50){
             if(!(event.getEntity() instanceof Monster monster)) return;
-            applyAbility(monster, getRandomAbility());
+            Ability ability = getRandomAbility(monster);
+            if(ability == null) return;
+            applyAbility(monster, ability);
         }
     }
 
