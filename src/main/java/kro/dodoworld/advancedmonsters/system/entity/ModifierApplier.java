@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ModifierApplier implements Listener {
     @EventHandler
@@ -28,7 +27,7 @@ public class ModifierApplier implements Listener {
     }
 
     private void applyAbility(Monster monster, Ability ability){
-        if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply unregistered ability to a monster. id : " + ability.getId().asString()));
+        if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply an unregistered ability to a monster. id : " + ability.getId().asString()));
         AbilityApplyEvent event = new AbilityApplyEvent(ability, monster);
         Bukkit.getServer().getPluginManager().callEvent(event);
         if(event.isCancelled()) return;
@@ -44,11 +43,11 @@ public class ModifierApplier implements Listener {
 
         if(abilities.isEmpty()) return null;
 
-        int totalWeight = abilities.stream().mapToInt(Ability::getSpawnWeight).sum();
+        int totalWeight = abilities.stream().mapToInt(ability -> ability.getSpawnWeight(monster.getLocation())).sum();
         int randomWeight = new Random().nextInt(totalWeight);
 
         for(Ability ability : abilities){
-            randomWeight -= ability.getSpawnWeight();
+            randomWeight -= ability.getSpawnWeight(monster.getLocation());
             if(randomWeight < 0){
                 return ability;
             }

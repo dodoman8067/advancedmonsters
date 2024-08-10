@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Boss;
@@ -104,7 +105,8 @@ public abstract class Ability implements Registrable {
         return name;
     }
 
-    public final int getSpawnWeight() {
+    //
+    public int getSpawnWeight(Location spawnLoc) {
         return spawnWeight;
     }
 
