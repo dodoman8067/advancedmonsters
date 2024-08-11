@@ -14,6 +14,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,6 +61,14 @@ public class FrozenAbility extends Ability implements Listener {
                 event.getEntity().setFreezeTicks(config.getInt("frozen_freeze_effect_ticks"));
             }
         }
+    }
+
+    @EventHandler
+    public void onFreezeDamage(EntityDamageEvent event){
+        if(!(event.getEntity() instanceof Monster monster)) return;
+        if(!event.getCause().equals(EntityDamageEvent.DamageCause.FREEZE)) return;
+        if(!AbilityUtils.hasAbility(monster, this)) return;
+        event.setCancelled(true);
     }
 
     @Override
