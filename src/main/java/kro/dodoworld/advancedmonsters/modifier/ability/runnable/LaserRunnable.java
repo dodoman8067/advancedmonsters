@@ -7,11 +7,13 @@ import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class LaserRunnable extends AbilityRunnable {
@@ -35,8 +37,15 @@ public class LaserRunnable extends AbilityRunnable {
                         LaserAbility.getLaserMonsters().remove(monster.getUniqueId());
                         continue;
                     }else if(monster.getTarget() != null && !(monster.getLocation().distance(monster.getTarget().getLocation()) > range) && monster.hasLineOfSight(monster.getTarget()) && !monster.getTarget().isDead()){
-                        spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
-                        monster.getTarget().damage(damage, monster);
+                        if(monster.getTarget() instanceof Player player){
+                            if(!(player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE))){
+                                spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
+                                monster.getTarget().damage(damage, monster);
+                            }
+                        }else if(monster.getTarget() != null) {
+                            spawnLaser(monster.getEyeLocation(), monster.getTarget().getEyeLocation(), Color.fromRGB(255, 26, 18));
+                            monster.getTarget().damage(damage, monster);
+                        }
                     }
                     if(monster.getTarget() != null && monster.getTarget().isDead()){
                         monster.setTarget(null);

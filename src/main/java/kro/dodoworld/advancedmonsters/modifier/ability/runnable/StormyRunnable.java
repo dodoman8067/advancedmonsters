@@ -7,9 +7,11 @@ import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -37,6 +39,7 @@ public class StormyRunnable extends AbilityRunnable {
                 if(!(entity instanceof Monster monster)) continue;
                 if(StormyAbility.getStormingMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
                     if(monster.isDead()) StormyAbility.getStormingMonsters().remove(monster.getUniqueId());
+                    if(monster.getTarget() instanceof Player player && (player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE))) continue;
                     if(monster.getTarget() != null){
                         if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())) {
                             monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation()).addScoreboardTag("adm_storm_summoned");
