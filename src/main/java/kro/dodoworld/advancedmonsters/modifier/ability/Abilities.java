@@ -34,6 +34,7 @@ public final class Abilities implements Listener {
     private static Ability lightning = null;
     private static Ability stormy = null;
     private static Ability venomous = null;
+    private static Ability healer = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -77,6 +78,9 @@ public final class Abilities implements Listener {
 
         venomous = createVenomous();
         registry.register(venomous);
+
+        healer = createHealer();
+        registry.register(healer);
     }
 
     private Ability createHealthy(){
@@ -296,7 +300,7 @@ public final class Abilities implements Listener {
 
         ConfigUtils.saveAndReloadConfig(config, file);
 
-        return new LightningAbility(
+        return new FrozenAbility(
                 new NamespacedKey(PLUGIN_INSTANCE, "frozen"),
                 Component.text("❄", TextColor.color(165, 197, 217)),
                 Component.text("Frozen", TextColor.color(165, 197, 217)),
@@ -382,6 +386,32 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createHealer(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/healer.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 %venomous_apply_effect_chance%% 확률로 독에 걸린다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("venomous_apply_effect_chance", 100.0)
+                .addOption("venomous_poison_effect_ticks", 200)
+                .addOption("venomous_poison_effect_amplifier", 3)
+                .addOption("venomous_weakness_effect_ticks", 240)
+                .addOption("venomous_weakness_effect_amplifier", 2)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new HealerAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "healer"),
+                Component.text("✙", TextColor.color(30, 156, 38)),
+                Component.text("Healer", TextColor.color(30, 156, 38)),
+                config,
+                null,
+                2000
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -432,5 +462,9 @@ public final class Abilities implements Listener {
 
     public static Ability getVenomous() {
         return venomous;
+    }
+
+    public static Ability getHealer() {
+        return healer;
     }
 }
