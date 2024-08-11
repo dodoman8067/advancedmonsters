@@ -26,7 +26,7 @@ public abstract class Ability implements Registrable {
     private final Component name;
     private final FileConfiguration abilityConfig;
     private final TextColor displayColor;
-    private final int spawnWeight;
+    protected final int spawnWeight;
 
     /**
      * Constructor for this class.
