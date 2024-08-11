@@ -7,7 +7,9 @@ import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
@@ -65,5 +67,11 @@ public class VenomousAbility extends Ability implements Listener {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
         return RegisterResult.SUCCESS;
+    }
+
+    @Override
+    public int getSpawnWeight(Location spawnLoc){
+        if(spawnLoc.getBlock().getBiome().equals(Biome.SWAMP) || spawnLoc.getBlock().getBiome().equals(Biome.MANGROVE_SWAMP)) return this.spawnWeight * 4;
+        return this.spawnWeight;
     }
 }
