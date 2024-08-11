@@ -1,17 +1,27 @@
 package kro.dodoworld.advancedmonsters;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
 import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
+import kro.dodoworld.advancedmonsters.system.entity.ability.HealingCircle;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public final class AdvancedMonsters extends JavaPlugin {
+public final class AdvancedMonsters extends JavaPlugin implements Listener {
 
     /**
      * TODO: Add Necromancer boss
@@ -25,11 +35,18 @@ public final class AdvancedMonsters extends JavaPlugin {
         if(!checkServerEnvironment()) return; //checks server environment. ends code when false returned.
         initFiles();
         Registry.init(this);
+        getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new Abilities(), this);
         getServer().getPluginManager().registerEvents(new ModifierApplier(), this);
         logger.info("Plugin successfully started.");
     }
 
+    @EventHandler
+    public void onChat(AsyncChatEvent event){
+        HealingCircle circle = new HealingCircle(event.getPlayer(), 3, 2);
+        circle.spawn();
+        Bukkit.getScheduler().runTaskLater(AdvancedMonsters.getPlugin(AdvancedMonsters.class), circle::remove, 200L);
+    }
 
     /**
      * Checks this server is running Paper or fork of Paper.
