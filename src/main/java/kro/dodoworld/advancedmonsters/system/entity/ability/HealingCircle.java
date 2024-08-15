@@ -5,7 +5,7 @@ import kro.dodoworld.advancedmonsters.util.LocationUtils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftMonster;
+import org.bukkit.craftbukkit.entity.CraftMonster;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -56,6 +56,7 @@ public class HealingCircle {
                 if(!(m.getHealth() < maxHealth / 2)) continue;
 
                 m.setTarget(null);
+                m.getPathfinder().stopPathfinding();
                 m.getPathfinder().moveTo(location);
             }
         }
