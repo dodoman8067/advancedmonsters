@@ -39,7 +39,7 @@ public final class Registry implements Listener {
         if(!(plugin instanceof AdvancedMonsters)) throw new RuntimeException(new IllegalAccessException("Registry cannot be initialized on other plugins."));
         if(isInitialized) throw new RuntimeException(new IllegalAccessException("Registry has been already initialized."));
         isInitialized = true;
-        Bukkit.getServer().getPluginManager().callEvent(new RegistryInitializeEvent(INSTANCE));
+        if(plugin.isEnabled()) Bukkit.getServer().getPluginManager().callEvent(new RegistryInitializeEvent(INSTANCE));
     }
 
     /**
