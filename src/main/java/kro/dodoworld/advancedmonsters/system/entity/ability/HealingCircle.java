@@ -5,7 +5,6 @@ import kro.dodoworld.advancedmonsters.util.LocationUtils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.entity.CraftMonster;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -86,7 +85,7 @@ public class HealingCircle {
             if(summonedBy.isDead()){ cancel(); return; }
 
             for(Monster m : location.getNearbyEntitiesByType(Monster.class, radius, 2, radius)){
-                ((CraftMonster) m).getHandle().heal((float) amount, EntityRegainHealthEvent.RegainReason.MAGIC);
+                m.heal((float) amount, EntityRegainHealthEvent.RegainReason.MAGIC);
 
                 location.getWorld().spawnParticle(Particle.HEART, m.getEyeLocation(), 1);
             }
