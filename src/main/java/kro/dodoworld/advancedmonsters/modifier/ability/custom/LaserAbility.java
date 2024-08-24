@@ -20,9 +20,10 @@ public class LaserAbility extends Ability {
 
     private static final Set<UUID> LASER_MONSTERS = new HashSet<>();
 
-    public LaserAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable TextColor displayColor) {
-        super(id, symbol, name, abilityConfig, displayColor);
+    public LaserAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable TextColor displayColor, int spawnWeight) {
+        super(id, symbol, name, abilityConfig, displayColor, spawnWeight);
     }
+
 
     @Override
     public void onSpawn(Monster monster){

@@ -237,7 +237,8 @@ public final class Abilities implements Listener {
                 Component.text("◎", TextColor.color(250, 74, 20)),
                 Component.text("Laser", TextColor.color(250, 74, 20)),
                 config,
-                null
+                null,
+                20
         );
     }
 
@@ -408,7 +409,7 @@ public final class Abilities implements Listener {
                 Component.text("Healer", TextColor.color(30, 156, 38)),
                 config,
                 null,
-                2000
+                20
         );
     }
 
