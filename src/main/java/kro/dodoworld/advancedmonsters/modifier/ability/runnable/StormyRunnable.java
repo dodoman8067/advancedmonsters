@@ -44,7 +44,7 @@ public class StormyRunnable extends AbilityRunnable {
                         if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())) {
                             monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation()).addScoreboardTag("adm_storm_summoned");
                             monster.getTarget().damage(lightingDamage, monster);
-                            monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ticks, amplifier));
+                            monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, ticks, amplifier));
                             if(getAbility().getConfig().getBoolean("stormy_show_lighting_damage_message")) monster.getTarget().sendMessage(
                                     getAbility().getSymbol().append(getAbility().getName()).append(Component.text(" 능력에 의해 번개에 맞았습니다!")
                                             .color(TextColor.color(0xFF5555))));

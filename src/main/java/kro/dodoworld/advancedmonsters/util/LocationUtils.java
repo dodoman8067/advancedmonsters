@@ -26,7 +26,7 @@ public class LocationUtils {
             float x = radius*(float) Math.sin(t);
             float z = radius*(float) Math.cos(t);
 
-            loc.getWorld().spawnParticle(Particle.REDSTONE, x + loc.getX(), loc.getY(), z + loc.getZ(), 1, 0 ,0, 0 ,0, new Particle.DustOptions(org.bukkit.Color.fromRGB(r, g, b), size));
+            loc.getWorld().spawnParticle(Particle.DUST, x + loc.getX(), loc.getY(), z + loc.getZ(), 1, 0 ,0, 0 ,0, new Particle.DustOptions(org.bukkit.Color.fromRGB(r, g, b), size));
         }
     }
 }

@@ -72,7 +72,7 @@ public class LaserRunnable extends AbilityRunnable {
 
         while(cover < dis) {
             Particle.DustOptions dustOptions = new Particle.DustOptions(color, 1.0F);
-            world.spawnParticle(Particle.REDSTONE, pos1.getX(), pos1.getY(), pos1.getZ(), 1, dustOptions);
+            world.spawnParticle(Particle.DUST, pos1.getX(), pos1.getY(), pos1.getZ(), 1, dustOptions);
             cover += 0.1;
             pos1.add(vector);
         }
