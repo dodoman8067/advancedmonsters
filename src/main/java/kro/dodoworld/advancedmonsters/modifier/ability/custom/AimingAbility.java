@@ -28,9 +28,11 @@ public class AimingAbility extends Ability implements Listener {
 
     @EventHandler
     public void onShoot(ProjectileLaunchEvent event){
-        if(!(event.getEntity() instanceof AbstractSkeleton skeleton)) return;
+        if(!(event.getEntity().getShooter() instanceof AbstractSkeleton skeleton)) return;
         if(!AbilityUtils.hasAbility(skeleton, this)) return;
+        if(getConfig() == null) return;
 
+        if((Math.random() * 100) > getConfig().getDouble("aiming_arrow_homing_chance")) return;
         Projectile projectile = event.getEntity();
         new BukkitRunnable(){
 
@@ -46,7 +48,7 @@ public class AimingAbility extends Ability implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 4L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 1L, 1L);
     }
 
     @Override
