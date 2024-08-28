@@ -2,6 +2,7 @@ package kro.dodoworld.advancedmonsters.system.entity.ability;
 
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.util.LocationUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
@@ -29,8 +30,14 @@ public class HealingCircle {
     }
 
     public void spawn(){
+        spawn(10);
+    }
+
+    public void spawn(int seconds){
         this.runnable.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 4L);
         this.healRunnable.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 20L);
+
+        Bukkit.getScheduler().runTaskLater(AdvancedMonsters.getPlugin(AdvancedMonsters.class), () -> {this.runnable.cancel(); this.healRunnable.cancel();}, seconds * 20L);
     }
 
     public void remove(){

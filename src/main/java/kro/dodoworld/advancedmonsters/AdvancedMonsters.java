@@ -44,8 +44,7 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
     @EventHandler
     public void onChat(AsyncChatEvent event){
         HealingCircle circle = new HealingCircle(event.getPlayer(), 3, 2);
-        circle.spawn();
-        Bukkit.getScheduler().runTaskLater(AdvancedMonsters.getPlugin(AdvancedMonsters.class), circle::remove, 200L);
+        circle.spawn(10);
     }
 
     /**
