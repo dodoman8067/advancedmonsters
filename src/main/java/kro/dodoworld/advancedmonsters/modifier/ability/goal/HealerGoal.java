@@ -20,10 +20,15 @@ public class HealerGoal implements Goal<Mob> {
     private final Mob mob;
     private int ticks;
     private long lastCircleSpawnTime = 0;
-    private static final long COOLDOWN = 10000; // 20 seconds cooldown in milliseconds
+    private final long cooldown;
+    private final int tryPerTicks;
+    private final double amount;
 
-    public HealerGoal(Mob mob) {
+    public HealerGoal(Mob mob, int tryPerTicks, double amount, long cooldown) {
         this.mob = mob;
+        this.tryPerTicks = tryPerTicks;
+        this.cooldown = cooldown;
+        this.amount = amount;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class HealerGoal implements Goal<Mob> {
     @Override
     public void tick() {
         ticks++;
-        if(ticks % 100 == 0){  // Every 100 ticks (5 seconds)
+        if(ticks % tryPerTicks == 0){
             tryCircleSpawn();
             ticks = 0;  // Reset ticks after each attempt
         }
@@ -58,7 +63,7 @@ public class HealerGoal implements Goal<Mob> {
     private void tryCircleSpawn() {
         // Check cooldown before trying to spawn a healing circle
         long currentTime = System.currentTimeMillis();
-        if(currentTime - lastCircleSpawnTime < COOLDOWN) return;  // If cooldown has not passed, do not spawn
+        if(currentTime - lastCircleSpawnTime < cooldown) return;  // If cooldown has not passed, do not spawn
 
         int lowHealthMonsters = 0;
         for(Monster nearbyMonster : mob.getLocation().getNearbyEntitiesByType(Monster.class, 20, 5, 20)){
@@ -71,7 +76,7 @@ public class HealerGoal implements Goal<Mob> {
         if(lowHealthMonsters > 1){
             // Create and spawn the healing circle
             int duration = 10 + Math.min(20, lowHealthMonsters);  // Adjust duration based on the number of low-health monsters
-            HealingCircle circle = new HealingCircle(mob, 3, 8.0);  // Spawn a healing circle with radius 3 and healing amount 8.0
+            HealingCircle circle = new HealingCircle(mob, 3, amount);  // Spawn a healing circle with radius 3 and healing amount 8.0
             circle.spawn(duration);
             lastCircleSpawnTime = currentTime;  // Update the last spawn time to the current time
         }

@@ -395,13 +395,11 @@ public final class Abilities implements Listener {
         File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/healer.yml");
 
         List<String> description = new ArrayList<>();
-        description.add("공격 시 %venomous_apply_effect_chance%% 확률로 독에 걸린다.");
+        description.add("%healer_circle_try_per_ticks%틱마다 %healer_circle_healing_amount% 체력을 회복하는 동그라미를 소환을 시도한다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("venomous_apply_effect_chance", 100.0)
-                .addOption("venomous_poison_effect_ticks", 200)
-                .addOption("venomous_poison_effect_amplifier", 3)
-                .addOption("venomous_weakness_effect_ticks", 240)
-                .addOption("venomous_weakness_effect_amplifier", 2)
+                .addOption("healer_circle_healing_amount", 8.0)
+                .addOption("healer_circle_try_per_ticks", 100)
+                .addOption("healer_circle_cooldown_ticks", 10000L)
                 .addOption("command_description", description)
                 .build();
 
