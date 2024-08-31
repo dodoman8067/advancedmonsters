@@ -22,7 +22,7 @@ public class TeleporterRunnable extends AbilityRunnable {
             for(LivingEntity entity : world.getLivingEntities()){
                 if(!(entity instanceof Monster monster)) continue;
                 if(TeleporterAbility.getTeleportingMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
-                    if(monster.isDead()){
+                    if(monster.isDead() || !monster.isValid()){
                         TeleporterAbility.getTeleportingMonsters().remove(monster.getUniqueId());
                     }else if(monster.getTarget() != null && monster.getLocation().distance(monster.getTarget().getLocation()) > getAbility().getConfig().getDouble("teleporter_teleport_range")){
                         monster.teleport(monster.getTarget().getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);

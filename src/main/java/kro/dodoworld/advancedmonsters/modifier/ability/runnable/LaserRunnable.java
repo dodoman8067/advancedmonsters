@@ -33,7 +33,7 @@ public class LaserRunnable extends AbilityRunnable {
             for(LivingEntity entity : world.getLivingEntities()){
                 if(!(entity instanceof Monster monster)) continue;
                 if(LaserAbility.getLaserMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
-                    if(monster.isDead()){
+                    if(monster.isDead() || !monster.isValid()){
                         LaserAbility.getLaserMonsters().remove(monster.getUniqueId());
                         continue;
                     }else if(monster.getTarget() != null && !(monster.getLocation().distance(monster.getTarget().getLocation()) > range) && monster.hasLineOfSight(monster.getTarget()) && !monster.getTarget().isDead()){

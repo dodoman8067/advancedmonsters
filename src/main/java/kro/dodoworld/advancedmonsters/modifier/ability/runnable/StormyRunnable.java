@@ -38,7 +38,7 @@ public class StormyRunnable extends AbilityRunnable {
             for(LivingEntity entity : world.getLivingEntities()){
                 if(!(entity instanceof Monster monster)) continue;
                 if(StormyAbility.getStormingMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
-                    if(monster.isDead()) StormyAbility.getStormingMonsters().remove(monster.getUniqueId());
+                    if(monster.isDead() || !monster.isValid()) StormyAbility.getStormingMonsters().remove(monster.getUniqueId());
                     if(monster.getTarget() instanceof Player player && (player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE))) continue;
                     if(monster.getTarget() != null){
                         if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())) {
