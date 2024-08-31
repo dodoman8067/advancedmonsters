@@ -20,7 +20,7 @@ public class HealerGoal implements Goal<Mob> {
     private final Mob mob;
     private int ticks;
     private long lastCircleSpawnTime = 0;
-    private static final long COOLDOWN = 20000; // 20 seconds cooldown in milliseconds
+    private static final long COOLDOWN = 10000; // 20 seconds cooldown in milliseconds
 
     public HealerGoal(Mob mob) {
         this.mob = mob;
@@ -49,7 +49,7 @@ public class HealerGoal implements Goal<Mob> {
     @Override
     public void tick() {
         ticks++;
-        if(ticks % 200 == 0){  // Every 200 ticks (10 seconds)
+        if(ticks % 100 == 0){  // Every 100 ticks (5 seconds)
             tryCircleSpawn();
             ticks = 0;  // Reset ticks after each attempt
         }
