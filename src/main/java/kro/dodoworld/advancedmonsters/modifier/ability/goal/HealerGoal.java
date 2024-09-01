@@ -33,12 +33,14 @@ public class HealerGoal implements Goal<Mob> {
 
     @Override
     public boolean shouldActivate() {
-        return !mob.isDead();
+        if(mob.isDead() || !mob.isValid()) return false;
+        return mob.getWorld().getNearbyEntitiesByType(Monster.class, mob.getLocation(), 20, 5, 20).size() > 2;
     }
 
     @Override
     public boolean shouldStayActive() {
-        return !mob.isDead();  // Stay active while mob has a target and is alive
+        if(mob.isDead() || !mob.isValid()) return false;
+        return mob.getWorld().getNearbyEntitiesByType(Monster.class, mob.getLocation(), 20, 5, 20).size() > 2;
     }
 
     @Override
