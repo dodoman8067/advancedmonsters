@@ -39,7 +39,7 @@ public class VampireAbility extends Ability implements Listener {
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
-        new VampireRunnable(this, 4).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+        new VampireRunnable(this, 3).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
         return RegisterResult.SUCCESS;
     }
 
@@ -47,7 +47,7 @@ public class VampireAbility extends Ability implements Listener {
     public void onSpawn(Monster monster){
         super.onSpawn(monster);
         if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
-        Bukkit.getMobGoals().addGoal(monster, 5, new VampireGoal(monster, 40, 4, 10));
+        Bukkit.getMobGoals().addGoal(monster, 3, new VampireGoal(monster, 40, 4, 10));
         VAMPIRE_MONSTERS.add(monster.getUniqueId());
     }
 
@@ -84,7 +84,7 @@ public class VampireAbility extends Ability implements Listener {
             if(!(e instanceof Monster monster)) continue;
             if(!AbilityUtils.hasAbility(monster, this)) continue;
             if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
-            Bukkit.getMobGoals().addGoal(monster, 5, new VampireGoal(monster, 40, 4, 10));
+            Bukkit.getMobGoals().addGoal(monster, 3, new VampireGoal(monster, 40, 4, 10));
         }
     }
 

@@ -15,6 +15,8 @@ import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Bat;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SpawnCategory;
@@ -44,7 +46,12 @@ public class VampireGoal implements Goal<Mob> {
         if(mob.isDead() || !mob.isValid()) return false;
         AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if(maxHealth == null) return false;
-        return mob.getHealth() != maxHealth.getValue() && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
+        int nonMonsterEntityCount = 0;
+        for(LivingEntity e : mob.getWorld().getNearbyLivingEntities(mob.getLocation(), range)){
+            if(e instanceof Creature && !e.getSpawnCategory().equals(SpawnCategory.MONSTER) && !(e instanceof Bat) && mob.hasLineOfSight(e)) nonMonsterEntityCount++;
+        }
+
+        return mob.getHealth() != maxHealth.getValue() && nonMonsterEntityCount != 0 && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
     }
 
     @Override
@@ -52,7 +59,12 @@ public class VampireGoal implements Goal<Mob> {
         if(mob.isDead() || !mob.isValid()) return false;
         AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if(maxHealth == null) return false;
-        return mob.getHealth() != maxHealth.getValue() && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
+        int nonMonsterEntityCount = 0;
+        for(LivingEntity e : mob.getWorld().getNearbyLivingEntities(mob.getLocation(), range)){
+            if(e instanceof Creature && !e.getSpawnCategory().equals(SpawnCategory.MONSTER) && !(e instanceof Bat) && mob.hasLineOfSight(e)) nonMonsterEntityCount++;
+        }
+
+        return mob.getHealth() != maxHealth.getValue() && nonMonsterEntityCount != 0 && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
     }
 
     @Override
