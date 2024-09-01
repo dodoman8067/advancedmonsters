@@ -8,7 +8,6 @@ import kro.dodoworld.advancedmonsters.modifier.ability.goal.HealerGoal;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import net.minecraft.world.entity.monster.Skeleton;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -38,7 +37,7 @@ public class HealerAbility extends Ability implements Listener {
         super.onSpawn(monster);
         if(getConfig() == null) return;
         if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "healer_spawn_circle")))) return;
-        Bukkit.getMobGoals().addGoal(monster, 5, new HealerGoal(monster, getConfig().getInt("healer_circle_try_per_ticks"), getConfig().getDouble("healer_circle_healing_amount"), getConfig().getLong("healer_circle_cooldown_ticks")));
+        Bukkit.getMobGoals().addGoal(monster, 4, new HealerGoal(monster, getConfig().getInt("healer_circle_try_per_ticks"), getConfig().getDouble("healer_circle_healing_amount"), getConfig().getLong("healer_circle_cooldown_ticks")));
     }
 
 
@@ -63,7 +62,7 @@ public class HealerAbility extends Ability implements Listener {
             if(!(e instanceof Monster monster)) continue;
             if(!AbilityUtils.hasAbility(monster, this)) continue;
             if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "healer_spawn_circle")))) continue;
-            Bukkit.getMobGoals().addGoal(monster, 5, new HealerGoal(monster, getConfig().getInt("healer_circle_try_per_ticks"), getConfig().getDouble("healer_circle_healing_amount"), getConfig().getLong("healer_circle_cooldown_ticks")));
+            Bukkit.getMobGoals().addGoal(monster, 4, new HealerGoal(monster, getConfig().getInt("healer_circle_try_per_ticks"), getConfig().getDouble("healer_circle_healing_amount"), getConfig().getLong("healer_circle_cooldown_ticks")));
         }
     }
 

@@ -459,7 +459,7 @@ public final class Abilities implements Listener {
                 Component.text("Vampire", TextColor.color(108, 0, 0)),
                 config,
                 null,
-                2000
+                20
         );
     }
 
