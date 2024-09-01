@@ -1,8 +1,11 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.custom;
 
+import com.destroystokyo.paper.entity.ai.GoalKey;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
+import kro.dodoworld.advancedmonsters.modifier.ability.goal.HealerGoal;
+import kro.dodoworld.advancedmonsters.modifier.ability.goal.VampireGoal;
 import kro.dodoworld.advancedmonsters.modifier.ability.runnable.VampireRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
@@ -12,12 +15,15 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +41,6 @@ public class VampireAbility extends Ability implements Listener {
     @Override
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
-        new VampireRunnable(this, 15, 2).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 40L);
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
         return RegisterResult.SUCCESS;
     }
@@ -43,14 +48,15 @@ public class VampireAbility extends Ability implements Listener {
     @Override
     public void onSpawn(Monster monster){
         super.onSpawn(monster);
-        VAMPIRE_MONSTERS.add(monster.getUniqueId());
+        if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
+        Bukkit.getMobGoals().addGoal(monster, 5, new VampireGoal(monster, 40, 4, 10));
     }
 
     @EventHandler
     public void onRegen(EntityRegainHealthEvent event){
         if(!(event.getEntity() instanceof Monster monster)) return;
         if(!AbilityUtils.hasAbility(monster, this)) return;
-        if(!monster.getWorld().isDayTime()){
+        if(!monster.getWorld().isDayTime() && monster.getLocation().getBlock().getLightLevel() < 6){
             event.setAmount(event.getAmount() * 2);
         }else{
             event.setCancelled(true);
@@ -61,7 +67,6 @@ public class VampireAbility extends Ability implements Listener {
 
     @EventHandler
     public void onDamageEntity(EntityDamageByEntityEvent event){
-        if(getConfig() == null) return;
         if(event.getDamager() instanceof Monster monster) {
             if(!AbilityUtils.hasAbility(monster, this)) return;
             monster.heal(event.getFinalDamage() / 4, EntityRegainHealthEvent.RegainReason.MAGIC);
@@ -73,9 +78,20 @@ public class VampireAbility extends Ability implements Listener {
         }
     }
 
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event){
+        if(getConfig() == null) return;
+        for(Entity e : event.getChunk().getEntities()){
+            if(!(e instanceof Monster monster)) continue;
+            if(!AbilityUtils.hasAbility(monster, this)) continue;
+            if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
+            Bukkit.getMobGoals().addGoal(monster, 5, new VampireGoal(monster, 40, 4, 10));
+        }
+    }
+
     @Override
     public boolean canSpawn(Monster monster){
-        return !monster.getWorld().isDayTime();
+        return !monster.getWorld().isDayTime() && monster.getLocation().getBlock().getLightLevel() < 6;
     }
 
     public static Set<UUID> getVampireMonsters() {

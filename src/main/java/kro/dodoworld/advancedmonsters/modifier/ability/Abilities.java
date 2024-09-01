@@ -36,6 +36,7 @@ public final class Abilities implements Listener {
     private static Ability venomous = null;
     private static Ability healer = null;
     private static Ability aiming = null;
+    private static Ability vampire = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -85,6 +86,9 @@ public final class Abilities implements Listener {
 
         aiming = createAiming();
         registry.register(aiming);
+
+        vampire = createVampire();
+        registry.register(vampire);
     }
 
     private Ability createHealthy(){
@@ -437,6 +441,28 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createVampire(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/vampire.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("%aiming_arrow_homing_chance%% 확률로 유도 화살을 발사한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("aiming_arrow_homing_chance", 100.0)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new VampireAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "vampire"),
+                Component.text("\uD83E\uDD87", TextColor.color(108, 0, 0)),
+                Component.text("Vampire", TextColor.color(108, 0, 0)),
+                config,
+                null,
+                2000
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -493,5 +519,11 @@ public final class Abilities implements Listener {
         return healer;
     }
 
+    public static Ability getAiming() {
+        return aiming;
+    }
 
+    public static Ability getVampire() {
+        return vampire;
+    }
 }

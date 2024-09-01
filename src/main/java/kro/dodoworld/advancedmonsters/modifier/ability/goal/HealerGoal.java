@@ -33,12 +33,12 @@ public class HealerGoal implements Goal<Mob> {
 
     @Override
     public boolean shouldActivate() {
-        return mob.getTarget() != null;  // Activate only if the mob has a target
+        return !mob.isDead();
     }
 
     @Override
     public boolean shouldStayActive() {
-        return mob.getTarget() != null && !mob.isDead();  // Stay active while mob has a target and is alive
+        return !mob.isDead();  // Stay active while mob has a target and is alive
     }
 
     @Override
@@ -53,6 +53,7 @@ public class HealerGoal implements Goal<Mob> {
 
     @Override
     public void tick() {
+        if(mob.isDead() || !mob.isValid()) stop();
         ticks++;
         if(ticks % tryPerTicks == 0){
             tryCircleSpawn();

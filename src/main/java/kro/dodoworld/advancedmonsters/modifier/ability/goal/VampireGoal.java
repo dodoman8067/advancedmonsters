@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
@@ -39,14 +40,12 @@ public class VampireGoal implements Goal<Mob> {
 
     @Override
     public boolean shouldActivate() {
-        if(mob.getWorld().isDayTime()) return false;
-        return mob.getTarget() != null;  // Activate only if the mob has a target
+        return !mob.isDead();
     }
 
     @Override
     public boolean shouldStayActive() {
-        if(mob.getWorld().isDayTime()) return false;
-        return mob.getTarget() != null && !mob.isDead();  // Stay active while mob has a target and is alive
+        return !mob.isDead();  // Stay active while mob has a target and is alive
     }
 
     @Override
@@ -61,29 +60,33 @@ public class VampireGoal implements Goal<Mob> {
 
     @Override
     public void tick() {
-        ticks++;
-        if(ticks % tryPerTicks == 0){
-            drainBlood();
-            ticks = 0;  // Reset ticks after each attempt
+        if(mob.isDead() || !mob.isValid()) stop();
+        if(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6){
+            damageIfDayTime();
+        }else{
+            ticks++;
+            if(ticks % tryPerTicks == 0){
+                drainBlood();
+                ticks = 0;  // Reset ticks after each attempt
+            }
         }
     }
 
     void drainBlood(){
-        if(mob.isDead() || !mob.isValid()) stop();
-        if(mob.getWorld().isDayTime()){
-            mob.damage(mob.getLocation().getBlock().getLightLevel() * amount);
-            mob.setNoDamageTicks(1);
-        }else{
-            for(Mob mob : mob.getWorld().getNearbyEntitiesByType(Mob.class, mob.getLocation(), range)){
-                if(mob.getSpawnCategory().equals(SpawnCategory.MONSTER)) continue;
-                if(mob instanceof Bat) continue;
-                if(!mob.hasLineOfSight(mob)) continue;
-                if(mob instanceof Player player && ((player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE)))) continue;
-                mob.damage(amount, mob);
-                spawnLaser(mob.getLocation().add(0, mob.getHeight() / 2, 0), mob.getLocation(), Color.fromRGB(108, 0, 0));
-                mob.heal(amount, EntityRegainHealthEvent.RegainReason.MAGIC);
-            }
+        for(Mob mob1 : mob.getWorld().getNearbyEntitiesByType(Mob.class, mob.getLocation(), range)){
+            if(mob1.getSpawnCategory().equals(SpawnCategory.MONSTER)) continue;
+            if(mob1 instanceof Bat) continue;
+            if(!mob.hasLineOfSight(mob1)) continue;
+            if(mob1 instanceof Player player && ((player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE)))) continue;
+            mob1.damage(amount, mob);
+            spawnLaser(mob.getLocation().add(0, mob.getHeight() / 2, 0), mob1.getLocation(), Color.fromRGB(108, 0, 0));
+            mob.heal(amount, EntityRegainHealthEvent.RegainReason.MAGIC);
         }
+    }
+
+    void damageIfDayTime(){
+        mob.damage(mob.getLocation().getBlock().getLightLevel() * amount);
+        mob.setNoDamageTicks(1);
     }
 
     @Override

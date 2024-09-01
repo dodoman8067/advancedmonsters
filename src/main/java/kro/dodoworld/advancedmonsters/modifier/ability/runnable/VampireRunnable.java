@@ -40,7 +40,7 @@ public class VampireRunnable extends AbilityRunnable {
                 if(VampireAbility.getVampireMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
                     if(monster.isDead() || !monster.isValid()) VampireAbility.getVampireMonsters().remove(monster.getUniqueId());
                     if(monster.getWorld().isDayTime()){
-                        monster.damage(monster.getLocation().getBlock().getLightLevel() * amount);
+                        monster.damage(monster.getLocation().getBlock().getLightLevel() * (amount * 2));
                         monster.setNoDamageTicks(1);
                     }else{
                         if(monster.getTarget() instanceof Player player && ((player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE)))) continue;
