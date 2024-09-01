@@ -13,6 +13,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
@@ -40,12 +41,18 @@ public class VampireGoal implements Goal<Mob> {
 
     @Override
     public boolean shouldActivate() {
-        return !mob.isDead();
+        if(mob.isDead() || !mob.isValid()) return false;
+        AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        if(maxHealth == null) return false;
+        return mob.getHealth() != maxHealth.getValue() && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
     }
 
     @Override
     public boolean shouldStayActive() {
-        return !mob.isDead();  // Stay active while mob has a target and is alive
+        if(mob.isDead() || !mob.isValid()) return false;
+        AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        if(maxHealth == null) return false;
+        return mob.getHealth() != maxHealth.getValue() && !(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6);
     }
 
     @Override
@@ -61,14 +68,10 @@ public class VampireGoal implements Goal<Mob> {
     @Override
     public void tick() {
         if(mob.isDead() || !mob.isValid()) stop();
-        if(mob.getWorld().isDayTime() || mob.getLocation().getBlock().getLightLevel() >= 6){
-            damageIfDayTime();
-        }else{
-            ticks++;
-            if(ticks % tryPerTicks == 0){
-                drainBlood();
-                ticks = 0;  // Reset ticks after each attempt
-            }
+        ticks++;
+        if(ticks % tryPerTicks == 0){
+            drainBlood();
+            ticks = 0;  // Reset ticks after each attempt
         }
     }
 
@@ -82,11 +85,6 @@ public class VampireGoal implements Goal<Mob> {
             spawnLaser(mob.getLocation().add(0, mob.getHeight() / 2, 0), mob1.getLocation(), Color.fromRGB(108, 0, 0));
             mob.heal(amount, EntityRegainHealthEvent.RegainReason.MAGIC);
         }
-    }
-
-    void damageIfDayTime(){
-        mob.damage(mob.getLocation().getBlock().getLightLevel() * amount);
-        mob.setNoDamageTicks(1);
     }
 
     @Override

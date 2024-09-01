@@ -4,7 +4,6 @@ import com.destroystokyo.paper.entity.ai.GoalKey;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
-import kro.dodoworld.advancedmonsters.modifier.ability.goal.HealerGoal;
 import kro.dodoworld.advancedmonsters.modifier.ability.goal.VampireGoal;
 import kro.dodoworld.advancedmonsters.modifier.ability.runnable.VampireRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
@@ -13,8 +12,6 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.damage.DamageSource;
-import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
@@ -42,6 +39,7 @@ public class VampireAbility extends Ability implements Listener {
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
+        new VampireRunnable(this, 4).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
         return RegisterResult.SUCCESS;
     }
 
@@ -50,6 +48,7 @@ public class VampireAbility extends Ability implements Listener {
         super.onSpawn(monster);
         if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
         Bukkit.getMobGoals().addGoal(monster, 5, new VampireGoal(monster, 40, 4, 10));
+        VAMPIRE_MONSTERS.add(monster.getUniqueId());
     }
 
     @EventHandler
