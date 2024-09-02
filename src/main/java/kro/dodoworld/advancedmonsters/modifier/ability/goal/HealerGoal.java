@@ -33,12 +33,7 @@ public class HealerGoal implements Goal<Mob> {
 
     @Override
     public boolean shouldActivate() {
-        if(mob.isDead() || !mob.isValid()) return false;
-        int activeMonsters = 0;
-        for(Monster m : mob.getWorld().getNearbyEntitiesByType(Monster.class, mob.getLocation(), 20, 5, 20)){
-            if(m.getTarget() != null && mob.hasLineOfSight(m)) activeMonsters++;
-        }
-        return activeMonsters > 2;
+        return !mob.isDead() && mob.isValid();
     }
 
     @Override
