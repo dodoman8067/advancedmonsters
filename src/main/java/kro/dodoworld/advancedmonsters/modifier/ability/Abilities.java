@@ -473,7 +473,7 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("공격 시 최대 추가 %feral_max_attack_count%회 공격을 넣는다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("feral_max_attack_count", 8)
+                .addOption("feral_max_attack_count", 4)
                 .addOption("feral_speed_multiply_amount", 1.6)
                 .addOption("command_description", description)
                 .build();
