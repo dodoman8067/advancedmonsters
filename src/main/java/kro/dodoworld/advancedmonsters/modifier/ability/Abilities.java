@@ -37,6 +37,7 @@ public final class Abilities implements Listener {
     private static Ability healer = null;
     private static Ability aiming = null;
     private static Ability vampire = null;
+    private static Ability feral = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -89,6 +90,9 @@ public final class Abilities implements Listener {
 
         vampire = createVampire();
         registry.register(vampire);
+
+        feral = createFeral();
+        registry.register(feral);
     }
 
     private Ability createHealthy(){
@@ -463,6 +467,29 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createFeral(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/feral.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("공격 시 최대 추가 %feral_max_attack_count%회 공격을 넣는다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("feral_max_attack_count", 8)
+                .addOption("feral_speed_multiply_amount", 1.6)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new FeralAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "feral"),
+                Component.text("⫽", TextColor.color(163, 11, 11)),
+                Component.text("Feral", TextColor.color(163, 11, 11)),
+                config,
+                null,
+                20
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -525,5 +552,9 @@ public final class Abilities implements Listener {
 
     public static Ability getVampire() {
         return vampire;
+    }
+
+    public static Ability getFeral() {
+        return feral;
     }
 }
