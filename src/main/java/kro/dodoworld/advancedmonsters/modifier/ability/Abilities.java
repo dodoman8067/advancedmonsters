@@ -38,6 +38,7 @@ public final class Abilities implements Listener {
     private static Ability aiming = null;
     private static Ability vampire = null;
     private static Ability feral = null;
+    private static Ability splitter = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -93,6 +94,9 @@ public final class Abilities implements Listener {
 
         feral = createFeral();
         registry.register(feral);
+
+        splitter = createSplitter();
+        registry.register(splitter);
     }
 
     private Ability createHealthy(){
@@ -487,6 +491,28 @@ public final class Abilities implements Listener {
                 config,
                 null,
                 20
+        );
+    }
+
+    private Ability createSplitter(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/feral.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("죽을 시 원래 크기의 절반만큼의 두 엔티티를 스폰한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("splitter_minimum_size", 0.4)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new SplitterAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "splitter"),
+                Component.text("➗", TextColor.color(242, 207, 7)),
+                Component.text("Splitter", TextColor.color(242, 207, 7)),
+                config,
+                null,
+                2000
         );
     }
 
