@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FeralAbility extends Ability implements Listener {
+
+
     public FeralAbility(@NotNull NamespacedKey id, @Nullable Component symbol, @NotNull Component name, @Nullable FileConfiguration abilityConfig, @Nullable TextColor displayColor, int spawnWeight) {
         super(id, symbol, name, abilityConfig, displayColor, spawnWeight);
     }
@@ -90,24 +92,21 @@ public class FeralAbility extends Ability implements Listener {
 
     private void createAdditionalAttack(Monster attacker, double damage, LivingEntity damaged){
         if(damaged.isDead() || attacker.isDead()) return;
-        try {
-            damaged.setMetadata("adm_feral_damage", new FixedMetadataValue(AdvancedMonsters.getPlugin(AdvancedMonsters.class), true));
-            damaged.setNoDamageTicks(0);
-            damaged.damage(damage, attacker);
-            attacker.heal(damage / 2, EntityRegainHealthEvent.RegainReason.MAGIC);
+        damaged.setMetadata("adm_feral_damage", new FixedMetadataValue(AdvancedMonsters.getPlugin(AdvancedMonsters.class), true));
+        damaged.setNoDamageTicks(0);
+        damaged.damage(damage, attacker);
+        attacker.heal(damage / 2, EntityRegainHealthEvent.RegainReason.MAGIC);
 
-            spawnXShapeParticles(damaged);
-        } finally {
-            damaged.removeMetadata("adm_feral_damage", AdvancedMonsters.getPlugin(AdvancedMonsters.class));
-        }
+        spawnXShapeParticles(damaged);
+        damaged.removeMetadata("adm_feral_damage", AdvancedMonsters.getPlugin(AdvancedMonsters.class));
     }
 
     public void spawnXShapeParticles(LivingEntity entity) {
         Location loc = entity.getLocation().add(0, 1, 0);
-        double radius = 2;
+        double radius = 2; // Radius of the X shape
         int points = 20; // Number of particles per line
 
-        Vector hurtDirection = getDirectionFromAngle(entity);
+        Vector hurtDirection = getHurtDirection(entity); // Replace with actual method call
 
         drawDiagonalLine(loc, radius, points, hurtDirection, Math.toRadians(45));
         drawDiagonalLine(loc, radius, points, hurtDirection, Math.toRadians(-45));
@@ -117,7 +116,7 @@ public class FeralAbility extends Ability implements Listener {
         Vector dir1 = rotateVector(hurtDir, angle); // Rotate the hurt direction to form the diagonal
         Vector dir2 = dir1.clone().multiply(-1); // Opposite direction to form the other half of the line
 
-        for(int i = 0; i < points; i++){
+        for (int i = 0; i < points; i++) {
             double factor = (i / (double) (points - 1)) * radius * 2;
             Location loc1 = center.clone().add(dir1.clone().multiply(factor - radius));
             Location loc2 = center.clone().add(dir2.clone().multiply(factor - radius));
@@ -129,22 +128,15 @@ public class FeralAbility extends Ability implements Listener {
         }
     }
 
-    private Vector getDirectionFromAngle(LivingEntity entity){
-        float entityYaw = entity.getLocation().getYaw() * ((float) Math.PI / 180);
-
-        float finalAngle = entityYaw + entity.getHurtDirection();
-
-        double x = -Math.sin(finalAngle);
-        double z = Math.cos(finalAngle);
-
-        return new Vector(x, 0, z).normalize();
-    }
-
     private Vector rotateVector(Vector vector, double angle) {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
         double x = vector.getX() * cos - vector.getZ() * sin;
         double z = vector.getX() * sin + vector.getZ() * cos;
         return new Vector(x, vector.getY(), z);
+    }
+
+    private Vector getHurtDirection(LivingEntity entity) {
+        return entity.getLocation().getDirection().normalize();
     }
 }
