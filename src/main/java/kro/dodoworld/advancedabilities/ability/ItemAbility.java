@@ -38,6 +38,8 @@ public abstract class ItemAbility implements Registrable {
 
     public abstract Set<EquipmentSlot> getApplicableSlots(int tier);
 
+    public abstract boolean canBeAppliedWith(EquipmentSlot slot, ItemAbility ability);
+
     public @NotNull Component getName() {
         return name;
     }
