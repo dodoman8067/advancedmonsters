@@ -62,7 +62,7 @@ public final class Registry implements Listener {
      * @see Registry#register(Registrable registrable)
      */
     public void unRegister(Registrable registrable){
-        if(!registrable.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot unregister an object with id that doesn't exists"));
+        if(!registrable.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot unregister an object with id that doesn't exist"));
         RegistryUnRegisterObjectEvent event = new RegistryUnRegisterObjectEvent(registrable);
         Bukkit.getPluginManager().callEvent(event);
         REGISTERED_OBJECTS.remove(registrable);
