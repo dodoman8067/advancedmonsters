@@ -12,7 +12,7 @@ public class AbilityManager {
 
     private AbilityManager(){}
 
-    public void applyAbility(ItemStack item, ItemAbility ability){
+    public void applyAbility(ItemStack item, ItemAbility ability, int tier, boolean override){
 
     }
 
