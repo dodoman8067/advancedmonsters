@@ -3,6 +3,7 @@ package kro.dodoworld.advancedmonsters;
 import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import kro.dodoworld.advancedabilities.AdvancedAbilities;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
 import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
@@ -38,6 +39,7 @@ public final class AdvancedMonsters extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new Abilities(), this);
         getServer().getPluginManager().registerEvents(new ModifierApplier(), this);
+        AdvancedAbilities.init(this);
         logger.info("Plugin successfully started.");
     }
 
