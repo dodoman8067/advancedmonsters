@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+// Note: Use AbilityManager#getAppliedAbilityTier to get the item's applied tier
+
 public abstract class ItemAbility implements Registrable {
     private final NamespacedKey id;
     private final Component name;
