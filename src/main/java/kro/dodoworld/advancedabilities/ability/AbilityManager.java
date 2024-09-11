@@ -32,6 +32,10 @@ public class AbilityManager {
 
     }
 
+    public int getAppliedAbilityTier(ItemStack item, ItemAbility ability){
+        return -1;
+    }
+
     public static AbilityManager getManager() {
         return MANAGER;
     }
