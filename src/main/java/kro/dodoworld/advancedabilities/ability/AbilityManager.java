@@ -154,7 +154,7 @@ public class AbilityManager {
         NamespacedKey key = new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "item_abilities");
 
         if(pdc.has(key, PersistentDataType.STRING)){
-            pdc.set(key, PersistentDataType.STRING, "");
+            pdc.remove(key);
         }
     }
 
