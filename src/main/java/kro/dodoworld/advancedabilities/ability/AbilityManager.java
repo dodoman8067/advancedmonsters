@@ -78,8 +78,35 @@ public class AbilityManager {
         return false;
     }
 
-    public void removeAbility(ItemStack item, ItemAbility ability){
+    public void removeAbility(ItemStack item, ItemAbility ability) {
+        if(item == null || item.getItemMeta() == null) return;
+        if(!hasAbility(item, ability)) return;
 
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        NamespacedKey key = new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "item_abilities");
+
+        JsonArray abilitiesArray = new JsonArray();
+        if(pdc.has(key, PersistentDataType.STRING)){
+            String jsonString = pdc.get(key, PersistentDataType.STRING);
+            abilitiesArray = GSON.fromJson(jsonString, JsonArray.class);
+        }
+
+        for(int i = 0; i < abilitiesArray.size(); i++){
+            JsonElement element = abilitiesArray.get(i);
+            if(!element.isJsonObject()) continue;
+
+            JsonObject existingAbility = element.getAsJsonObject();
+            if(existingAbility.has("id") && existingAbility.get("id").getAsString().equals(ability.getId().value())){
+                abilitiesArray.remove(i);
+                break;
+            }
+        }
+        
+        pdc.set(key, PersistentDataType.STRING, GSON.toJson(abilitiesArray));
+
+        item.setItemMeta(meta);
     }
 
     public Set<ItemAbility> getAppliedItemAbilities(ItemStack item) {
