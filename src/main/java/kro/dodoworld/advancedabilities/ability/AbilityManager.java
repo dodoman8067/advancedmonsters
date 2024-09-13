@@ -176,7 +176,7 @@ public class AbilityManager {
 
                     String id = abilityObject.has("id") ? abilityObject.get("id").getAsString() : null;
 
-                    if(id != null){
+                    if(id != null && id.equals(ability.getId().toString())){
                         NamespacedKey abilityKey = NamespacedKey.fromString(id);
 
                         ItemAbility ability1 = getAbilityById(abilityKey);
