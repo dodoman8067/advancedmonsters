@@ -24,7 +24,8 @@ public class AbilityManager {
     private AbilityManager(){}
 
     public void applyAbility(ItemStack item, ItemAbility ability, int tier, boolean override) {
-        if (item == null || item.getItemMeta() == null) return;
+        if(tier <= 0) throw new RuntimeException(new IllegalArgumentException("tier cannot be less than 0. passed value: " + tier));
+        if(item == null || item.getItemMeta() == null) return;
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -145,10 +146,48 @@ public class AbilityManager {
     }
 
     public void removeAllAbility(ItemStack item){
+        if(item == null || item.getItemMeta() == null) return;
 
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        NamespacedKey key = new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "item_abilities");
+
+        if(pdc.has(key, PersistentDataType.STRING)){
+            pdc.set(key, PersistentDataType.STRING, "");
+        }
     }
 
     public int getAppliedAbilityTier(ItemStack item, ItemAbility ability){
+        if(item == null || item.getItemMeta() == null) return -1;
+
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        NamespacedKey key = new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "item_abilities");
+
+        if(pdc.has(key, PersistentDataType.STRING)){
+            String jsonString = pdc.get(key, PersistentDataType.STRING);
+            JsonArray abilitiesArray = GSON.fromJson(jsonString, JsonArray.class);
+
+            for(JsonElement element : abilitiesArray){
+                if(element.isJsonObject()){
+                    JsonObject abilityObject = element.getAsJsonObject();
+
+                    String id = abilityObject.has("id") ? abilityObject.get("id").getAsString() : null;
+
+                    if(id != null){
+                        NamespacedKey abilityKey = NamespacedKey.fromString(id);
+
+                        ItemAbility ability1 = getAbilityById(abilityKey);
+                        if(ability1 != null){
+                            return abilityObject.has("tier") ? abilityObject.get("tier").getAsInt() : -1;
+                        }
+                    }
+                }
+            }
+        }
+
         return -1;
     }
 
