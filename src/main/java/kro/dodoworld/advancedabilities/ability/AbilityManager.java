@@ -48,11 +48,12 @@ public class AbilityManager {
                 JsonObject existingAbility = element.getAsJsonObject();
                 if(existingAbility.has("id") && existingAbility.get("id").getAsString().equals(ability.getId().value())){
                     abilityExists = true;
-                    /*
                     if(existingAbility.get("tier").getAsInt() == tier){
                         existingAbility.addProperty("tier", tier + 1);
                     }
-                    */
+                    if(existingAbility.get("tier").getAsInt() < tier){
+                        existingAbility.addProperty("tier", tier);
+                    }
                     if(override){
                         existingAbility.addProperty("tier", tier);
                     }
