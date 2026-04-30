@@ -9,6 +9,7 @@ import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +29,17 @@ public class ModifierApplier implements Listener {
         }
     }
 
+    @EventHandler
+    public void onInteract(EntityTargetLivingEntityEvent event){
+        for(Ability a : AbilityUtils.getRegisteredAbilities()){
+            if(event.getEntity() instanceof Monster monster){
+                if(!AbilityUtils.hasAbility(monster, a)) continue;
+                if(monster.isInvisible()) continue;
+                monster.setCustomNameVisible(true);
+            }
+        }
+    }
+
     private void applyAbility(Monster monster, Ability ability){
         if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("You cannot apply an unregistered ability to a monster. id : " + ability.getId().asString()));
         AbilityApplyEvent event = new AbilityApplyEvent(ability, monster);
@@ -36,7 +48,6 @@ public class ModifierApplier implements Listener {
         if(!event.getAbility().canSpawn(event.getMonster())) return;
         event.getAbility().onSpawn(event.getMonster());
     }
-
 
     private Ability getRandomAbility(Monster monster){
         List<Ability> abilities = AbilityUtils.getRegisteredAbilities().stream()

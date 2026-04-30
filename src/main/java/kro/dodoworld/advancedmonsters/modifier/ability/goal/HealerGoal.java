@@ -95,6 +95,6 @@ public class HealerGoal implements Goal<Mob> {
 
     @Override
     public @NotNull EnumSet<GoalType> getTypes() {
-        return EnumSet.of(GoalType.MOVE);  // Define the goal type as MOVE
+        return EnumSet.noneOf(GoalType.class);  // Define the goal type as MOVE
     }
 }
