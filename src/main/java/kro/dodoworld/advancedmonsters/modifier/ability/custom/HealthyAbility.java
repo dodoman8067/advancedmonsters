@@ -28,7 +28,7 @@ public class HealthyAbility extends Ability {
         super.onSpawn(monster);
         if(getConfig() == null) return;
         int amount = getConfig().getInt("healthy_health_multiply_amount");
-        monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * amount);
-        monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        monster.getAttribute(Attribute.MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.MAX_HEALTH).getBaseValue() * amount);
+        monster.setHealth(monster.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
     }
 }

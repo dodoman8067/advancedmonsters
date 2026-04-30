@@ -4,7 +4,7 @@ import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.modifier.ability.AbilityRunnable;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.LaserAbility;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.GameMode;

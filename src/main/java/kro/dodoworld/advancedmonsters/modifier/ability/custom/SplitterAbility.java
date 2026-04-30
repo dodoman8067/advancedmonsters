@@ -42,17 +42,17 @@ public class SplitterAbility extends Ability implements Listener {
 
     private void split(Monster monster){
         if(getConfig() == null) return;
-        AttributeInstance attribute = monster.getAttribute(Attribute.GENERIC_SCALE);
+        AttributeInstance attribute = monster.getAttribute(Attribute.SCALE);
         if(attribute == null) return;
         double size = attribute.getValue() / 2;
         if(size < getConfig().getDouble("splitter_minimum_size")) return;
 
         for(int i = 0; i<2; i++){
             Monster monster1 = (Monster) monster.getWorld().spawnEntity(monster.getLocation(), monster.getType());
-            AttributeInstance instance = monster1.getAttribute(Attribute.GENERIC_SCALE);
+            AttributeInstance instance = monster1.getAttribute(Attribute.SCALE);
             if(instance == null) continue;
             instance.setBaseValue(size);
-            AttributeInstance instance1 = monster1.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            AttributeInstance instance1 = monster1.getAttribute(Attribute.MAX_HEALTH);
             if(instance1 == null) continue;
             instance1.setBaseValue(instance1.getValue() / 2);
             monster1.setHealth(instance1.getBaseValue());
@@ -62,7 +62,7 @@ public class SplitterAbility extends Ability implements Listener {
     @Override
     public boolean canSpawn(Monster monster){
         if(getConfig() == null) return false;
-        AttributeInstance attribute = monster.getAttribute(Attribute.GENERIC_SCALE);
+        AttributeInstance attribute = monster.getAttribute(Attribute.SCALE);
         if(attribute == null) return false;
 
         return attribute.getValue() >= getConfig().getDouble("splitter_minimum_size");

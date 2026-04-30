@@ -512,7 +512,7 @@ public final class Abilities implements Listener {
                 Component.text("Splitter", TextColor.color(242, 207, 7)),
                 config,
                 null,
-                2000
+                20
         );
     }
 

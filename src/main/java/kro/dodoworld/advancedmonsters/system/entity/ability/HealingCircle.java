@@ -56,8 +56,8 @@ public class HealingCircle {
             if(summonedBy.isDead()){ cancel(); return; }
 
             for(Monster m : location.getNearbyEntitiesByType(Monster.class, 30, 3, 30)){
-                if(m.getAttribute(Attribute.GENERIC_MAX_HEALTH) == null) continue;
-                double maxHealth = m.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+                if(m.getAttribute(Attribute.MAX_HEALTH) == null) continue;
+                double maxHealth = m.getAttribute(Attribute.MAX_HEALTH).getValue();
 
                 if(!(m.getHealth() < maxHealth / 2)) continue;
 

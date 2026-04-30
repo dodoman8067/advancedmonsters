@@ -49,9 +49,9 @@ public class FeralAbility extends Ability implements Listener {
         if(getConfig() == null) return;
         super.onSpawn(monster);
         double speedMultiplyAmount = getConfig().getDouble("feral_speed_multiply_amount");
-        monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedMultiplyAmount);
-        monster.getAttribute(Attribute.GENERIC_MOVEMENT_EFFICIENCY).setBaseValue(10);
-        monster.getAttribute(Attribute.GENERIC_WATER_MOVEMENT_EFFICIENCY).setBaseValue(10);
+        monster.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.MOVEMENT_SPEED).getBaseValue() * speedMultiplyAmount);
+        monster.getAttribute(Attribute.MOVEMENT_EFFICIENCY).setBaseValue(10);
+        monster.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY).setBaseValue(10);
     }
 
     @EventHandler

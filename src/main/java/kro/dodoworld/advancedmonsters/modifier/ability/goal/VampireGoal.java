@@ -5,7 +5,7 @@ import com.destroystokyo.paper.entity.ai.GoalKey;
 import com.destroystokyo.paper.entity.ai.GoalType;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.modifier.ability.custom.VampireAbility;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -44,7 +44,7 @@ public class VampireGoal implements Goal<Mob> {
     @Override
     public boolean shouldActivate() {
         if(mob.isDead() || !mob.isValid()) return false;
-        AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        AttributeInstance maxHealth = mob.getAttribute(Attribute.MAX_HEALTH);
         if(maxHealth == null) return false;
         int nonMonsterEntityCount = 0;
         for(LivingEntity e : mob.getWorld().getNearbyLivingEntities(mob.getLocation(), range)){
@@ -57,7 +57,7 @@ public class VampireGoal implements Goal<Mob> {
     @Override
     public boolean shouldStayActive() {
         if(mob.isDead() || !mob.isValid()) return false;
-        AttributeInstance maxHealth = mob.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        AttributeInstance maxHealth = mob.getAttribute(Attribute.MAX_HEALTH);
         if(maxHealth == null) return false;
         int nonMonsterEntityCount = 0;
         for(LivingEntity e : mob.getWorld().getNearbyLivingEntities(mob.getLocation(), range)){

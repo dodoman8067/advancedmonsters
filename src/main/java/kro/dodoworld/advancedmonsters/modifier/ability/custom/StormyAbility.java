@@ -8,7 +8,6 @@ import kro.dodoworld.advancedmonsters.modifier.ability.runnable.StormyRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import net.minecraft.world.entity.npc.Villager;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -62,7 +61,7 @@ public class StormyAbility extends Ability implements Listener {
 
     @EventHandler
     public void onConvert(EntityZapEvent event){
-        if(!(event.getEntity() instanceof Villager)) return;
+        if(!(event.getEntity() instanceof org.bukkit.entity.Villager)) return;
         if(!event.getBolt().getScoreboardTags().contains("adm_storm_summoned")) return;
         event.setCancelled(true);
     }

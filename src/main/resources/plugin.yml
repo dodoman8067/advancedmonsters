@@ -15,6 +15,10 @@ commands:
     usage: /<command> <miniboss_name>
     permission: advancedmonsters.command.miniboss.spawn
 
+  applyitemability:
+    description: Applies ItemAbility to current holding item
+    usage: /<command> <ability_id> <tier>
+
 permissions:
   advancedmonsters.*:
     description: Gives access to all AdvancedMonsters commands.

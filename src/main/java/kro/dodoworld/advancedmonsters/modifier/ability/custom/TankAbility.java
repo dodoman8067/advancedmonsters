@@ -50,8 +50,8 @@ public class TankAbility extends Ability implements Listener {
         if(getConfig() == null) return;
         super.onSpawn(monster);
         AttributeModifier armor = new AttributeModifier(UUID.randomUUID(), "tank_bonus_defence", getConfig().getInt("tank_bonus_defence_amount"), AttributeModifier.Operation.ADD_NUMBER);
-        monster.getAttribute(Attribute.GENERIC_ARMOR).addModifier(armor);
-        monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * getConfig().getInt("tank_speed_multiply_amount"));
+        monster.getAttribute(Attribute.ARMOR).addModifier(armor);
+        monster.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.MOVEMENT_SPEED).getBaseValue() * getConfig().getInt("tank_speed_multiply_amount"));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

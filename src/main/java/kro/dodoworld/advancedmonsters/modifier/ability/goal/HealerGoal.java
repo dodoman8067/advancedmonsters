@@ -73,7 +73,7 @@ public class HealerGoal implements Goal<Mob> {
 
         int lowHealthMonsters = 0;
         for(Monster nearbyMonster : mob.getLocation().getNearbyEntitiesByType(Monster.class, 20, 5, 20)){
-            AttributeInstance maxHealthAttr = nearbyMonster.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            AttributeInstance maxHealthAttr = nearbyMonster.getAttribute(Attribute.MAX_HEALTH);
             if(maxHealthAttr != null && nearbyMonster.getHealth() < maxHealthAttr.getValue() / 2){
                 lowHealthMonsters++;
             }

@@ -23,11 +23,11 @@ public class SpeedyAbility extends Ability {
         super.onSpawn(monster);
         double speedMultiplyAmount = getConfig().getDouble("speedy_speed_multiply_amount");
         double healthMultiplyAmount = getConfig().getDouble("speedy_health_multiply_amount");
-        monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * speedMultiplyAmount);
-        monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() * healthMultiplyAmount);
-        monster.setHealth(monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        monster.getAttribute(Attribute.GENERIC_MOVEMENT_EFFICIENCY).setBaseValue(10);
-        monster.getAttribute(Attribute.GENERIC_WATER_MOVEMENT_EFFICIENCY).setBaseValue(10);
+        monster.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(monster.getAttribute(Attribute.MOVEMENT_SPEED).getBaseValue() * speedMultiplyAmount);
+        monster.getAttribute(Attribute.MAX_HEALTH).setBaseValue(monster.getAttribute(Attribute.MAX_HEALTH).getBaseValue() * healthMultiplyAmount);
+        monster.setHealth(monster.getAttribute(Attribute.MAX_HEALTH).getValue());
+        monster.getAttribute(Attribute.MOVEMENT_EFFICIENCY).setBaseValue(10);
+        monster.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY).setBaseValue(10);
     }
 
     @Override
