@@ -71,7 +71,7 @@ public abstract class Ability implements Registrable {
     public void onSpawn(Monster monster){
         if(monster instanceof Boss) return;
         monster.getPersistentDataContainer().set(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.STRING, this.id.asString());
-        monster.setCustomNameVisible(true);
+        monster.setCustomNameVisible(false);
         if(this.symbol != null){
             monster.customName(this.symbol.append(this.name).append(Component.text(" ").append(toMobName(monster))));
         }
