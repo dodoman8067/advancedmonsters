@@ -8,6 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class VampireRunnable extends AbilityRunnable {
     private final double amount;
@@ -26,8 +28,8 @@ public class VampireRunnable extends AbilityRunnable {
                 if(!(entity instanceof Monster monster)) continue;
                 if(VampireAbility.getVampireMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
                     if(monster.isDead() || !monster.isValid()) VampireAbility.getVampireMonsters().remove(monster.getUniqueId());
-                    if(monster.getWorld().isDayTime() || monster.getLocation().getBlock().getLightLevel() >= 6){
-                        monster.damage(monster.getLocation().getBlock().getLightLevel() * (amount * 2));
+                    if(monster.getLocation().getBlock().getLightLevel() >= 6){
+                        monster.damage(monster.getLocation().getBlock().getLightLevel() * (amount * 4));
                         monster.setNoDamageTicks(1);
                     }
                 }else if(!AbilityUtils.hasAbility(monster, getAbility())){

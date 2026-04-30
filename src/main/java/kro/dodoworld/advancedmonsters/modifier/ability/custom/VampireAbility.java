@@ -1,6 +1,8 @@
 package kro.dodoworld.advancedmonsters.modifier.ability.custom;
 
 import com.destroystokyo.paper.entity.ai.GoalKey;
+import com.destroystokyo.paper.entity.ai.PaperGoal;
+import com.destroystokyo.paper.entity.ai.VanillaGoal;
 import kro.dodoworld.advancedmonsters.AdvancedMonsters;
 import kro.dodoworld.advancedmonsters.core.registry.RegisterResult;
 import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
@@ -9,9 +11,13 @@ import kro.dodoworld.advancedmonsters.modifier.ability.runnable.VampireRunnable;
 import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.entity.CraftMonster;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
@@ -39,7 +45,7 @@ public class VampireAbility extends Ability implements Listener {
     public @NotNull RegisterResult init() {
         if(getConfig() == null) return RegisterResult.FAIL;
         Bukkit.getPluginManager().registerEvents(this, AdvancedMonsters.getPlugin(AdvancedMonsters.class));
-        new VampireRunnable(this, 3).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 1L);
+        new VampireRunnable(this, 3).runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 10L);
         return RegisterResult.SUCCESS;
     }
 
@@ -48,6 +54,9 @@ public class VampireAbility extends Ability implements Listener {
         super.onSpawn(monster);
         if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
         Bukkit.getMobGoals().addGoal(monster, 3, new VampireGoal(monster, 40, 4, 10));
+        if(!Bukkit.getMobGoals().hasGoal(monster, VanillaGoal.FLEE_SUN)){
+            Bukkit.getMobGoals().addGoal(monster, 0, new PaperGoal<Monster>(new FleeSunGoal(((CraftMonster) monster).getHandle(), 2)));
+        }
         VAMPIRE_MONSTERS.add(monster.getUniqueId());
     }
 
@@ -55,12 +64,10 @@ public class VampireAbility extends Ability implements Listener {
     public void onRegen(EntityRegainHealthEvent event){
         if(!(event.getEntity() instanceof Monster monster)) return;
         if(!AbilityUtils.hasAbility(monster, this)) return;
-        if(!monster.getWorld().isDayTime() && monster.getLocation().getBlock().getLightLevel() < 6){
+        if(monster.getLocation().getBlock().getLightLevel() < 6){
             event.setAmount(event.getAmount() * 2);
         }else{
             event.setCancelled(true);
-            monster.damage(event.getAmount() * event.getEntity().getLocation().getBlock().getLightLevel());
-            monster.setNoDamageTicks(1);
         }
     }
 
@@ -90,7 +97,14 @@ public class VampireAbility extends Ability implements Listener {
 
     @Override
     public boolean canSpawn(Monster monster){
-        return !monster.getWorld().isDayTime() && monster.getLocation().getBlock().getLightLevel() < 6;
+        return monster.getLocation().getBlock().getLightLevel() < 6;
+    }
+
+    @Override
+    public int getSpawnWeight(Location spawnLoc) {
+        if(spawnLoc.getBlock().getBiome().equals(Biome.SWAMP) || spawnLoc.getBlock().getBiome().equals(Biome.MANGROVE_SWAMP) || spawnLoc.getBlock().getBiome().equals(Biome.DARK_FOREST)){
+            return 60;
+        }else return 20;
     }
 
     public static Set<UUID> getVampireMonsters() {
