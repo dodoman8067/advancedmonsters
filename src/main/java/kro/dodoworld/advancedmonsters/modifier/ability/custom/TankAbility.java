@@ -9,9 +9,12 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
@@ -80,7 +83,7 @@ public class TankAbility extends Ability implements Listener {
         double range = getConfig().getDouble("tank_monster_damage_protect_range");
         for(Entity e : monster.getNearbyEntities(range, 7, range)){
             if(!(e instanceof Monster monster1)) continue;
-            if(AbilityUtils.hasAbility(monster1, this)){
+            if(AbilityUtils.hasAbility(monster1, this) && monster.hasLineOfSight(monster1)){
                 if((Math.random() * 100) <= getConfig().getDouble("tank_monster_damage_protect_chance")){
                     tanks.add(monster1);
                 }
@@ -95,14 +98,15 @@ public class TankAbility extends Ability implements Listener {
                 */
             }
         }
-
+        if(tanks.isEmpty()) return;
         double amount = event.getFinalDamage() * getConfig().getDouble("tank_monster_damage_protect_amount");
         if(amount <= 0) event.setCancelled(true);
         else{
             double tankDmgAmount = amount / tanks.size();
             event.setDamage(event.getFinalDamage() - amount);
+            monster.getWorld().spawnParticle(Particle.ASH, monster.getX(), monster.getY(), monster.getZ(), 45, 0.7, 0.96, 0.7, 0, null, true);
             for(Monster m : tanks){
-                m.damage(tankDmgAmount);
+                m.damage(tankDmgAmount, DamageSource.builder(DamageType.MOB_ATTACK).build());
             }
         }
     }
