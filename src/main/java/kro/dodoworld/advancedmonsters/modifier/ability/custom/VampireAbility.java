@@ -103,8 +103,8 @@ public class VampireAbility extends Ability implements Listener {
     @Override
     public int getSpawnWeight(Location spawnLoc) {
         if(spawnLoc.getBlock().getBiome().equals(Biome.SWAMP) || spawnLoc.getBlock().getBiome().equals(Biome.MANGROVE_SWAMP) || spawnLoc.getBlock().getBiome().equals(Biome.DARK_FOREST)){
-            return 60;
-        }else return 20;
+            return this.spawnWeight * 3;
+        }else return this.spawnWeight;
     }
 
     public static Set<UUID> getVampireMonsters() {

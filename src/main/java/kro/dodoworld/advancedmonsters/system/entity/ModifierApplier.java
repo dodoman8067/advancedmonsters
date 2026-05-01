@@ -15,11 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ModifierApplier implements Listener {
     @EventHandler
     public void onSpawn(CreatureSpawnEvent event){
-        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) return;
+        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM) || event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.RAID)) return;
         if(!event.getEntity().getSpawnCategory().equals(SpawnCategory.MONSTER)) return;
         if((Math.random() * 100) <= 50){
             if(!(event.getEntity() instanceof Monster monster)) return;
@@ -57,8 +58,7 @@ public class ModifierApplier implements Listener {
         if(abilities.isEmpty()) return null;
 
         int totalWeight = abilities.stream().mapToInt(ability -> ability.getSpawnWeight(monster.getLocation())).sum();
-        int randomWeight = new Random().nextInt(totalWeight);
-
+        int randomWeight = ThreadLocalRandom.current().nextInt(totalWeight);
         for(Ability ability : abilities){
             randomWeight -= ability.getSpawnWeight(monster.getLocation());
             if(randomWeight < 0){
