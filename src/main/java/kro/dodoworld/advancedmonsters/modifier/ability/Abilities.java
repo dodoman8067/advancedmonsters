@@ -215,7 +215,7 @@ public final class Abilities implements Listener {
         File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/bomber.yml");
 
         List<String> description = new ArrayList<>();
-        description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
+        description.add("죽을 시 %bomber_tnt_drop_chance%% 확률로 TNT를 드롭한다.");
         FileConfiguration config = new ConfigBuilder(file)
                 .addOption("bomber_tnt_drop_chance", 100.0)
                 .addOption("bomber_projectile_explode_chance", 90.0)
@@ -453,9 +453,8 @@ public final class Abilities implements Listener {
         File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/vampire.yml");
 
         List<String> description = new ArrayList<>();
-        description.add("%aiming_arrow_homing_chance%% 확률로 유도 화살을 발사한다.");
+        description.add("체력이 부족할 시 주변 몹의 체력을 빨아들이며 2배의 재생 속도를 가지지만 불빛에서 해당 능력들을 상실하며 밝기 레벨만큼 대미지를 입는다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("aiming_arrow_homing_chance", 100.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -495,7 +494,7 @@ public final class Abilities implements Listener {
     }
 
     private Ability createSplitter(){
-        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/feral.yml");
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/splitter.yml");
 
         List<String> description = new ArrayList<>();
         description.add("죽을 시 원래 크기의 절반만큼의 두 엔티티를 스폰한다.");
