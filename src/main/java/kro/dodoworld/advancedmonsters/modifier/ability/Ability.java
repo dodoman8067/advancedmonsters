@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,11 +75,11 @@ public abstract class Ability implements Registrable {
     public void onSpawn(Monster monster){
         if(monster instanceof Boss) return;
         if(monster.getPersistentDataContainer().has(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings())){
-            List<String> monsterAbilities = monster.getPersistentDataContainer().get(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings());
+            List<String> monsterAbilities = new ArrayList<>(monster.getPersistentDataContainer().get(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings()));
             monsterAbilities.add(this.id.asString());
             monster.getPersistentDataContainer().set(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings(), monsterAbilities);
         }else{
-            monster.getPersistentDataContainer().set(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings(), List.of(this.id.asString()));
+            monster.getPersistentDataContainer().set(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings(), new ArrayList<>(List.of(this.id.asString())));
         }
         monster.setCustomNameVisible(false);
         if(this.symbol != null){

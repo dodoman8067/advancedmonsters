@@ -14,7 +14,6 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ModifierApplier implements Listener {

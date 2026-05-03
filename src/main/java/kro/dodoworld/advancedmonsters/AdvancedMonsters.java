@@ -1,18 +1,12 @@
 package kro.dodoworld.advancedmonsters;
 
-import com.destroystokyo.paper.entity.ai.Goal;
-import com.destroystokyo.paper.entity.ai.GoalKey;
-import io.papermc.paper.event.player.AsyncChatEvent;
 import kro.dodoworld.advancedabilities.AdvancedAbilities;
 import kro.dodoworld.advancedmonsters.core.registry.Registry;
 import kro.dodoworld.advancedmonsters.modifier.ability.Abilities;
 import kro.dodoworld.advancedmonsters.system.entity.ModifierApplier;
 import kro.dodoworld.advancedmonsters.system.entity.ability.GravityOrb;
-import kro.dodoworld.advancedmonsters.system.entity.ability.HealingCircle;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
