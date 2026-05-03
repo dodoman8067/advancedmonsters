@@ -49,6 +49,13 @@ tasks.register('copyJarToPluginDir') {
     }
 }
 
+tasks.register('copyJarToPluginDir2') {
+    copy {
+        from 'build/libs/' + rootProject.name + '-' + version + '.jar'
+        into '/Users/dodoman/servers/plugtest/plugins'
+    }
+}
+
 compileJava.options.encoding = 'UTF-8'
 javadoc.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile).configureEach {
