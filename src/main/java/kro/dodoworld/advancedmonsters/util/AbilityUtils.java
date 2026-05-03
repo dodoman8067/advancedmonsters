@@ -17,8 +17,8 @@ import java.util.Set;
 public class AbilityUtils {
     public static boolean hasAbility(Monster monster, Ability ability){
         if(!ability.isRegistered()) throw new RuntimeException(new IllegalArgumentException("Ability has to be registered"));
-        if(!monster.getPersistentDataContainer().has(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.STRING)) return false;
-        return monster.getPersistentDataContainer().get(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.STRING).equals(ability.getId().asString());
+        if(!monster.getPersistentDataContainer().has(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings())) return false;
+        return monster.getPersistentDataContainer().get(new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "ability"), PersistentDataType.LIST.strings()).contains(ability.getId().asString());
     }
 
     public static Set<Ability> getRegisteredAbilities(){
