@@ -123,8 +123,8 @@ public final class Abilities implements Listener {
         List<String> strongDescription = new ArrayList<>();
         strongDescription.add("%strong_damage_multiply_chance%% 확률로 대미지가 %strong_damage_multiply_amount%배가 된다.");
         FileConfiguration strongConfig = new ConfigBuilder(file)
-                .addOption("strong_damage_multiply_chance", 100.0)
-                .addOption("strong_damage_multiply_amount", 2.75)
+                .addOption("strong_damage_multiply_chance", 80.0)
+                .addOption("strong_damage_multiply_amount", 1.75)
                 .addOption("command_description", strongDescription)
                 .build();
 
@@ -169,13 +169,13 @@ public final class Abilities implements Listener {
         description.add("%tank_ignore_damage_chance%% 확률로 대미지를 무시한다.");
         description.add("%tank_bonus_defence_amount%의 추가 방어력을 갖지만, 속도는 %tank_speed_multiply_amount%배가 된다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("tank_ignore_damage_chance", 35.0)
+                .addOption("tank_ignore_damage_chance", 25.0)
                 .addOption("tank_send_damage_nullify_message", true)
                 .addOption("tank_bonus_defence_amount", 25)
-                .addOption("tank_speed_multiply_amount", 0.4)
+                .addOption("tank_speed_multiply_amount", 0.5)
                 .addOption("tank_monster_damage_protect_range", 25.0)
-                .addOption("tank_monster_damage_protect_chance", 100.0)
-                .addOption("tank_monster_damage_protect_amount", 0.9)
+                .addOption("tank_monster_damage_protect_chance", 80.0)
+                .addOption("tank_monster_damage_protect_amount", 0.8)
                 .addOption("command_description", description)
                 .build();
 
@@ -196,7 +196,7 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("적이 주변 %teleporter_teleport_range%블록 이내에 없다면 적의 위치로 텔레포트한다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("teleporter_teleport_range", 4.0)
+                .addOption("teleporter_teleport_range", 5.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -217,8 +217,8 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("죽을 시 %bomber_tnt_drop_chance%% 확률로 TNT를 드롭한다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("bomber_tnt_drop_chance", 100.0)
-                .addOption("bomber_projectile_explode_chance", 90.0)
+                .addOption("bomber_tnt_drop_chance", 50.0)
+                .addOption("bomber_projectile_explode_chance", 50.0)
                 .addOption("bomber_tnt_fuse_ticks", 70)
                 .addOption("command_description", description)
                 .build();
@@ -241,8 +241,8 @@ public final class Abilities implements Listener {
         description.add("적이 %laser_shoot_range% 블록 이내에 있다면,");
         description.add("%laser_damage% 대미지를 주는 레이저를 쏜다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("laser_shoot_range", 50.0)
-                .addOption("laser_damage", 4.0)
+                .addOption("laser_shoot_range", 15.0)
+                .addOption("laser_damage", 2.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -254,7 +254,7 @@ public final class Abilities implements Listener {
                 Component.text("Laser", TextColor.color(250, 74, 20)),
                 config,
                 null,
-                20
+                10
         );
     }
 
@@ -264,8 +264,8 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("공격 시 %flaming_fire_effect_chance%% 확률로 %flaming_fire_effect_ticks%틱 동안 불에 붙는다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("flaming_fire_effect_chance", 100.0)
-                .addOption("flaming_fire_effect_ticks", 200)
+                .addOption("flaming_fire_effect_chance", 70.0)
+                .addOption("flaming_fire_effect_ticks", 100)
                 .addOption("flaming_set_fire_on_explode", true)
                 .addOption("command_description", description)
                 .build();
@@ -287,7 +287,7 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("적을 %punchy_punch_air_chance%% 확률로 하늘로 날린다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("punchy_punch_air_chance", 40.0)
+                .addOption("punchy_punch_air_chance", 50.0)
                 .addOption("punchy_show_punch_air_message", true)
                 .addOption("command_description", description)
                 .build();
@@ -309,8 +309,8 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("공격 시 %frozen_freeze_effect_chance%% 확률로 %frozen_freeze_effect_ticks%틱 동안 몸이 얼어버린다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("frozen_freeze_effect_chance", 100.0)
-                .addOption("frozen_freeze_effect_ticks", 200)
+                .addOption("frozen_freeze_effect_chance", 70.0)
+                .addOption("frozen_freeze_effect_ticks", 100)
                 .addOption("frozen_can_spawn_on_nether", false)
                 .addOption("command_description", description)
                 .build();
@@ -333,9 +333,9 @@ public final class Abilities implements Listener {
         description.add("공격 시 %lighting_strike_chance%% 확률로 최대 %lighting_max_lighting_strike_amount%번 만큼");
         description.add("%lighting_damage_amount%대미지를 주는 번개를 생성한다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("lighting_strike_chance", 100.0)
-                .addOption("lighting_max_lighting_strike_amount", 4)
-                .addOption("lighting_damage_amount", 5.0)
+                .addOption("lighting_strike_chance", 60.0)
+                .addOption("lighting_max_lighting_strike_amount", 3)
+                .addOption("lighting_damage_amount", 3.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -357,8 +357,8 @@ public final class Abilities implements Listener {
         description.add("적이 %stormy_lighting_range%블록 이내에 있다면,");
         description.add("%stormy_lighting_cooldown%틱 마다 번개 소환 + %stormy_lighting_damage%만큼의 대미지를 준다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("stormy_lighting_range", 40.0)
-                .addOption("stormy_lighting_damage", 7.0)
+                .addOption("stormy_lighting_range", 25.0)
+                .addOption("stormy_lighting_damage", 5.0)
                 .addOption("stormy_show_lighting_damage_message", true)
                 .addOption("stormy_slow_effect_ticks", 30)
                 .addOption("stormy_slow_effect_amplifier", 3)
@@ -433,7 +433,7 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("%aiming_arrow_homing_chance%% 확률로 유도 화살을 발사한다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("aiming_arrow_homing_chance", 100.0)
+                .addOption("aiming_arrow_homing_chance", 80.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -476,8 +476,8 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("공격 시 최대 추가 %feral_max_attack_count%회 공격을 넣는다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("feral_max_attack_count", 4)
-                .addOption("feral_speed_multiply_amount", 1.6)
+                .addOption("feral_max_attack_count", 3)
+                .addOption("feral_speed_multiply_amount", 1.4)
                 .addOption("command_description", description)
                 .build();
 
