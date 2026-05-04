@@ -40,10 +40,11 @@ public class StormyRunnable extends AbilityRunnable {
                 if(StormyAbility.getStormingMonsters().contains(monster.getUniqueId()) && AbilityUtils.hasAbility(monster, getAbility())){
                     if(monster.isDead() || !monster.isValid()) StormyAbility.getStormingMonsters().remove(monster.getUniqueId());
                     if(monster.getTarget() instanceof Player player && (player.getGameMode().equals(GameMode.SPECTATOR) || player.getGameMode().equals(GameMode.CREATIVE))) continue;
-                    if(monster.getTarget() != null){
+                    if(monster.getTarget() != null && monster.hasLineOfSight(monster.getTarget())){
                         if(monster.getNearbyEntities(lightingRange, lightingRange, lightingRange).contains(monster.getTarget()) && monster.hasLineOfSight(monster.getTarget())) {
-                            monster.getTarget().getWorld().strikeLightning(monster.getTarget().getLocation()).addScoreboardTag("adm_storm_summoned");
+                            monster.getTarget().getWorld().strikeLightningEffect(monster.getTarget().getLocation()).addScoreboardTag("adm_storm_summoned");
                             monster.getTarget().damage(lightingDamage, monster);
+                            monster.getTarget().setFireTicks(60);
                             monster.getTarget().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, ticks, amplifier));
                             if(getAbility().getConfig().getBoolean("stormy_show_lighting_damage_message")) monster.getTarget().sendMessage(
                                     getAbility().getSymbol().append(getAbility().getName()).append(Component.text(" 능력에 의해 번개에 맞았습니다!")

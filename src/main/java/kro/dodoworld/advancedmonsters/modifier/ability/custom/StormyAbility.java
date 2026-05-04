@@ -60,13 +60,6 @@ public class StormyAbility extends Ability implements Listener {
     }
 
     @EventHandler
-    public void onConvert(EntityZapEvent event){
-        if(!(event.getEntity() instanceof org.bukkit.entity.Villager)) return;
-        if(!event.getBolt().getScoreboardTags().contains("adm_storm_summoned")) return;
-        event.setCancelled(true);
-    }
-
-    @EventHandler
     public void onExplosionDamage(EntityDamageEvent event){
         if(getConfig() == null) return;
         if(!(event.getCause().equals(EntityDamageEvent.DamageCause.LIGHTNING) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK))) return;

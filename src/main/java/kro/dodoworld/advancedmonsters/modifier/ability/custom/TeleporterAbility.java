@@ -6,9 +6,14 @@ import kro.dodoworld.advancedmonsters.modifier.ability.Ability;
 import kro.dodoworld.advancedmonsters.modifier.ability.runnable.TeleporterRunnable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.AbstractSkeleton;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,6 +40,14 @@ public class TeleporterAbility extends Ability {
     public void onSpawn(Monster monster){
         super.onSpawn(monster);
         TELEPORTING_MONSTERS.add(monster.getUniqueId());
+    }
+
+    @Override
+    public boolean canSpawn(Monster monster){
+        if(monster.getType().equals(EntityType.ENDERMAN) || monster.getType().equals(EntityType.BREEZE) || monster.getType().equals(EntityType.BLAZE) || monster.getType().equals(EntityType.PHANTOM) || monster.getType().equals(EntityType.GHAST) || monster.getType().equals(EntityType.GUARDIAN) || monster.getType().equals(EntityType.ELDER_GUARDIAN) || monster.getType().equals(EntityType.WITHER)){
+            return false;
+        }
+        return !(monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.BOW)) || monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.CROSSBOW)) || monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.TRIDENT)));
     }
 
     @NotNull
