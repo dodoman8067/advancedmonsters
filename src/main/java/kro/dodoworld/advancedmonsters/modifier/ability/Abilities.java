@@ -39,6 +39,7 @@ public final class Abilities implements Listener {
     private static Ability vampire = null;
     private static Ability feral = null;
     private static Ability splitter = null;
+    private static Ability leaping = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -97,6 +98,9 @@ public final class Abilities implements Listener {
 
         splitter = createSplitter();
         registry.register(splitter);
+
+        leaping = createLeaping();
+        registry.register(leaping);
     }
 
     private Ability createHealthy(){
@@ -515,6 +519,29 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createLeaping(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/leaping.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("매 %leaping_cooldown_ticks%틱마다 대상이 %leaping_leap_range% 이상 떨어져 있을시 해당 대상으로 점프한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("leaping_cooldown_ticks", 40)
+                .addOption("leaping_leap_range", 6)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new LeapingAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "leaping"),
+                Component.text("⤴", TextColor.color(199, 199, 46)),
+                Component.text("Leaping", TextColor.color(199, 199, 46)),
+                config,
+                null,
+                20
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -581,5 +608,13 @@ public final class Abilities implements Listener {
 
     public static Ability getFeral() {
         return feral;
+    }
+
+    public static Ability getSplitter() {
+        return splitter;
+    }
+
+    public static Ability getLeaping() {
+        return leaping;
     }
 }
