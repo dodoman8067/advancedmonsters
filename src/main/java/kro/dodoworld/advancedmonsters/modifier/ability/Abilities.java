@@ -246,6 +246,7 @@ public final class Abilities implements Listener {
         description.add("%laser_damage% 대미지를 주는 레이저를 쏜다.");
         FileConfiguration config = new ConfigBuilder(file)
                 .addOption("laser_shoot_range", 15.0)
+                .addOption("laser_cooldown_ticks", 60)
                 .addOption("laser_damage", 2.0)
                 .addOption("command_description", description)
                 .build();
