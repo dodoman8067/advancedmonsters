@@ -49,7 +49,7 @@ public class LeapingGoal implements Goal<Mob> {
     public void tick() {
         LivingEntity target = mob.getTarget();
         if(target.getLocation().distance(mob.getLocation()) > distance && cooldownTick % cooldown == 0){
-            mob.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, mob.getX(), mob.getY(), mob.getZ(), 3, 1);
+            mob.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, mob.getX(), mob.getY(), mob.getZ(), 3);
             Vector dir = target.getLocation().add(
                     (Math.random() - 0.5) * 1.5,
                     2,
