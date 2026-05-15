@@ -40,6 +40,7 @@ public final class Abilities implements Listener {
     private static Ability feral = null;
     private static Ability splitter = null;
     private static Ability leaping = null;
+    private static Ability duplex = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -101,6 +102,9 @@ public final class Abilities implements Listener {
 
         leaping = createLeaping();
         registry.register(leaping);
+
+        duplex = createDuplex();
+        registry.register(duplex);
     }
 
     private Ability createHealthy(){
@@ -537,6 +541,29 @@ public final class Abilities implements Listener {
                 new NamespacedKey(PLUGIN_INSTANCE, "leaping"),
                 Component.text("⤴", TextColor.color(199, 199, 46)),
                 Component.text("Leaping", TextColor.color(199, 199, 46)),
+                config,
+                null,
+                20
+        );
+    }
+
+    private Ability createDuplex(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/duplex.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("매 %duplex_cooldown_seconds%초마다 최대 %duplex_arrow_max%번의 추가 투사체를 발사한다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("duplex_cooldown_seconds", 5)
+                .addOption("duplex_arrow_max", 20)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new DuplexAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "duplex"),
+                Component.text("⁂", TextColor.color(255, 255, 255)),
+                Component.text("Duplex", TextColor.color(255, 255, 255)),
                 config,
                 null,
                 20
