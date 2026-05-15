@@ -235,7 +235,7 @@ public final class Abilities implements Listener {
 
         return new BomberAbility(
                 new NamespacedKey(PLUGIN_INSTANCE, "bomber"),
-                Component.text("■", NamedTextColor.RED),
+                Component.text("\uD83D\uDCA3", NamedTextColor.RED),
                 Component.text("Bomber", NamedTextColor.RED),
                 config,
                 null
