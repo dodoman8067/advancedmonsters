@@ -41,6 +41,7 @@ public final class Abilities implements Listener {
     private static Ability splitter = null;
     private static Ability leaping = null;
     private static Ability duplex = null;
+    private static Ability earthy = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -105,6 +106,9 @@ public final class Abilities implements Listener {
 
         duplex = createDuplex();
         registry.register(duplex);
+
+        earthy = createEarthy();
+        registry.register(earthy);
     }
 
     private Ability createHealthy(){
@@ -570,6 +574,30 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createEarthy(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/earthy.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("매 %earthy_cooldown_ticks%마다 넓이 %earthy_wave_radius%의 웨이브를 일으킨다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("earthy_wave_radius", 6)
+                .addOption("earthy_cooldown_ticks", 80)
+                .addOption("earthy_wave_damage", 3.0)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new EarthyAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "earthy"),
+                Component.text("\uD83C\uDF0F", TextColor.color(13, 105, 8)),
+                Component.text("Earthy", TextColor.color(13, 105, 8)),
+                config,
+                null,
+                2000000
+        );
+    }
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -644,5 +672,13 @@ public final class Abilities implements Listener {
 
     public static Ability getLeaping() {
         return leaping;
+    }
+
+    public static Ability getDuplex() {
+        return duplex;
+    }
+
+    public static Ability getEarthy() {
+        return earthy;
     }
 }
