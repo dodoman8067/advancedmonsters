@@ -590,8 +590,8 @@ public final class Abilities implements Listener {
 
         return new EarthyAbility(
                 new NamespacedKey(PLUGIN_INSTANCE, "earthy"),
-                Component.text("\uD83C\uDF0F", TextColor.color(13, 105, 8)),
-                Component.text("Earthy", TextColor.color(13, 105, 8)),
+                Component.text("\uD83C\uDF0F", TextColor.color(27, 59, 4)),
+                Component.text("Earthy", TextColor.color(27, 59, 4)),
                 config,
                 null,
                 2
