@@ -580,9 +580,9 @@ public final class Abilities implements Listener {
         List<String> description = new ArrayList<>();
         description.add("매 %earthy_cooldown_ticks%마다 넓이 %earthy_wave_radius%의 웨이브를 일으킨다.");
         FileConfiguration config = new ConfigBuilder(file)
-                .addOption("earthy_wave_radius", 6)
+                .addOption("earthy_wave_radius", 7)
                 .addOption("earthy_cooldown_ticks", 80)
-                .addOption("earthy_wave_damage", 3.0)
+                .addOption("earthy_wave_damage", 4.0)
                 .addOption("command_description", description)
                 .build();
 
@@ -594,7 +594,7 @@ public final class Abilities implements Listener {
                 Component.text("Earthy", TextColor.color(13, 105, 8)),
                 config,
                 null,
-                2000000
+                2
         );
     }
 
