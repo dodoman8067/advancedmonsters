@@ -8,10 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
+import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -81,17 +78,46 @@ public class EarthyGoal implements Goal<Mob> {
             public void run() {
                 for (Location loc : getCircle(location, rad, (rad * ((int) (Math.PI * 2))))) {
                     if(loc.getBlock().getType().getBlastResistance() >= 3000000) continue;
-                    FallingBlock fb = loc.getWorld().spawnFallingBlock(loc, loc.getBlock().getBlockData());
-                    fb.setHurtEntities(false);
-                    fb.setDropItem(false);
-                    fb.setVelocity(new Vector(0, .62, 0));
-                    for(Entity entity : fb.getNearbyEntities(0.5, 0.5, 0.5)){
-                        if(entity instanceof LivingEntity living &&
-                                !entity.getUniqueId().equals(mob.getUniqueId())) {
-                            living.damage(damage * (Math.max(radius1 - rad, 1)));
+                    if(Math.min(loc.getWorld().getHighestBlockAt(loc).getY() - loc.getY(), 5) < 5){
+                        Location highest = loc.getWorld().getHighestBlockAt(loc).getLocation();
+                        FallingBlock fb = loc.getWorld().spawnFallingBlock(highest, highest.getBlock().getBlockData());
+                        fb.setHurtEntities(false);
+                        fb.setDropItem(false);
+                        fb.setVelocity(new Vector(0, .62, 0));
+                        highest.getBlock().setType(Material.AIR);
+                        for(Entity entity : fb.getNearbyEntities(0.5, 0.5, 0.5)){
+                            if(entity instanceof LivingEntity living &&
+                                    !entity.getUniqueId().equals(mob.getUniqueId())) {
+                                double t = (radius1 - rad) / (double) radius1;
+                                double scale = 1 + (Math.pow(t, 3) * 9);
+                                if(living.getSpawnCategory().equals(SpawnCategory.MONSTER)){
+                                    living.damage(damage / 2);
+                                }else {
+                                    living.damage(damage * scale, mob);
+                                }
+                            }
                         }
+                        blocks.add(fb);
+                    }else{
+                        FallingBlock fb = loc.getWorld().spawnFallingBlock(loc, loc.getBlock().getBlockData());
+                        fb.setHurtEntities(false);
+                        fb.setDropItem(false);
+                        fb.setVelocity(new Vector(0, .62, 0));
+                        loc.getBlock().setType(Material.AIR);
+                        for(Entity entity : fb.getNearbyEntities(0.5, 0.5, 0.5)){
+                            if(entity instanceof LivingEntity living &&
+                                    !entity.getUniqueId().equals(mob.getUniqueId())) {
+                                double t = (radius1 - rad) / (double) radius1;
+                                double scale = 1 + (Math.pow(t, 3) * 9);
+                                if(living.getSpawnCategory().equals(SpawnCategory.MONSTER)){
+                                    living.damage(damage / 2);
+                                }else {
+                                    living.damage(damage * scale, mob);
+                                }
+                            }
+                        }
+                        blocks.add(fb);
                     }
-                    blocks.add(fb);
                 }
                 rad++;
                 if(rad >= radius1){
@@ -105,19 +131,19 @@ public class EarthyGoal implements Goal<Mob> {
             public void run() {
                 if(i % 100 == 0) cancel();
                 for(FallingBlock block : blocks){
-                    if(block.isValid()){
+                    if(block.isValid() && mob.getTarget() != null && mob.getTarget().getLocation().distance(mob.getLocation()) > radius){
                         moveBlocks(block, mob.getTarget().getLocation());
                     }
                 }
                 i++;
             }
-        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 0L, 2L);
+        }.runTaskTimer(AdvancedMonsters.getPlugin(AdvancedMonsters.class), 10L, 1L);
     }
 
     private void moveBlocks(FallingBlock block, Location target){
         //block.setVelocity(block.getVelocity().clone().add(target.clone().toVector().subtract(block.getLocation().clone().toVector()).multiply(0.005)));
         Vector dir = target.toVector().subtract(block.getLocation().toVector()).normalize();
-        block.setVelocity(block.getVelocity().add(dir.multiply(0.2)));
+        block.setVelocity(block.getVelocity().add(dir.multiply(0.1)));
     }
 
     private List<Location> getCircle(Location center, double radius, int amount){
