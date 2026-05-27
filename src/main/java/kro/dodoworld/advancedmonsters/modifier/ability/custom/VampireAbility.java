@@ -12,6 +12,7 @@ import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
+import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -54,8 +55,8 @@ public class VampireAbility extends Ability implements Listener {
         super.onSpawn(monster);
         if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
         Bukkit.getMobGoals().addGoal(monster, 3, new VampireGoal(monster, 40, 4, 10));
-        if(!Bukkit.getMobGoals().hasGoal(monster, VanillaGoal.FLEE_SUN)){
-            Bukkit.getMobGoals().addGoal(monster, 0, new PaperGoal<Monster>(new FleeSunGoal(((CraftMonster) monster).getHandle(), 2)));
+        if(!Bukkit.getMobGoals().hasGoal(monster, VanillaGoal.RESTRICT_SUN)){
+            Bukkit.getMobGoals().addGoal(monster, 0, new PaperGoal<Monster>(new RestrictSunGoal(((CraftMonster) monster).getHandle())));
         }
         VAMPIRE_MONSTERS.add(monster.getUniqueId());
     }
@@ -92,6 +93,9 @@ public class VampireAbility extends Ability implements Listener {
             if(!AbilityUtils.hasAbility(monster, this)) continue;
             if(Bukkit.getMobGoals().hasGoal(monster, GoalKey.of(Mob.class, new NamespacedKey(AdvancedMonsters.getPlugin(AdvancedMonsters.class), "vampire_drain_blood")))) return;
             Bukkit.getMobGoals().addGoal(monster, 3, new VampireGoal(monster, 40, 4, 10));
+            if(!Bukkit.getMobGoals().hasGoal(monster, VanillaGoal.RESTRICT_SUN)){
+                Bukkit.getMobGoals().addGoal(monster, 0, new PaperGoal<Monster>(new RestrictSunGoal(((CraftMonster) monster).getHandle())));
+            }
         }
     }
 
