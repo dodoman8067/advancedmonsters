@@ -42,6 +42,8 @@ public final class Abilities implements Listener {
     private static Ability leaping = null;
     private static Ability duplex = null;
     private static Ability earthy = null;
+    private static Ability inferno = null;
+    private static Ability soulEater = null;
     private static final AdvancedMonsters PLUGIN_INSTANCE = AdvancedMonsters.getPlugin(AdvancedMonsters.class);
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -109,6 +111,9 @@ public final class Abilities implements Listener {
 
         earthy = createEarthy();
         registry.register(earthy);
+
+        inferno = createInferno();
+        registry.register(inferno);
     }
 
     private Ability createHealthy(){
@@ -598,6 +603,29 @@ public final class Abilities implements Listener {
         );
     }
 
+    private Ability createInferno(){
+        File file = new File(PLUGIN_INSTANCE.getDataFolder() + "/ability_configs/advancedmonsters/inferno.yml");
+
+        List<String> description = new ArrayList<>();
+        description.add("타격시 대상에 %inferno_ring_damage% 대미지의 케이지에 가둔다.");
+        FileConfiguration config = new ConfigBuilder(file)
+                .addOption("inferno_ring_damage", 4)
+                .addOption("command_description", description)
+                .build();
+
+        ConfigUtils.saveAndReloadConfig(config, file);
+
+        return new InfernoAbility(
+                new NamespacedKey(PLUGIN_INSTANCE, "inferno"),
+                Component.text("☀", TextColor.color(198,81,2)),
+                Component.text("Inferno", TextColor.color(198,81,2)),
+                config,
+                null,
+                10
+        );
+    }
+
+
     public static Ability getHealthy() {
         return healthy;
     }
@@ -680,5 +708,13 @@ public final class Abilities implements Listener {
 
     public static Ability getEarthy() {
         return earthy;
+    }
+
+    public static Ability getInferno() {
+        return inferno;
+    }
+
+    public static Ability getSoulEater() {
+        return soulEater;
     }
 }
