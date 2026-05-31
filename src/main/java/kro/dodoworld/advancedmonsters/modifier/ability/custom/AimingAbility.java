@@ -7,16 +7,14 @@ import kro.dodoworld.advancedmonsters.util.AbilityUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.AbstractSkeleton;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Projectile;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +26,7 @@ public class AimingAbility extends Ability implements Listener {
 
     @EventHandler
     public void onShoot(ProjectileLaunchEvent event){
-        if(!(event.getEntity().getShooter() instanceof AbstractSkeleton skeleton)) return;
+        if(!(event.getEntity().getShooter() instanceof Monster skeleton)) return;
         if(!AbilityUtils.hasAbility(skeleton, this)) return;
         if(getConfig() == null) return;
 
@@ -60,6 +58,6 @@ public class AimingAbility extends Ability implements Listener {
 
     @Override
     public boolean canSpawn(Monster monster){
-        return monster instanceof AbstractSkeleton && (monster.getLocation().getBlock().getBiome().equals(Biome.SWAMP) || monster.getLocation().getBlock().getBiome().equals(Biome.MANGROVE_SWAMP));
+        return (monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.BOW)) || monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.CROSSBOW)) || monster.getEquipment().getItemInMainHand().equals(ItemStack.of(Material.TRIDENT)));
     }
 }
